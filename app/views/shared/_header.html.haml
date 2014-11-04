@@ -1,0 +1,34 @@
+#navbar.navbar.navbar-default.navbar-fixed-top
+  #navbar-container.navbar-container
+    %button#menu-toggler.navbar-toggle.menu-toggler.pull-left{:type => "button"}
+      %span.sr-only Toggle sidebar
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    .navbar-header.pull-left
+      %a.navbar-brand{:href => "#"}
+        %small
+          %i.fa.fa-bullhorn
+          Text Notify
+    .navbar-buttons.navbar-header.pull-right{:role => "navigation"}
+      %ul.nav.ace-nav
+        %li.light-blue
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %span.user-info
+              %small Welcome,
+              Guest
+            %i.ace-icon.fa.fa-caret-down
+          %ul.user-menu.dropdown-menu-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-close
+            %li
+              %a{:href => "#"}
+                %i.ace-icon.fa.fa-cog
+                Settings
+            %li
+              %a{:href => "profile.html"}
+                %i.ace-icon.fa.fa-user
+                Profile
+            %li.divider
+            %li
+              %a{:href => "#"}
+                %i.ace-icon.fa.fa-power-off
+                Logout

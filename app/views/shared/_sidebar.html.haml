@@ -1,0 +1,42 @@
+#sidebar.sidebar.responsive.sidebar-fixed.sidebar-scroll
+  #sidebar-shortcuts.sidebar-shortcuts
+    #sidebar-shortcuts-large.sidebar-shortcuts-large
+  %ul.nav.nav-list
+    %li.active.open
+      %a.dropdown-toggle{:href => "#"}
+        %i.menu-icon.fa.fa-comment
+        %span.menu-text
+          Messages
+        %b.arrow.fa.fa-angle-down
+      %b.arrow
+      %ul.submenu
+        %li.active
+          %a{:href => "#"}
+            %i.menu-icon.fa.fa-caret-right
+            New Message
+          %b.arrow
+        %li
+          %a{:href => "#"}
+            %i.menu-icon.fa.fa-caret-right
+            Sent Messages
+          %b.arrow
+    %li.active.open
+      %a.dropdown-toggle{:href => "#"}
+        %i.menu-icon.fa.fa-user
+        %span.menu-text
+          Customers
+        %b.arrow.fa.fa-angle-down
+      %b.arrow
+      %ul.submenu
+        %li
+          %a{:href => "#"}
+            %i.menu-icon.fa.fa-caret-right
+            New Customer
+          %b.arrow
+        %li
+          %a{:href => "#"}
+            %i.menu-icon.fa.fa-caret-right
+            View Customers
+          %b.arrow      
+  #sidebar-collapse.sidebar-toggle.sidebar-collapse
+    %i.ace-icon.fa.fa-angle-double-left{"data-icon1" => "ace-icon fa fa-angle-double-left", "data-icon2" => "ace-icon fa fa-angle-double-right"}
