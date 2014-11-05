@@ -1,3 +1,6 @@
 .user-info{
   max-width: 250px !important;
 }
+.centerized{
+  margin: 0 auto !important; //fix this later
+}

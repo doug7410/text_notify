@@ -1,0 +1,45 @@
+.login-container
+  .center
+    %h1
+      %i.ace-icon.fa.fa-bullhorn.green
+      %span.red Text
+      %span#id-text2 Notifier
+  .position-relative
+    #login-box.login-box.visible.widget-box
+      .widget-body
+        .widget-main
+          %h4.header.blue.lighter.bigger
+            %i.ace-icon.fa.fa-coffee.green
+            Please Sign In Below
+          =render "shared/devise_messages"
+          .space-6
+
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            %fieldset
+              %label.block.clearfix
+                %span.block.input-icon.input-icon-right
+                  = f.email_field :email, autofocus: true, class: "form-control", placeholder: "john@example.com"
+                  %i.ace-icon.fa.fa-user
+              %label.block.clearfix
+                %span.block.input-icon.input-icon-right
+                  = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "password"
+                  %i.ace-icon.fa.fa-lock
+              .space
+              .clearfix
+              - if devise_mapping.rememberable?
+                %label.inline
+                  = f.check_box :remember_me, class: "ace"
+                  %span.lbl Remember Me
+              %button.width-35.pull-right.btn.btn-sm.btn-primary{:type => "submit"}
+                %i.ace-icon.fa.fa-key
+                %span.bigger-110 Login
+        .toolbar.clearfix
+          %div
+            = link_to new_password_path(resource_name), class: "forgot-password-link" do
+              %i.ace-icon.fa.fa-arrow-left
+              I forgot my password
+ 
+      
+      
+      
+
