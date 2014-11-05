@@ -1,0 +1,49 @@
+=render 'shared/page_header', title: "New Notification"
+
+.row
+  .col-sm-8
+    .widget-box
+      .widget-body
+        .widget-main.no-padding
+          %form
+            / <legend>Form</legend>
+            %fieldset
+              %div
+                %label{:for => "cusomer-name"}
+                  Customer Name
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-user
+                  %input#customer-name.form-control{:type => "text", :placeholder => "Jon Doe"}/
+              %hr
+              %div
+                %label{:for => "form-field-mask-2"}
+                  Phone
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-phone
+                  %input#form-field-mask-2.form-control.input-mask-phone{:type => "text", :placeholder => "555-555-5555"}/
+              %hr
+              %div
+                %label{:for => "form-field-select-1"} Choose an existing message
+                %select#form-field-select-1.form-control
+                  %option{:value => ""}
+                  %option{:value => "1"} Your order is ready for pick up
+                  %option{:value => "2"} We will have your order ready tomorow
+              %hr
+              .form-group
+                %label{:for => "form-field-9"} Or Type a New Text Message
+                %textarea#form-field-9.form-control.limited{:maxlength => "50", :placeholder => "Type a new message here. You can type up to 50 characters"}
+              %label.pull-right
+                %input.ace{:type => "checkbox"}/
+                %span.lbl save customer?
+            .form-actions.center
+              %button.btn.btn-sm.btn-info{:type => "button"}
+                Save Notification to Send Later
+                %i.ace-icon.fa.fa-pencil-square-o.icon-on-right.bigger-110
+              %button.btn.btn-sm.btn-success{:type => "button"}
+                Send Notification
+                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
+        
+  
+    
