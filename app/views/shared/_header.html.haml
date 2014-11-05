@@ -11,38 +11,31 @@
           %i.fa.fa-bullhorn
           Text Notify
     
-    %p.navbar-text.pull-right
-      - if user_signed_in?
-        Logged in as
-        = succeed "." do
-          %strong= current_user.email
-        = link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'
-        |
-        \#{link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'}
-      - else
-        = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
-        |
-        \#{link_to "Login", new_user_session_path, :class => 'navbar-link'}
-
     .navbar-buttons.navbar-header.pull-right{:role => "navigation"}
-      %ul.nav.ace-nav
-        %li.light-blue
-          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-            %span.user-info
-              %small Welcome,
-              Guest
-            %i.ace-icon.fa.fa-caret-down
-          %ul.user-menu.dropdown-menu-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-close
-            %li
-              %a{:href => "#"}
-                %i.ace-icon.fa.fa-cog
-                Settings
-            %li
-              %a{:href => "profile.html"}
-                %i.ace-icon.fa.fa-user
-                Profile
-            %li.divider
-            %li
-              %a{:href => "#"}
-                %i.ace-icon.fa.fa-power-off
-                Logout
+      - if user_signed_in?
+        %ul.nav.ace-nav
+          %li.light-blue
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              %span.user-info
+                %small Welcome,
+                =current_user.email
+              %i.ace-icon.fa.fa-caret-down
+            %ul.user-menu.dropdown-menu-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-close
+              %li
+                %a{:href => "#"}
+                  %i.ace-icon.fa.fa-cog
+                  Settings
+              %li
+                = link_to edit_user_registration_path do
+                  %i.ace-icon.fa.fa-user
+                  Profile
+              %li.divider
+              %li
+                = link_to destroy_user_session_path, method: :delete do
+                  %i.ace-icon.fa.fa-power-off
+                  Logout
+      - else
+        %p.navbar-text
+          = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
+          |
+          \#{link_to "Login", new_user_session_path, :class => 'navbar-link'}
