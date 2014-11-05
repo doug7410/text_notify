@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
+gem 'devise'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
@@ -19,6 +20,7 @@ group :development do
   gem 'thin'
   gem "better_errors"
   gem "binding_of_caller"
+  gem "erb2haml" 
 end
 
 group :production do

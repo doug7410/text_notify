@@ -1,0 +1,24 @@
+.row
+  .col-sm-10.col-sm-offset-1
+    .login-container
+      .position-relative
+        #forgot-box.forgot-box.widget-box
+          .widget-body
+            .widget-main
+              %h4.header.text-primary.bigger
+                %i.ace-icon.fa.fa-key
+                Retrieve Password
+              .space-6
+              %p
+                Enter your email and to receive instructions
+              = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+                %fieldset
+                  %label.block.clearfix
+                    %span.block.input-icon.input-icon-right
+                      = f.email_field :email, autofocus: true, class: "form-control", :placeholder => "Email"
+                      %i.ace-icon.fa.fa-envelope
+                  .clearfix
+                    %button.width-35.pull-right.btn.btn-sm.btn-danger{:type => "submit"}
+                      %i.ace-icon.fa.fa-lightbulb-o
+                      %span.bigger-110 Send Me!
+

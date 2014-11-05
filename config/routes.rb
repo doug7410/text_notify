@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root to: "ui#index"
+  devise_for :users, controllers: { sessions: "users/sessions" }
+  
+  root to: "pages#front"
 
   get 'ui(/:action)', controller: 'ui'
 end
