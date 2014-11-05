@@ -1,0 +1,62 @@
+=render 'shared/page_header', title: "Sent Notifications"
+
+%form.form-inline
+  Filter By:
+  %input.input-medium{:placeholder => "Customer Name", :type => "text"}/
+  %input.input-medium{:placeholder => "Phone Number", :type => "text"}/
+  date range
+  .input-group
+    %span.input-group-addon
+      %i.fa.fa-calendar.bigger-110
+    %input#id-date-range-picker-1.form-control{:name => "date-range-picker", :type => "text"}/
+  %label.inline
+    %input.ace{:name => "form-field-radio", :type => "radio"}/
+    %span.lbl picked up
+  %label.inline
+    %input.ace{:name => "form-field-radio", :type => "radio"}/
+    %span.lbl not picked up
+  %label.inline
+    %input.ace{:name => "form-field-radio", :type => "radio"}/
+    %span.lbl all
+  %button.btn.btn-info.btn-sm{:type => "button"}
+    %i.ace-icon.fa.bigger-110
+    Go
+
+%hr
+
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th
+        Sent on
+        %i.ace-icon.fa.fa-calendar.bigger-110
+      %th
+        Picked up on 
+        %i.ace-icon.fa.fa-calendar.bigger-110
+      %th Customer
+      %th Phone Number
+      %th Message
+      %th
+  %tbody
+    - 3.times do
+      %tr
+        %td 10/21/2014 3:35 PM
+        %td 
+        %td Jon Doe
+        %td 555-555-5555
+        %td 
+          your dry cleaning is ready to be picked up
+        %td
+          %button.btn.btn-danger.btn-xs Mark Picked Up
+      %tr
+        %td 10/21/2014 3:35 PM
+        %td 10/21/2014 5:20 PM
+        %td Jon Snow
+        %td 555-555-5555
+        %td 
+          your dry cleaning is ready to be picked up
+        %td
+          %span.label.label-success.arrowed picked up
+          %a{:href => "#"} undo
+         
+            

@@ -1,0 +1,40 @@
+=render 'shared/page_header', title: "Pending Notifications"
+
+%form.form-inline
+  Filter By:
+  %input.input-medium{:placeholder => "Customer Name", :type => "text"}/
+  %input.input-medium{:placeholder => "Phone Number", :type => "text"}/
+  date created
+  .input-group
+    %span.input-group-addon
+      %i.fa.fa-calendar.bigger-110
+    %input#id-date-range-picker-1.form-control{:name => "date-range-picker", :type => "text"}/
+  %button.btn.btn-info.btn-sm{:type => "button"}
+    %i.ace-icon.fa.bigger-110
+    Go
+
+%hr
+
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th
+        Created on
+        %i.ace-icon.fa.fa-calendar.bigger-110
+      %th Customer
+      %th Phone Number
+      %th Message
+      %th
+  %tbody
+    - 7.times do
+      %tr
+        %td 10/21/2014 3:35 PM
+        %td Jon Doe
+        %td 555-555-5555
+        %td 
+          your dry cleaning is ready to be picked up
+        %td
+          %button.btn.btn-success.btn-xs Send Text
+      
+         
+            

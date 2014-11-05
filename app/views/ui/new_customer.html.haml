@@ -1,0 +1,31 @@
+=render 'shared/page_header', title: "New Customer"
+
+.row
+  .col-sm-8
+    .widget-box
+      .widget-body
+        .widget-main.no-padding
+          %form
+            %fieldset
+              %div
+                %label{:for => "cusomer-name"}
+                  Customer Name
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-user
+                  %input#customer-name.form-control{:type => "text", :placeholder => "Jon Doe"}/
+              %hr
+              %div
+                %label{:for => "form-field-mask-2"}
+                  Phone
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-phone
+                  %input#form-field-mask-2.form-control.input-mask-phone{:type => "text", :placeholder => "555-555-5555"}/
+            .form-actions.center
+              %button.btn.btn-sm.btn-success{:type => "button"}
+                Save Customer
+                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
+        
+  
+    

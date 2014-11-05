@@ -1,0 +1,47 @@
+=render 'shared/page_header', title: "Create a new account"
+
+.row
+  .col-sm-8
+    .widget-box
+      .widget-body
+        .widget-main.no-padding
+          %form
+            %fieldset
+              %div
+                %label{:for => "name"}
+                  Full Name
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-user 
+                  %input#name.form-control{:type => "text", :placeholder => "John Snow"}/
+              %hr
+              %div
+                %label{:for => "email"}
+                  Email
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-envelope-o 
+                  %input#email.form-control{:type => "email", :placeholder => "user@example.com"}/
+              %hr
+              %div
+                %label{:for => "password"}
+                  Password
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-key
+                  %input#pasword.form-control.input-mask-phone{:type => "password", :placeholder => "password"}/
+              %hr
+              %div
+                %label{:for => "password-confirm"}
+                  Confirm Password
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-key
+                  %input#pasword-confirm.form-control.input-mask-phone{:type => "password", :placeholder => "password"}/    
+            .form-actions.center
+              %button.btn.btn-sm.btn-success{:type => "button"}
+                Create Account
+                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
+        
+  
+    

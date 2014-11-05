@@ -1,0 +1,117 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:charset => "utf-8"}/
+    %title Login Page - Ace Admin
+    %meta{:content => "User login page", :name => "description"}/
+    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0", :name => "viewport"}/
+    / bootstrap & fontawesome
+    %link{:href => "../assets/css/bootstrap.min.css", :rel => "stylesheet"}/
+    %link{:href => "../assets/css/font-awesome.min.css", :rel => "stylesheet"}/
+    / text fonts
+    %link{:href => "../assets/css/ace-fonts.css", :rel => "stylesheet"}/
+    / ace styles
+    %link{:href => "../assets/css/ace.min.css", :rel => "stylesheet"}/
+    /[if lte IE 9]
+      <link rel="stylesheet" href="../assets/css/ace-part2.min.css" />
+    %link{:href => "../assets/css/ace-rtl.min.css", :rel => "stylesheet"}/
+    /[if lte IE 9]
+      <link rel="stylesheet" href="../assets/css/ace-ie.min.css" />
+    %link{:href => "../assets/css/ace.onpage-help.css", :rel => "stylesheet"}/
+    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    /[if lt IE 9]
+      <script src="../assets/js/html5shiv.js"></script>
+      <script src="../assets/js/respond.min.js"></script>
+  %body.login-layout
+    .main-container
+      .main-content
+        .row
+          .col-sm-10.col-sm-offset-1
+            .login-container
+              .center
+                %h1
+                  %i.ace-icon.fa.fa-bullhorn.green
+                  %span.red Text
+                  %span#id-text2.white Notifier
+              .position-relative
+                #login-box.login-box.visible.widget-box.no-border
+                  .widget-body
+                    .widget-main
+                      %h4.header.blue.lighter.bigger
+                        %i.ace-icon.fa.fa-coffee.green
+                        Please Enter Your Information
+                      .space-6
+                      %form
+                        %fieldset
+                          %label.block.clearfix
+                            %span.block.input-icon.input-icon-right
+                              %input.form-control{:placeholder => "Username", :type => "text"}/
+                              %i.ace-icon.fa.fa-user
+                          %label.block.clearfix
+                            %span.block.input-icon.input-icon-right
+                              %input.form-control{:placeholder => "Password", :type => "password"}/
+                              %i.ace-icon.fa.fa-lock
+                          .space
+                          .clearfix
+                            %label.inline
+                              %input.ace{:type => "checkbox"}/
+                              %span.lbl Remember Me
+                            %button.width-35.pull-right.btn.btn-sm.btn-primary{:type => "button"}
+                              %i.ace-icon.fa.fa-key
+                              %span.bigger-110 Login
+                    .toolbar.clearfix
+                      %div
+                        %a.forgot-password-link{"data-target" => "#forgot-box", :href => "#"}
+                          %i.ace-icon.fa.fa-arrow-left
+                          I forgot my password
+                #forgot-box.forgot-box.widget-box.no-border
+                  .widget-body
+                    .widget-main
+                      %h4.header.red.lighter.bigger
+                        %i.ace-icon.fa.fa-key
+                        Retrieve Password
+                      .space-6
+                      %p
+                        Enter your email and to receive instructions
+                      %form
+                        %fieldset
+                          %label.block.clearfix
+                            %span.block.input-icon.input-icon-right
+                              %input.form-control{:placeholder => "Email", :type => "email"}/
+                              %i.ace-icon.fa.fa-envelope
+                          .clearfix
+                            %button.width-35.pull-right.btn.btn-sm.btn-danger{:type => "button"}
+                              %i.ace-icon.fa.fa-lightbulb-o
+                              %span.bigger-110 Send Me!
+                    / /.widget-main
+                    .toolbar.center
+                      %a.back-to-login-link{"data-target" => "#login-box", :href => "#"}
+                        Back to login
+                        %i.ace-icon.fa.fa-arrow-right
+                  / /.widget-body
+                / /.forgot-box
+    / basic scripts
+    / [if !IE]>
+    :javascript
+      window.jQuery || document.write("<script src='../assets/js/jquery.min.js'>"+"<"+"/script>");
+    / <![endif]
+    /[if IE]
+      <script type="text/javascript">
+      window.jQuery || document.write("<script src='../assets/js/jquery1x.min.js'>"+"<"+"/script>");
+      </script>
+    :javascript
+      if('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+    / inline scripts related to this page
+    :javascript
+      jQuery(function($) {
+       $(document).on('click', '.toolbar a[data-target]', function(e) {
+        e.preventDefault();
+        var target = $(this).data('target');
+        $('.widget-box.visible').removeClass('visible');//hide others
+        $(target).addClass('visible');//show target
+       });
+      });
+      
+      
+      
