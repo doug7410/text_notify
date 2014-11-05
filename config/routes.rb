@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   
   root to: "pages#front"
 
+  resources :customers, only: [:new, :create]
+
   get 'ui(/:action)', controller: 'ui'
 end
