@@ -23,6 +23,22 @@ group :development do
   gem "erb2haml" 
 end
 
+group :development, :test do
+  gem 'rspec-rails', '3.0.0'
+  gem 'fabrication'
+  gem 'faker'
+  gem 'pry'
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
+end
+
+group :test do
+  gem 'database_cleaner', '1.2.0'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'capybara-email'
+end
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'
