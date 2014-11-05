@@ -34,6 +34,10 @@
           .page-content-area
             .row
               .col-xs-12
+                -if notice 
+                  %p.alert.alert-success= notice 
+                -if alert
+                  %p.alert.alert-danger= alert 
                 = yield
       =render 'shared/footer'
       %a#btn-scroll-up.btn-scroll-up.btn.btn-sm.btn-inverse{:href => "#"}
