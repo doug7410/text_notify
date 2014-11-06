@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 feature "Add A New customer" do
   scenario "[a user adds a new customer with valid info]" do
