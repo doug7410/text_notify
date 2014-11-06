@@ -5,26 +5,27 @@
     .widget-box
       .widget-body
         .widget-main.no-padding
-          = form_for @customer do |f|
+          = bootstrap_form_for @customer, inline_errors: false do |f|
             %fieldset
+              = f.alert_message "Please fix the errors below."
               %div
                 = f.label :first_name, "First Name"
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-user
-                  =f.text_field :first_name, class: "form-control", :placeholder => "Jon"
+                  =f.text_field :first_name, class: "form-control", :placeholder => "Jon", hide_label: true
                 = f.label :last_name, "Last Name"
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-user
-                  =f.text_field :last_name, class: "form-control", :placeholder => "Snow"    
+                  =f.text_field :last_name, class: "form-control", :placeholder => "Snow", hide_label: true    
               %hr
               %div
                 =f.label :phone_number, "Phone Number"
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-phone
-                  =f.text_field :phone_number, class: "form-control", :placeholder => "555-555-5555"    
+                  =f.text_field :phone_number, class: "form-control", :placeholder => "555-555-5555", hide_label: true
             .form-actions.center
               %button.btn.btn-sm.btn-success{:type => "submit"}
                 Save Customer
