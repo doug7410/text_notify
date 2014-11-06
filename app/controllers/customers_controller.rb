@@ -11,6 +11,7 @@ class CustomersController < ApplicationController
 
     if @customer.save
       flash[:success] = "#{@customer.first_name} #{@customer.last_name} has been successfully added."
+      redirect_to :new_customer
     end
   end
 

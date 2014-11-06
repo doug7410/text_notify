@@ -16,8 +16,7 @@ feature "Add A New customer" do
     fill_in "Last Name", with: "Mercury"
     fill_in "Phone Number", with: "555-555-5555" 
     click_button "Save Customer"
-    expect(page).to have_content("Fredy Mercury has been successfully added.")
-
-    
+    expect(page).to have_content("Freddy Mercury has been successfully added")
+    expect(current_path).to eq(new_customer_path)
   end
 end
