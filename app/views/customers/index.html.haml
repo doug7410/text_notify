@@ -38,8 +38,9 @@
           %button.btn.btn-primary.btn-sm
             %i.ace-icon.fa.fa-pencil.align-top.bigger-125
             Edit
-          %button.btn.btn-danger.btn-sm
-            %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
-            Delete
+          =link_to customer_path(customer), data: { :confirm => "Are you sure you want to delete #{customer.name}?" }, :method => :delete, id: "delete_#{customer.id}" do
+            %button.btn.btn-danger.btn-sm
+              %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
+              Delete
         
             

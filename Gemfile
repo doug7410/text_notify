@@ -40,6 +40,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'capybara-email'
+  gem 'selenium-webdriver'
 end
 
 group :production do
