@@ -34,12 +34,12 @@
       %b.arrow
       %ul.submenu
         %li
-          %a{:href => "/ui/new_customer"}
+          =link_to new_customer_path do
             %i.menu-icon.fa.fa-caret-right
             New Customer
           %b.arrow
         %li
-          %a{:href => "/ui/view_customers"}
+          =link_to customers_path do
             %i.menu-icon.fa.fa-caret-right
             View Customers
           %b.arrow      

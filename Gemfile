@@ -10,6 +10,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
 gem 'devise'
+gem 'bootstrap_form'
+gem 'validates_phone_number', '~> 2.0.1'
+gem 'draper', '~> 1.3'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
@@ -21,6 +24,24 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "erb2haml" 
+end
+
+group :development, :test do
+  gem 'rspec-rails', '3.0.0'
+  gem 'fabrication'
+  gem 'faker'
+  gem 'pry'
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
+end
+
+group :test do
+  gem 'database_cleaner', '1.2.0'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'capybara-email'
+  gem 'selenium-webdriver'
+  gem 'poltergeist'
 end
 
 group :production do
