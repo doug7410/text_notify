@@ -1,9 +1,9 @@
 class Customer < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :phone_number
-  validates_length_of :phone_number, minimum: 10  
+  validates_uniqueness_of :phone_number 
   validates :phone_number, :phone_number => {:ten_digits => true, :message => "please enter a 10 digit phone number, ex: 555-123-4567"}
 
-  before_save :format_phone_number
+  before_validation :format_phone_number
 
   private
 

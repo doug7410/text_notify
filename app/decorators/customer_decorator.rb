@@ -2,7 +2,7 @@ class CustomerDecorator < Draper::Decorator
   delegate_all
 
   def display_phone_number
-    object.phone_number.insert(3, '-').insert(-5, '-')
+      object.phone_number.insert(3, '-').insert(-5, '-') unless object.phone_number.blank? 
   end
 
   def name
