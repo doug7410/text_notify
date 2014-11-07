@@ -11,4 +11,18 @@ describe CustomersController do
     end
   end
 
+  describe "DELETE destroy" do
+    context "user tries to delete a customer that doesn't exist" do
+      it "displays a flash error" do
+        delete :destroy, id: 1
+        expect(flash[:warning]).to eq("That customer does not exist.")
+      end
+      
+      it "renders the index template" do
+        delete :destroy, id: 1
+        expect(response).to render_template(:index)
+      end 
+    end
+  end
+
 end

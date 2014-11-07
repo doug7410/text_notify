@@ -22,7 +22,23 @@ class CustomersController < ApplicationController
     end
   end
 
+  def destroy
+    @customers = Customer.all.decorate
+    if Customer.exists?(params[:id])
+      customer.destroy
+      flash[:danger] = "#{customer.decorate.name} has been deleted."
+    else
+      flash[:warning] = "That customer does not exist."
+    end
+    
+    render :index
+  end
+
   private 
+
+  def customer
+    customer = Customer.find(params[:id])
+  end
 
   def customer_params
     params.require(:customer).permit(:first_name, :last_name, :phone_number)

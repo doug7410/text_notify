@@ -1,16 +1,16 @@
 require 'spec_helper'
-include Warden::Test::Helpers
-Warden.test_mode!
 
 feature "a user deletes a customer" do
-  scenario "a user deletes a customer", js: true do
-    # bob = Fabricate(:customer)
-    # sign_in_user
-    user = Fabricate(:user)
-    login_as(user, :scope => :user, :run_callbacks => false)
+  scenario "a user deletes a customer" do
+    bob = Fabricate(:customer, first_name: "Bob", last_name: "Jones", phone_number: "555-123-4567")
+    sign_in_user
+    
     visit customers_path
-    find("a[id='delete']").click
-    expect(page).to have_content("Are you sure you want to delete #{bob.name}")
+    expect(page).to have_content("555-123-4567")
+
+    find("a[id='delete_#{bob.id}']").click
+    expect(page).to have_content("Bob Jones has been deleted")
+    expect(page).not_to have_content("555-123-4567")
 
   end
 end
