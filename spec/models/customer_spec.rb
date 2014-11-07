@@ -7,7 +7,7 @@ describe Customer do
   it { should ensure_length_of(:phone_number).is_at_least(10) }
 
   it "[should remove non-numeric characters from the phone number before save]" do
-      bob = Fabricate(:customer, phone_number: '555-666-7777')   
-      expect(bob.reload.phone_number).to eq('5556667777')
-    end
+    bob = Fabricate(:customer, phone_number: '555-666-7777')   
+    expect(bob.reload.phone_number).to eq('5556667777')
+  end
 end 

@@ -12,6 +12,7 @@ gem 'haml-rails'
 gem 'devise'
 gem 'bootstrap_form'
 gem 'validates_phone_number', '~> 2.0.1'
+gem 'draper', '~> 1.3'
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 

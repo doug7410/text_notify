@@ -27,10 +27,10 @@
       %th Has Been Sent Notifications?
       %th 
   %tbody
-    - 3.times do
+    -@customers.each do |customer|
       %tr
-        %td Jon Doe
-        %td 555-555-5555
+        %td= customer.name
+        %td= customer.display_phone_number
         %td 
           %span.label.label-sm.label-primary.arrowed.arrowed-right Yes
           %a{:href => "#"} View Notifications
@@ -41,17 +41,5 @@
           %button.btn.btn-danger.btn-sm
             %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
             Delete
-      %tr
-        %td Jon Snow
-        %td 555-555-5555
-        %td 
-          %span.label.label-sm.label-yellow.arrowed.arrowed-right No
-        %td
-          %button.btn.btn-primary.btn-sm
-            %i.ace-icon.fa.fa-pencil.align-top.bigger-125
-            Edit
-          %button.btn.btn-danger.btn-sm
-            %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
-            Delete
-         
+        
             

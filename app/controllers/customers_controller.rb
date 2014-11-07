@@ -3,7 +3,8 @@ class CustomersController < ApplicationController
 
 
   def index
-    
+    @customers = Customer.all.decorate
+
   end
 
   def new
