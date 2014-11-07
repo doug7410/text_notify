@@ -1,0 +1,57 @@
+=render 'shared/page_header', title: "View Customers"
+
+%form.form-inline
+  Filter By:
+  %input.input-medium{:placeholder => "Customer Name", :type => "text"}/
+  %input.input-medium{:placeholder => "Phone Number", :type => "text"}/
+  %label.inline
+    %input.ace{:name => "form-field-radio", :type => "radio"}/
+    %span.lbl has been sent notifications
+  %label.inline
+    %input.ace{:name => "form-field-radio", :type => "radio"}/
+    %span.lbl has not been sent notifications
+  %label.inline
+    %input.ace{:name => "form-field-radio", :type => "radio"}/
+    %span.lbl all
+  %button.btn.btn-info.btn-sm{:type => "button"}
+    %i.ace-icon.fa.bigger-110
+    Go
+
+%hr
+
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th Customer Name
+      %th Phone Number
+      %th Has Been Sent Notifications?
+      %th 
+  %tbody
+    - 3.times do
+      %tr
+        %td Jon Doe
+        %td 555-555-5555
+        %td 
+          %span.label.label-sm.label-primary.arrowed.arrowed-right Yes
+          %a{:href => "#"} View Notifications
+        %td
+          %button.btn.btn-primary.btn-sm
+            %i.ace-icon.fa.fa-pencil.align-top.bigger-125
+            Edit
+          %button.btn.btn-danger.btn-sm
+            %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
+            Delete
+      %tr
+        %td Jon Snow
+        %td 555-555-5555
+        %td 
+          %span.label.label-sm.label-yellow.arrowed.arrowed-right No
+        %td
+          %button.btn.btn-primary.btn-sm
+            %i.ace-icon.fa.fa-pencil.align-top.bigger-125
+            Edit
+          %button.btn.btn-danger.btn-sm
+            %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
+            Delete
+         
+            

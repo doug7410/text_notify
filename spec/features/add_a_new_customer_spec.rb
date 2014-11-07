@@ -20,7 +20,20 @@ feature "Add A New customer" do
     expect(page).to have_content("Last name can't be blank")  
     expect(page).to have_content("Phone number can't be blank")  
 
-    # can you test that a template is rendered here
+    # can you test that a template is rendered here?
+    # expect(view).to render_template(:new)
+  end
+
+
+  scenario "[a user adds a new customer with an invalid phone number]" do
+    sign_in_user
+    visit new_customer_path
+    
+    fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '555-555-555')
+    expect(page).to have_content("Please fix the errors below.")
+    expect(page).to have_content("please enter a 10 digit")  
+
+    # can you test that a template is rendered here?
     # expect(view).to render_template(:new)
   end
 end
