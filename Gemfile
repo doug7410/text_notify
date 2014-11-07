@@ -41,6 +41,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-email'
   gem 'selenium-webdriver'
+  gem 'poltergeist'
 end
 
 group :production do

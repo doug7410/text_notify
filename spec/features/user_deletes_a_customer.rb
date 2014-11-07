@@ -9,7 +9,6 @@ feature "a user deletes a customer" do
     user = Fabricate(:user)
     login_as(user, :scope => :user, :run_callbacks => false)
     visit customers_path
-    binding.pry
     find("a[id='delete']").click
     expect(page).to have_content("Are you sure you want to delete #{bob.name}")
 
