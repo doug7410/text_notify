@@ -7,9 +7,12 @@ class NotificationsController < ApplicationController
   def create
     @notification = Notification.new(notification_params)
     if @notification.save
+
+      @notification.send_text_message 
+ 
       flash[:success] = "The message has been sent."
       redirect_to new_notification_path
-    else
+    else 
       render :new
     end
   end
