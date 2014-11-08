@@ -4,43 +4,32 @@
   .col-sm-8
     .widget-box
       .widget-body
-        .widget-main.no-padding
-          - bootstrap_form_for @notification do 
+        .widget-main.no-padding 
+          = bootstrap_form_for @notification, inline_errors: false do |f|
             %fieldset
+              = f.alert_message "Please fix the errors below."
               %div
-                %label{:for => "cusomer-name"}
-                  Customer Name
+                =f.label :customer_id, "Choose a customer"
+                or
+                =link_to new_customer_path do
+                  create a new one 
+                  %i.ace-icon.glyphicon.glyphicon-plus 
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-user
-                  %input#customer-name.form-control{:type => "text", :placeholder => "Jon Doe"}/
+                  = f.select :customer_id, options_for_select(Customer.all.decorate.map {|c| [c.name + " - " +  c.display_phone_number, c.id]}) , hide_label: true
               %hr
               %div
-                %label{:for => "form-field-mask-2"}
-                  Phone
+                =f.label :message
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-phone
-                  %input#form-field-mask-2.form-control.input-mask-phone{:type => "text", :placeholder => "555-555-5555"}/
-              %hr
-              %div
-                %label{:for => "form-field-select-1"} Choose an existing message
-                %select#form-field-select-1.form-control
-                  %option{:value => ""}
-                  %option{:value => "1"} Your order is ready for pick up
-                  %option{:value => "2"} We will have your order ready tomorow
-              %hr
-              .form-group
-                %label{:for => "form-field-9"} Or Type a New Text Message
-                %textarea#form-field-9.form-control.limited{:maxlength => "50", :placeholder => "Type a new message here. You can type up to 50 characters"}
-              %label.pull-right
-                %input.ace{:type => "checkbox"}/
-                %span.lbl save customer?
+                  =f.text_field :message, class: "form-control", :placeholder => "the message", hide_label: true
             .form-actions.center
-              %button.btn.btn-sm.btn-info{:type => "button"}
+              %button.btn.btn-sm.btn-info{:type => "submit"}
                 Save Notification to Send Later
                 %i.ace-icon.fa.fa-pencil-square-o.icon-on-right.bigger-110
-              %button.btn.btn-sm.btn-success{:type => "button"}
+              %button.btn.btn-sm.btn-success{:type => "submit"}
                 Send Notification
                 %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
         

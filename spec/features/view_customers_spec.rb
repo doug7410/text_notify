@@ -9,8 +9,8 @@ feature "View the customers in the database" do
     visit customers_path 
 
     expect(page).to have_content("Bob Smith")
-    expect(page).to have_content("555-444-7777")
+    expect(page).to have_content("(555)444-7777")
     expect(page).to have_content("Jane Doe")
-    expect(page).to have_content("555-444-9999")
+    expect(page).to have_content("(555)444-9999")
   end
 end

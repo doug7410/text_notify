@@ -21,7 +21,7 @@ feature "edit a customer" do
     expect(page).to have_content("Customer - Freddy Mercury has been updated.")
     expect(page).to have_selector("input[value='Freddy']")
     expect(page).to have_selector("input[value='Mercury']")
-    expect(page).to have_selector("input[value='777-888-9999']")
+    expect(page).to have_selector("input[value='(777)888-9999']")
   end
   scenario '[a user updates a customer with invalid info]' do
     visit customer_path(bob.id)
