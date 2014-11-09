@@ -12,6 +12,7 @@ class Notification < ActiveRecord::Base
     begin
 
       client = Twilio::REST::Client.new account_sid, auth_token      
+      
       client.account.messages.create({
         :from => '+15619238682',  
         :to => self.customer.phone_number, 

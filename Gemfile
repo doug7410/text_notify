@@ -43,6 +43,8 @@ group :test do
   gem 'capybara-email'
   gem 'selenium-webdriver'
   gem 'poltergeist'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do
