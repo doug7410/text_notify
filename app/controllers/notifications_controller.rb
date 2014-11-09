@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
-  
+  before_filter :authenticate_user!
+    
   def new
     @notification = Notification.new
   end
