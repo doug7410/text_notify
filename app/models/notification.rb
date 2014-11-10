@@ -5,8 +5,8 @@ class Notification < ActiveRecord::Base
 
   def send_text_message
     # put your own credentials here 
-    account_sid = ENV['twillo_account_sid'] 
-    auth_token = ENV['twillo_auth_token'] 
+    account_sid = ENV['twilio_account_sid'] 
+    auth_token = ENV['twilio_auth_token'] 
     
     # set up a client to talk to the Twilio REST API 
     begin

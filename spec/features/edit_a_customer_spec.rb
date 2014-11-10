@@ -4,7 +4,7 @@ feature "edit a customer" do
 
   background { sign_in_user }
 
-  given!(:bob) { Fabricate(:customer, first_name: "Bob", last_name: "Smith", phone_number: "555-555-5555").decorate }
+  given!(:bob) { Fabricate(:customer, first_name: "Bob", last_name: "Smith", phone_number: "5555555555").decorate }
 
   scenario "[a user views a customer page]" do
     visit customers_path
@@ -15,7 +15,7 @@ feature "edit a customer" do
   scenario "[a user updates a customer with valid info]" do
     visit customer_path(bob.id)
 
-    fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '777-888-9999')
+    fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '7778889999')
     click_button "Update Customer"
     
     expect(page).to have_content("Customer - Freddy Mercury has been updated.")
@@ -25,13 +25,13 @@ feature "edit a customer" do
   end
   scenario '[a user updates a customer with invalid info]' do
     visit customer_path(bob.id)
-    fill_in_customer_form(first_name: '', last_name: '', phone_number: '555-555-555')
+    fill_in_customer_form(first_name: '', last_name: '', phone_number: '555555555')
     click_button "Update Customer"
     
     expect(page).to have_content("Please fix the errors below.")
     expect(page).to have_content("First name can't be blank")
     expect(page).to have_content("Last name can't be blank")
-    expect(page).to have_content("please enter a 10 digit")  
+    expect(page).to have_content("Phone number is the wrong length (should be 10 characters)")  
   end
 end
 

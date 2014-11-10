@@ -5,6 +5,7 @@ require 'capybara/rails'
 require 'capybara/email/rspec'
 require 'vcr'
 require 'capybara/poltergeist'
+require 'shoulda/matchers'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 

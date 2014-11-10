@@ -12,7 +12,7 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer = Customer.create(customer_params)
+    @customer = Customer.new(customer_params.merge(formated_phone_number))
 
     if @customer.save
       flash[:success] = "#{@customer.first_name} #{@customer.last_name} has been successfully added."
@@ -52,4 +52,9 @@ class CustomersController < ApplicationController
   def customer_params
     params.require(:customer).permit(:first_name, :last_name, :phone_number)
   end 
+
+  def formated_phone_number 
+    {phone_number: customer_params['phone_number'].gsub(/\D/, "") } if customer_params['phone_number']
+  end
+
 end

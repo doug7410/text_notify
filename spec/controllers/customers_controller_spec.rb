@@ -11,6 +11,13 @@ describe CustomersController do
     end
   end
 
+  describe "POST create" do
+    it "saves the phone number as a 10 digit number" do
+      post :create, customer: Fabricate.attributes_for(:customer, phone_number: '(555)666-7788')
+      expect(Customer.first.phone_number).to eq('5556667788')
+    end
+  end
+
   describe "DELETE destroy" do
     context "user tries to delete a customer that doesn't exist" do
       it "displays a flash error" do
