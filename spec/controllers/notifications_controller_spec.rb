@@ -1,6 +1,10 @@
 require 'spec_helper'
+include Warden::Test::Helpers
+
 
 describe NotificationsController do
+  before { sign_in Fabricate(:user)}
+  
   describe "GET new" do
     it "sets the new @notification" do
       get :new
