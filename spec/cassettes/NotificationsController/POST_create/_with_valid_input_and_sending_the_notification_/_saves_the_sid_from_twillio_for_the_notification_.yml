@@ -23,7 +23,7 @@ http_interactions:
       message: CREATED
     headers:
       Date:
-      - Sun, 09 Nov 2014 03:32:49 GMT
+      - Tue, 11 Nov 2014 17:47:36 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -36,14 +36,14 @@ http_interactions:
       - none
     body:
       encoding: UTF-8
-      string: '{"sid": "SMf0bbc78606d6427b95a16047f959dee2", "date_created": "Sun,
-        09 Nov 2014 03:32:48 +0000", "date_updated": "Sun, 09 Nov 2014 03:32:48 +0000",
+      string: '{"sid": "SM30bc47df7feb4357a30b88db4db84f96", "date_created": "Tue,
+        11 Nov 2014 17:47:36 +0000", "date_updated": "Tue, 11 Nov 2014 17:47:36 +0000",
         "date_sent": null, "account_sid": "ACb62e32327e8ec258781341a039e65c46", "to":
         "+19546381523", "from": "+15619238682", "body": "Hello Bob!", "status": "queued",
         "num_segments": "1", "num_media": "0", "direction": "outbound-api", "api_version":
         "2010-04-01", "price": null, "price_unit": "USD", "error_code": null, "error_message":
-        null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SMf0bbc78606d6427b95a16047f959dee2.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SMf0bbc78606d6427b95a16047f959dee2/Media.json"}}'
+        null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM30bc47df7feb4357a30b88db4db84f96.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM30bc47df7feb4357a30b88db4db84f96/Media.json"}}'
     http_version: 
-  recorded_at: Sun, 09 Nov 2014 03:32:50 GMT
+  recorded_at: Tue, 11 Nov 2014 17:47:36 GMT
 recorded_with: VCR 2.9.3

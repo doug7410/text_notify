@@ -7,10 +7,16 @@ class NotificationsController < ApplicationController
 
   def create
     @notification = Notification.new(notification_params)
+    
+    response = TwilioWrapper::REST::Client.account.messages.create({
+        :to => @notification.customer.phone_number)
+        :body => @notification.message
+      })
+
     if @notification.save
 
-      send_text_message(@notification) 
- 
+
+      # binding.pry
       flash[:success] = "The message has been sent."
       redirect_to new_notification_path
     else 
@@ -24,17 +30,4 @@ private
     params.require(:notification).permit(:customer_id, :message)
   end
 
-  def send_text_message(notification)
-    begin
-      client = Twilio::REST::Client.new(ENV['twilio_account_sid'], ENV['twilio_auth_token'])      
-      
-      client.account.messages.create({
-        :from => '+15619238682',  
-        :to => notification.customer.phone_number, 
-        :body => notification.message  
-      })
-    rescue Twilio::REST::RequestError => e
-      puts e.message
-    end
-  end
 end

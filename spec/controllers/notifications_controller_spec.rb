@@ -32,7 +32,11 @@ describe NotificationsController do
         expect(flash[:success]).to be_present
       end
       
-      it "[sends the notification to the customer]"
+      it "[saves the sid from twillio for the notification]", :vcr do
+        post :create, notification: {customer_id: bob.id, message: "Hello Bob!"}
+         
+        expect(Notification.last.sid).not_to be_nil
+      end
     end
 
     context "[with valid input and saving the notification]"
@@ -51,5 +55,13 @@ describe NotificationsController do
       
       it "[does not send the notification to the customer]"
     end
+
+    context "[with an invalid phone number]" do
+      it "[does not save the notification]", :vcr do
+        post :create, notification: {customer_id: bob.id, message: "Hi Bob", phone_number: 5555555555 }
+        expect(Notification.count).to eq(0)
+      end
+    end
+
   end
 end
