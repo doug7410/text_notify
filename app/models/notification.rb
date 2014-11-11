@@ -4,13 +4,10 @@ class Notification < ActiveRecord::Base
   validates_presence_of :customer, :message
 
   def send_text_message
-    # put your own credentials here 
     account_sid = ENV['twilio_account_sid'] 
     auth_token = ENV['twilio_auth_token'] 
     
-    # set up a client to talk to the Twilio REST API 
     begin
-
       client = Twilio::REST::Client.new account_sid, auth_token      
       
       client.account.messages.create({
