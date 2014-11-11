@@ -7,19 +7,25 @@ class NotificationsController < ApplicationController
 
   def create
     @notification = Notification.new(notification_params)
-    
-    response = TwilioWrapper::REST::Client.account.messages.create({
-        :to => @notification.customer.phone_number)
-        :body => @notification.message
-      })
 
-    if @notification.save
+    if @notification.valid?
+      
+      if params[:do_not_send]
+        save_without_sending(@notification)
+      else
+        result = send_text_message(@notification)
 
-
-      # binding.pry
-      flash[:success] = "The message has been sent."
-      redirect_to new_notification_path
-    else 
+        if result.successful? 
+          @notification.sid = result.response.sid 
+          @notification.save
+          flash[:success] = "The message has been sent."
+          redirect_to new_notification_path
+        else
+          flash[:danger] = result.error_message
+          render :new
+        end
+      end
+    else
       render :new
     end
   end
@@ -28,6 +34,19 @@ private
 
   def notification_params 
     params.require(:notification).permit(:customer_id, :message)
+  end
+
+  def save_without_sending(notification)
+    notification.save
+    flash[:success] = "The message has been saved."
+    redirect_to new_notification_path
+  end
+
+  def send_text_message(notification)
+    TwilioWrapper::REST::Client.send_message({
+      :to => notification.customer.phone_number,
+      :body => notification.message
+    })
   end
 
 end
