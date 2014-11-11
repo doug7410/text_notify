@@ -1,0 +1,37 @@
+=render 'shared/page_header', title: "New Notification"
+
+.row
+  .col-sm-8
+    .widget-box
+      .widget-body
+        .widget-main.no-padding 
+          = bootstrap_form_for @notification, inline_errors: false do |f|
+            %fieldset
+              = f.alert_message "Please fix the errors below."
+              %div
+                =f.label :customer_id, "Choose a customer"
+                or
+                =link_to new_customer_path do
+                  create a new one 
+                  %i.ace-icon.glyphicon.glyphicon-plus 
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-user
+                  = f.select :customer_id, options_for_select(Customer.all.decorate.map {|c| [c.name + " - " +  c.display_phone_number, c.id]}) , hide_label: true
+              %hr
+              %div
+                =f.label :message
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-phone
+                  =f.text_field :message, class: "form-control", :placeholder => "the message", hide_label: true
+            .form-actions.center
+              %button.btn.btn-sm.btn-info{:type => "submit", :name => "do_not_send", :value => '1'}
+                Save Notification to Send Later
+                %i.ace-icon.fa.fa-pencil-square-o.icon-on-right.bigger-110
+              %button.btn.btn-sm.btn-success{:type => "submit"}
+                Send Notification
+                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
+        
+  
+    

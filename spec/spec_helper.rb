@@ -1,10 +1,11 @@
 ENV["RAILS_ENV"] ||= 'test'
-require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/email/rspec'
+require 'vcr'
 require 'capybara/poltergeist'
+require 'shoulda/matchers'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
@@ -25,7 +26,16 @@ Capybara.register_driver :poltergeist do |app|
 end
  
 # I'm not sure if this is neccisary? 
-# Capybara.default_wait_time = 3
+Capybara.default_wait_time = 5
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
+  c.ignore_localhost = true
+  c.allow_http_connections_when_no_cassette = true
+end
+
 
 RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller

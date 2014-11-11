@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "pages#front"
 
   resources :customers
+  resources :notifications, only: [:new, :create]
 
   get 'ui(/:action)', controller: 'ui'
 end

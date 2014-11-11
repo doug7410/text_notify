@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.1.2'
 
 gem 'rails', '4.1.6'
 gem 'sass-rails', '~> 4.0.3'
@@ -11,9 +11,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
 gem 'devise'
 gem 'bootstrap_form'
-gem 'validates_phone_number', '~> 2.0.1'
 gem 'draper', '~> 1.3'
-
+gem 'twilio-ruby' 
+gem 'figaro'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 group :development do
@@ -37,11 +37,13 @@ end
 
 group :test do
   gem 'database_cleaner', '1.2.0'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', require: false
   gem 'capybara'
   gem 'capybara-email'
   gem 'selenium-webdriver'
   gem 'poltergeist'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do

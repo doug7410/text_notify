@@ -5,7 +5,7 @@ feature "Add A New customer" do
     sign_in_user
     visit new_customer_path
  
-    fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '555-555-5555')
+    fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '5555555555')
     click_button "Save Customer"
     
     expect(page).to have_content("Freddy Mercury has been successfully added")
@@ -24,8 +24,6 @@ feature "Add A New customer" do
     expect(page).to have_content("Last name can't be blank")  
     expect(page).to have_content("Phone number can't be blank")  
 
-    # can you test that a template is rendered here?
-    # expect(view).to render_template(:new)
   end
 
 
@@ -33,10 +31,9 @@ feature "Add A New customer" do
     sign_in_user
     visit new_customer_path
     
-    fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '555-555-555')
+    fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '555555555')
     click_button "Save Customer"
     
-    expect(page).to have_content("Please fix the errors below.")
-    expect(page).to have_content("please enter a 10 digit")  
+    expect(page).to have_content("Phone number is the wrong length (should be 10 characters)")  
   end
 end

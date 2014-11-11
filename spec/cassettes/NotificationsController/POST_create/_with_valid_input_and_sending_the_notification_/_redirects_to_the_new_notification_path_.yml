@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages.json
+    body:
+      encoding: US-ASCII
+      string: From=%2B15619238682&To=9546381523&Body=Hello+Bob%21
+    headers:
+      Accept:
+      - application/json
+      Accept-Charset:
+      - utf-8
+      User-Agent:
+      - twilio-ruby/3.13.1 (ruby/x86_64-linux 2.1.2-p95)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: CREATED
+    headers:
+      Date:
+      - Tue, 11 Nov 2014 23:01:20 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '743'
+      Connection:
+      - close
+      X-Powered-By:
+      - AT-5000
+      X-Shenanigans:
+      - none
+    body:
+      encoding: UTF-8
+      string: '{"sid": "SMb3bafdde599f4b998c14d62bcff519f2", "date_created": "Tue,
+        11 Nov 2014 23:01:20 +0000", "date_updated": "Tue, 11 Nov 2014 23:01:20 +0000",
+        "date_sent": null, "account_sid": "ACb62e32327e8ec258781341a039e65c46", "to":
+        "+19546381523", "from": "+15619238682", "body": "Hello Bob!", "status": "queued",
+        "num_segments": "1", "num_media": "0", "direction": "outbound-api", "api_version":
+        "2010-04-01", "price": null, "price_unit": "USD", "error_code": null, "error_message":
+        null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SMb3bafdde599f4b998c14d62bcff519f2.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SMb3bafdde599f4b998c14d62bcff519f2/Media.json"}}'
+    http_version: 
+  recorded_at: Tue, 11 Nov 2014 23:01:21 GMT
+recorded_with: VCR 2.9.3
