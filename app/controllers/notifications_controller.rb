@@ -17,7 +17,8 @@ class NotificationsController < ApplicationController
         result = send_text_message(@notification)
 
         if result.successful? 
-          @notification.sid = result.response.sid 
+          @notification.sid = result.response.sid
+          @notification.sent_date = Time.now 
           @notification.save
           flash[:success] = "The message has been sent."
           redirect_to new_notification_path
@@ -31,7 +32,21 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def sent
+    @notifications = sent_notifications
+  end
+
 private
+
+  def sent_notifications
+    notifications = []
+    current_user.customers.each do |customer|
+      customer.notifications.each do |note|
+        notifications << note if note.sid.present?
+      end
+    end
+    notifications
+  end
 
   def notification_params 
     params.require(:notification).permit(:customer_id, :message)

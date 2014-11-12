@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   resources :customers
   resources :notifications, only: [:new, :create]
 
+  get '/sent_notifications', to: 'notifications#sent'
+
   get 'ui(/:action)', controller: 'ui'
 end
