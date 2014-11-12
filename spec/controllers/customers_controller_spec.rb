@@ -9,6 +9,8 @@ describe CustomersController do
       get :new
       expect(assigns(:customer)).to be_instance_of(Customer)
     end
+
+    it "only shows customers that belong to the signed in user"
   end
 
   describe "POST create" do

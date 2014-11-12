@@ -9,19 +9,18 @@
             = devise_error_messages!
             %fieldset
               %div
-                %label{:for => "name"}
-                  Full Name
+                =f.label :full_name, "Name"
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-user 
-                  %input#name.form-control{:type => "text", :placeholder => "John Snow"}/
+                  =f.text_field :full_name, class: "form-control", autofocus: true, :placeholder => "John Snow"
               %hr
               %div
                 = f.label :email
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-envelope-o 
-                  = f.email_field :email, class: 'form-control', autofocus: true, :placeholder => "user@example.com"
+                  = f.email_field :email, class: 'form-control', :placeholder => "user@example.com"
               %hr
               %div
                 = f.label :password
