@@ -40,7 +40,7 @@
   %tbody
     -@notifications.each do |notification|
       %tr
-        %td= notification.sent_date
+        %td= notification.decorate.sent_date
         %td= notification.item_picked_up_date
         %td= notification.customer.decorate.name
         %td= notification.customer.decorate.display_phone_number
