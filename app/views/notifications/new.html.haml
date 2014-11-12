@@ -17,7 +17,7 @@
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-user
-                  = f.select :customer_id, options_for_select(Customer.all.decorate.map {|c| [c.name + " - " +  c.display_phone_number, c.id]}) , hide_label: true
+                  = f.select :customer_id, options_for_select(@customers.all.decorate.map {|c| [c.name + " - " +  c.display_phone_number, c.id]}) , hide_label: true
               %hr
               %div
                 =f.label :message

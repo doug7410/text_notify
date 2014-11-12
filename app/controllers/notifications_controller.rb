@@ -3,6 +3,7 @@ class NotificationsController < ApplicationController
     
   def new
     @notification = Notification.new
+    @customers = Customer.where("user_id = ?", current_user.id)
   end
 
   def create

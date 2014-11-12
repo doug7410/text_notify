@@ -2,12 +2,21 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe NotificationsController do
-  before { sign_in Fabricate(:user)}
+  let!(:bob_user) { Fabricate(:user) }
+  before { sign_in bob_user }
   
   describe "GET new" do
     it "sets the new @notification" do
       get :new
       expect(assigns(:notification)).to be_instance_of(Notification)
+    end
+
+    it "sets @customers to customers associated with the signed in user" do
+      tom_user = Fabricate(:user)
+      customer1 = Fabricate(:customer, user: bob_user)
+      customer2 = Fabricate(:customer, user: tom_user)
+      get :new
+      expect(assigns(:customers)).to eq([customer1])
     end
   end
 

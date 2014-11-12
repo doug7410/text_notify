@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
 
 
   def index
-    @customers = Customer.all.decorate
+    @customers = Customer.all.where("user_id = ?", current_user.id).decorate
   end
 
   def new
@@ -50,7 +50,7 @@ class CustomersController < ApplicationController
   end
 
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :phone_number)
+    params.require(:customer).permit(:first_name, :last_name, :phone_number, :user_id)
   end 
 
   def formated_phone_number 
