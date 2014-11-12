@@ -9,6 +9,6 @@ class PagesController < ApplicationController
   private
   
   def go_to_ui_pages
-    redirect_to '/ui' if user_signed_in?
+    redirect_to new_notification_path if user_signed_in?
   end
 end
