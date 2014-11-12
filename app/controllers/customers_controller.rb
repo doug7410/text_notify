@@ -25,7 +25,7 @@ class CustomersController < ApplicationController
   def show; end
 
   def update
-    if @customer.update(customer_params)
+    if @customer.update(customer_params.merge(formated_phone_number))
       flash[:success] = "Customer - #{@customer.decorate.name} has been updated."
     end
     render :show

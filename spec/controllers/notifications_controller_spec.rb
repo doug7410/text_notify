@@ -79,16 +79,13 @@ describe NotificationsController do
         expect(Notification.count).to eq(0)
       end
 
-      it "[does not save the notification with invalid phone number]", :vcr do
-        bob = Fabricate(:customer, phone_number: '5555555555')
-        post :create, notification: {customer_id: bob.id, message: "Hi Bob" }
-        expect(Notification.count).to eq(0)
-      end
-      
-      it "[sets the flash error message for an invalid phone number]", :vcr do
-        bob = Fabricate(:customer, phone_number: '5555555555')
-        post :create, notification: {customer_id: bob.id, message: "test message"}
-        expect(flash[:danger]).to include("phone number")
+      it "[sets the @customers for the current user]" do
+        alice_user = Fabricate(:user)
+        tom = Fabricate(:customer, user: bob_user, phone_number: '1234567890')
+        frank = Fabricate(:customer, user: bob_user, phone_number: '1234567891')
+        amy = Fabricate(:customer, user: alice_user, phone_number: '1234567892')
+        post :create, notification: {customer_id: tom.id, message: ""}
+        expect(assigns(:customers)).to eq([tom, frank])
       end
 
       it "[sets the @notification and renders the new template]", :vcr do
@@ -98,6 +95,29 @@ describe NotificationsController do
         expect(assigns(:notification)).to be_instance_of(Notification)
       end
     end
+  end
+
+  context "[with an invalid phone number]" do
+      it "[does not save the notification]", :vcr do
+        bob = Fabricate(:customer, phone_number: '5555555555')
+        post :create, notification: {customer_id: bob.id, message: "Hi Bob" }
+        expect(Notification.count).to eq(0)
+      end
+
+      it "[sets the flash error message for an invalid phone number]", :vcr do
+        bob = Fabricate(:customer, phone_number: '5555555555')
+        post :create, notification: {customer_id: bob.id, message: "test message"}
+        expect(flash[:danger]).to include("phone number")
+      end
+      
+      it "[sets the @customers for the current user]" do
+        alice_user = Fabricate(:user)
+        tom = Fabricate(:customer, user: bob_user, phone_number: '1234567890')
+        frank = Fabricate(:customer, user: bob_user, phone_number: '1234567891')
+        amy = Fabricate(:customer, user: alice_user, phone_number: '1234567892')
+        post :create, notification: {customer_id: tom.id, message: ""}
+        expect(assigns(:customers)).to eq([tom, frank])
+      end
   end
 
   describe "GET sent" do

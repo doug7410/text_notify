@@ -3,11 +3,12 @@ class NotificationsController < ApplicationController
     
   def new
     @notification = Notification.new
-    @customers = Customer.where("user_id = ?", current_user.id)
+    @customers = current_user_customers
   end
 
   def create
     @notification = Notification.new(notification_params)
+    @customers = current_user_customers
 
     if @notification.valid?
       
@@ -37,6 +38,10 @@ class NotificationsController < ApplicationController
   end
 
 private
+
+  def current_user_customers
+    Customer.where("user_id = ?", current_user.id)
+  end
 
   def sent_notifications
     notifications = []

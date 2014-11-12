@@ -25,11 +25,17 @@
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-phone
-                  =f.text_field :phone_number, class: "form-control", :placeholder => "555-555-5555", hide_label: true, vlaue: @customer.display_phone_number
+                  =f.text_field :phone_number, class: "form-control input-mask-phone", :placeholder => "555-555-5555", hide_label: true, vlaue: @customer.display_phone_number
             .form-actions.center
               %button.btn.btn-sm.btn-success{:type => "submit"}
                 Update Customer
                 %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
         
-  
+%script{:src => "/assets/js/jquery-ui.custom.min.js"}
+%script{:src => "/assets/js/jquery.maskedinput.min.js"}
+:javascript
+  jQuery(function($) {
+    $.mask.definitions['~']='[+-]';
+    $('.input-mask-phone').mask('(999) 999-9999');
+  });  
     
