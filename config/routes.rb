@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions" }
   
-  root to: "pages#front"
+  root to: "notifications#new"
 
   resources :customers
   resources :notifications, only: [:new, :create]
