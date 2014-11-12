@@ -2,21 +2,36 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe CustomersController do
-  before { sign_in Fabricate(:user)}
+  let!(:bob_user) { Fabricate(:user)}
+  before { sign_in bob_user}
   
   describe "GET new" do
     it "sets the new @customer" do
       get :new
       expect(assigns(:customer)).to be_instance_of(Customer)
     end
+  end
 
-    it "only shows customers that belong to the signed in user"
+  describe "GET index" do
+    it "only shows customers that belong to the signed in user" do
+      tom_user = Fabricate(:user)
+      customer1 = Fabricate(:customer, user: bob_user) 
+      customer2 = Fabricate(:customer, user: tom_user)
+      get :index
+      expect(assigns(:customers)).to eq([customer1]) 
+    end 
   end
 
   describe "POST create" do
     it "saves the phone number as a 10 digit number" do
       post :create, customer: Fabricate.attributes_for(:customer, phone_number: '(555)666-7788')
       expect(Customer.first.phone_number).to eq('5556667788')
+    end
+
+    it "associates the new customer with the signed in user" do 
+      bob_user = Fabricate(:user)
+      post :create, customer: Fabricate.attributes_for(:customer,first_name: "Toby", phone_number: '(555)666-7788', user_id: bob_user.id)
+      expect(bob_user.customers.first.first_name).to eq("Toby")
     end
   end
 
