@@ -148,7 +148,7 @@ describe NotificationsController do
     end
   end
 
-  describe "POST send" do 
+  describe "POST send_notification" do 
     it "[redirecs to the sent notifications page]", :vcr do
       tom = Fabricate(:customer, user: bob_user) 
       notification = Fabricate(:notification, customer_id: tom.id)
@@ -163,7 +163,18 @@ describe NotificationsController do
       expect(notification.reload.sid).not_to be_nil
     end
 
-    it "[sets the flash success message]"
-    it "[renders the pending notifications page if the customer has an invalid phone number]"
+    it "[sets the flash success message]", :vcr do 
+      tom = Fabricate(:customer, user: bob_user)
+      notification = Fabricate(:notification, customer_id: tom.id)
+      post :send_notification, id: notification.id
+      expect(flash[:success]).not_to be_nil
+    end
+
+    it "[renders the pending notifications page if the customer has an invalid phone number]", :record => :none do
+      tom = Fabricate(:customer, user: bob_user, phone_number: '5555555555')
+      notification = Fabricate(:notification, customer_id: tom.id)
+      post :send_notification, id: notification.id
+      expect(response).to render_template :pending
+    end
   end
 end

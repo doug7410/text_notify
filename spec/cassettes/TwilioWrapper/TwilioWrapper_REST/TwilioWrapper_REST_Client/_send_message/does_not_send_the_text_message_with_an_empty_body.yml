@@ -5,7 +5,7 @@ http_interactions:
     uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages.json
     body:
       encoding: US-ASCII
-      string: From=%2B15619238682&To=9546381523&Body=
+      string: From=%2B15619238682&To=5005550006&Body=
     headers:
       Accept:
       - application/json
@@ -23,7 +23,7 @@ http_interactions:
       message: BAD REQUEST
     headers:
       Date:
-      - Tue, 11 Nov 2014 23:14:38 GMT
+      - Thu, 13 Nov 2014 19:51:05 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -39,5 +39,5 @@ http_interactions:
       string: '{"code": 21602, "message": "Message body is required.", "more_info":
         "https://www.twilio.com/docs/errors/21602", "status": 400}'
     http_version: 
-  recorded_at: Tue, 11 Nov 2014 23:14:39 GMT
+  recorded_at: Thu, 13 Nov 2014 19:51:05 GMT
 recorded_with: VCR 2.9.3

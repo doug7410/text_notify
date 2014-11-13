@@ -19,8 +19,15 @@ module TwilioWrapper
             :body => options[:body]  
           })
 
-          
-          new(response: response)
+          error = client.account.messages.get(response.sid)
+
+          binding.pry
+
+          if error
+            new(error_message: error_message)
+          else
+            new(response: response)
+          end
         rescue Twilio::REST::RequestError => e
           new(error_message: e.message)
         end

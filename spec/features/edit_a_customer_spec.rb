@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 feature "edit a customer" do
+  let(:doug) { Fabricate(:user)}
+  background { sign_in_user(doug) }
 
-  background { sign_in_user }
-
-  given!(:bob) { Fabricate(:customer, first_name: "Bob", last_name: "Smith", phone_number: "5555555555").decorate }
+  given!(:bob) { Fabricate(:customer, first_name: "Bob", last_name: "Smith", phone_number: "5555555555", user: doug).decorate }
 
   scenario "[a user views a customer page]" do
     visit customers_path

@@ -1,11 +1,12 @@
 require 'spec_helper'
 
-feature "View the customers in the database" do
+feature "[View the customers in the database]" do
+  let(:doug) { Fabricate(:user) }  
   scenario "a user views the customers" do
-    bob = Fabricate(:customer, first_name: "Bob", last_name: "Smith", phone_number: "5554447777")
-    jane = Fabricate(:customer, first_name: "Jane", last_name: "Doe", phone_number: "5554449999")
+    bob = Fabricate(:customer, first_name: "Bob", last_name: "Smith", phone_number: "5554447777", user: doug)
+    jane = Fabricate(:customer, first_name: "Jane", last_name: "Doe", phone_number: "5554449999", user: doug)
  
-    sign_in_user    
+    sign_in_user(doug)    
     visit customers_path 
 
     expect(page).to have_content("Bob Smith")
