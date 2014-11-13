@@ -42,7 +42,8 @@
       %tr
         %td= notification.decorate.sent_date
         %td= notification.item_picked_up_date
-        %td= notification.customer.decorate.name
+        %td
+          = link_to notification.customer.decorate.name, customer_path(notification.customer)
         %td= notification.customer.decorate.display_phone_number
         %td= notification.message
         %td

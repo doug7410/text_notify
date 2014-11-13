@@ -1,0 +1,42 @@
+=render 'shared/page_header', title: "Pending Notifications"
+
+%form.form-inline
+  Filter By:
+  %input.input-medium{:placeholder => "Customer Name", :type => "text"}/
+  %input.input-medium{:placeholder => "Phone Number", :type => "text"}/
+  date created
+  .input-group
+    %span.input-group-addon
+      %i.fa.fa-calendar.bigger-110
+    %input#id-date-range-picker-1.form-control{:name => "date-range-picker", :type => "text"}/
+  %button.btn.btn-info.btn-sm{:type => "button"}
+    %i.ace-icon.fa.bigger-110
+    Go
+
+%hr
+
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th
+        Created on
+        %i.ace-icon.fa.fa-calendar.bigger-110
+      %th Customer
+      %th Phone Number
+      %th Message
+      %th
+  %tbody
+    - @notifications.each do |notification|
+      %tr
+        %td= notification.decorate.created_at
+        %td 
+          = link_to notification.customer.decorate.name, customer_path(notification.customer)
+        %td= notification.customer.decorate.display_phone_number
+        %td= notification.message
+        %td
+          =form_tag "/send_pending_notification", method: "post" do
+            =hidden_field_tag :id, notification.id
+            %button.btn.btn-success.btn-xs{:type => 'submit'} Send text
+         
+            
+    

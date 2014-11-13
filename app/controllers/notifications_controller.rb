@@ -34,20 +34,49 @@ class NotificationsController < ApplicationController
   end
 
   def sent
-    @notifications = sent_notifications
+    @notifications = notifications(sent: true)
   end
 
+  def pending
+    @notifications = notifications(sent: false)
+  end
+
+  def send_notification
+
+    notification = Notification.find(params[:id])
+
+    if notification.valid?
+    
+      result = send_text_message(notification)
+
+      if result.successful? 
+        notification.sid = result.response.sid
+        notification.sent_date = Time.now 
+        notification.save
+        flash[:success] = "The message has been sent."
+        redirect_to sent_notifications_path
+      else
+        flash[:danger] = result.error_message
+        render :send_notification
+      end
+    end
+  end
+  
 private
 
   def current_user_customers
     Customer.where("user_id = ?", current_user.id)
   end
 
-  def sent_notifications
+  def notifications(options={})
     notifications = []
     current_user.customers.each do |customer|
       customer.notifications.each do |note|
-        notifications << note if note.sid.present?
+        if options[:sent]
+          notifications << note if note.sid.present?
+        else
+          notifications << note if note.sid.nil?
+        end
       end
     end
     notifications
