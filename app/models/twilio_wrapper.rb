@@ -19,12 +19,11 @@ module TwilioWrapper
             :body => options[:body]  
           })
 
-          error = client.account.messages.get(response.sid)
+          message = client.account.messages.get(response.sid)
+          error_message = message.error_message
 
-          binding.pry
-
-          if error
-            new(error_message: error_message)
+          if error_message
+            new(error_message: "There was a problem with the phone number - (#{error_message}) - Please verify that the number is correct.")
           else
             new(response: response)
           end

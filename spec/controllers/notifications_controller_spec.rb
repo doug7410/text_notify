@@ -149,32 +149,54 @@ describe NotificationsController do
   end
 
   describe "POST send_notification" do 
-    it "[redirecs to the sent notifications page]", :vcr do
-      tom = Fabricate(:customer, user: bob_user) 
-      notification = Fabricate(:notification, customer_id: tom.id)
-      post :send_notification, id: notification.id
-      expect(response).to redirect_to sent_notifications_path
-    end 
+    
+    context "[with a valid phone number and message]" do
+      it "[redirecs to the sent notifications page]", :vcr do
+        tom = Fabricate(:customer, user: bob_user) 
+        notification = Fabricate(:notification, customer_id: tom.id)
+        post :send_notification, id: notification.id
+        expect(response).to redirect_to pending_notifications_path
+      end 
 
-    it "[sends the notification]", :vcr do
+      it "[sends the notification]", :vcr do
+        tom = Fabricate(:customer, user: bob_user)
+        notification = Fabricate(:notification, customer_id: tom.id)
+        post :send_notification, id: notification.id
+        expect(notification.reload.sid).not_to be_nil
+      end
+
+      it "[sets the flash success message]", :vcr do 
+        tom = Fabricate(:customer, user: bob_user)
+        notification = Fabricate(:notification, customer_id: tom.id)
+        post :send_notification, id: notification.id
+        expect(flash[:success]).not_to be_nil
+      end
+    end
+
+    context "[with an invalid phone number or empty message]" do
+      it "[sets @notifications to only the un-sent notifications for the signed in user]" do
       tom = Fabricate(:customer, user: bob_user)
-      notification = Fabricate(:notification, customer_id: tom.id)
-      post :send_notification, id: notification.id
-      expect(notification.reload.sid).not_to be_nil
+      notification1 = Fabricate(:notification, customer_id: tom.id, sid: '123456')
+      notification2 = Fabricate(:notification, customer_id: tom.id)
+      get :pending
+      expect(assigns(:notifications)).to eq([notification2])
     end
 
-    it "[sets the flash success message]", :vcr do 
-      tom = Fabricate(:customer, user: bob_user)
-      notification = Fabricate(:notification, customer_id: tom.id)
-      post :send_notification, id: notification.id
-      expect(flash[:success]).not_to be_nil
+
+      it "[renders the pending notifications page if the customer has an invalid phone number]", :vcr do
+        tom = Fabricate(:customer, user: bob_user, phone_number: '5005550001')
+        notification = Fabricate(:notification, customer_id: tom.id)
+        post :send_notification, id: notification.id
+        expect(response).to render_template :pending
+      end
+
+      it "sets the flash error message", :vcr do
+        tom = Fabricate(:customer, user: bob_user, phone_number: '5005550001')
+        notification = Fabricate(:notification, customer_id: tom.id)
+        post :send_notification, id: notification.id
+        expect(flash[:danger]).not_to be_nil
+      end
     end
 
-    it "[renders the pending notifications page if the customer has an invalid phone number]", :record => :none do
-      tom = Fabricate(:customer, user: bob_user, phone_number: '5555555555')
-      notification = Fabricate(:notification, customer_id: tom.id)
-      post :send_notification, id: notification.id
-      expect(response).to render_template :pending
-    end
   end
 end

@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages.json
+    body:
+      encoding: US-ASCII
+      string: From=%2B15619238682&To=5555555555&Body=test+message
+    headers:
+      Accept:
+      - application/json
+      Accept-Charset:
+      - utf-8
+      User-Agent:
+      - twilio-ruby/3.13.1 (ruby/x86_64-linux 2.1.2-p95)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 400
+      message: BAD REQUEST
+    headers:
+      Date:
+      - Thu, 13 Nov 2014 21:22:27 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '157'
+      Connection:
+      - close
+      X-Powered-By:
+      - AT-5000
+      X-Shenanigans:
+      - none
+    body:
+      encoding: UTF-8
+      string: '{"code": 21211, "message": "The ''To'' number 5555555555 is not a valid
+        phone number.", "more_info": "https://www.twilio.com/docs/errors/21211", "status":
+        400}'
+    http_version: 
+  recorded_at: Thu, 13 Nov 2014 21:22:31 GMT
+recorded_with: VCR 2.9.3

@@ -48,14 +48,15 @@ class NotificationsController < ApplicationController
     if notification.valid?
     
       result = send_text_message(notification)
-      binding.pry
+
       if result.successful? 
         notification.sid = result.response.sid
         notification.sent_date = Time.now 
         notification.save
         flash[:success] = "The message has been sent."
-        redirect_to sent_notifications_path
+        redirect_to pending_notifications_path
       else
+        @notifications = notifications(sent: false)
         flash[:danger] = result.error_message
         render :pending
       end
