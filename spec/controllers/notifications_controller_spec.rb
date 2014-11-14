@@ -149,7 +149,6 @@ describe NotificationsController do
   end
 
   describe "POST send_notification" do 
-    
     context "[with a valid phone number and message]" do
       it "[redirecs to the sent notifications page]", :vcr do
         tom = Fabricate(:customer, user: bob_user) 
@@ -180,8 +179,7 @@ describe NotificationsController do
       notification2 = Fabricate(:notification, customer_id: tom.id)
       get :pending
       expect(assigns(:notifications)).to eq([notification2])
-    end
-
+      end
 
       it "[renders the pending notifications page if the customer has an invalid phone number]", :vcr do
         tom = Fabricate(:customer, user: bob_user, phone_number: '5005550001')
@@ -197,6 +195,28 @@ describe NotificationsController do
         expect(flash[:danger]).not_to be_nil
       end
     end
+  end
 
+  describe "DELETE destroy_pending" do
+    it "[renders the pending notifications template]" do
+      tom = Fabricate(:customer, user: bob_user) 
+      notification = Fabricate(:notification, customer_id: tom.id)
+      delete :destroy_pending, id: notification.id
+      expect(response).to redirect_to pending_notifications_path
+    end 
+
+    it "[it deletes the notification and sets @notifications to only the un-sent notifications for the signed in user]" do
+      tom = Fabricate(:customer, user: bob_user)
+      notification1 = Fabricate(:notification, customer_id: tom.id)
+      notification2 = Fabricate(:notification, customer_id: tom.id)
+      delete :destroy_pending, id: notification1.id
+      expect(assigns(:notifications)).to eq([notification2])
+    end
+
+    it "[sets the flash error message if the notification doesn't exist]" do
+      tom = Fabricate(:customer, user: bob_user)
+      delete :destroy_pending, id: 1
+      expect(flash[:danger]).not_to be_nil
+    end 
   end
 end

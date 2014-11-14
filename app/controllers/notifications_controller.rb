@@ -62,6 +62,21 @@ class NotificationsController < ApplicationController
       end
     end
   end
+
+  def destroy_pending
+    
+    notification =  Notification.find_by_id(params[:id])
+
+    if notification
+      notification.destroy
+      @notifications = notifications(sent: false)
+      redirect_to pending_notifications_path
+    else
+      flash[:danger] = "the notification you are trying to delete doesn't exsit or has allredy been deleted"
+      @notifications = notifications(sent: false)
+      redirect_to pending_notifications_path
+    end
+  end
   
 private
 
