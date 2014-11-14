@@ -16,12 +16,12 @@
             New Notification
           %b.arrow
         %li
-          %a{:href => "/ui/sent_notifications"}
+          =link_to sent_notifications_path do
             %i.menu-icon.fa.fa-caret-right
             Sent Notifications
           %b.arrow
         %li
-          %a{:href => "/ui/pending_notifications"}
+          =link_to pending_notifications_path do
             %i.menu-icon.fa.fa-caret-right
             Pending Notifications
           %b.arrow  

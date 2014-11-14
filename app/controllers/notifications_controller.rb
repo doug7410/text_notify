@@ -3,11 +3,12 @@ class NotificationsController < ApplicationController
     
   def new
     @notification = Notification.new
-    @customers = Customer.where("user_id = ?", current_user.id)
+    @customers = current_user_customers
   end
 
   def create
     @notification = Notification.new(notification_params)
+    @customers = current_user_customers
 
     if @notification.valid?
       
@@ -17,7 +18,8 @@ class NotificationsController < ApplicationController
         result = send_text_message(@notification)
 
         if result.successful? 
-          @notification.sid = result.response.sid 
+          @notification.sid = result.response.sid
+          @notification.sent_date = Time.now 
           @notification.save
           flash[:success] = "The message has been sent."
           redirect_to new_notification_path
@@ -31,7 +33,55 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def sent
+    @notifications = notifications(sent: true)
+  end
+
+  def pending
+    @notifications = notifications(sent: false)
+  end
+
+  def send_notification
+
+    notification = Notification.find(params[:id])
+
+    if notification.valid?
+    
+      result = send_text_message(notification)
+
+      if result.successful? 
+        notification.sid = result.response.sid
+        notification.sent_date = Time.now 
+        notification.save
+        flash[:success] = "The message has been sent."
+        redirect_to pending_notifications_path
+      else
+        @notifications = notifications(sent: false)
+        flash[:danger] = result.error_message
+        render :pending
+      end
+    end
+  end
+  
 private
+
+  def current_user_customers
+    Customer.where("user_id = ?", current_user.id)
+  end
+
+  def notifications(options={})
+    notifications = []
+    current_user.customers.each do |customer|
+      customer.notifications.each do |note|
+        if options[:sent]
+          notifications << note if note.sid.present?
+        else
+          notifications << note if note.sid.nil?
+        end
+      end
+    end
+    notifications
+  end
 
   def notification_params 
     params.require(:notification).permit(:customer_id, :message)

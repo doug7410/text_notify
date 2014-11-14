@@ -5,7 +5,7 @@ http_interactions:
     uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages.json
     body:
       encoding: US-ASCII
-      string: From=%2B15619238682&To=5555555555&Body=test+message
+      string: From=%2B15619238682&To=9546381523&Body=
     headers:
       Accept:
       - application/json
@@ -23,11 +23,11 @@ http_interactions:
       message: BAD REQUEST
     headers:
       Date:
-      - Tue, 11 Nov 2014 23:01:17 GMT
+      - Thu, 13 Nov 2014 21:14:42 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '157'
+      - '127'
       Connection:
       - close
       X-Powered-By:
@@ -36,9 +36,8 @@ http_interactions:
       - none
     body:
       encoding: UTF-8
-      string: '{"code": 21211, "message": "The ''To'' number 5555555555 is not a valid
-        phone number.", "more_info": "https://www.twilio.com/docs/errors/21211", "status":
-        400}'
+      string: '{"code": 21602, "message": "Message body is required.", "more_info":
+        "https://www.twilio.com/docs/errors/21602", "status": 400}'
     http_version: 
-  recorded_at: Tue, 11 Nov 2014 23:01:18 GMT
+  recorded_at: Thu, 13 Nov 2014 21:14:45 GMT
 recorded_with: VCR 2.9.3
