@@ -1,6 +1,13 @@
 class NotificationsController < ApplicationController
   before_filter :authenticate_user!
     
+  def index
+    @notification = Notification.new
+    @customers = current_user_customers
+    @notifications = notifications(sent: true)
+    
+  end
+
   def new
     @notification = Notification.new
     @customers = current_user_customers
