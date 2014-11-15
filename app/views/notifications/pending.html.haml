@@ -37,6 +37,9 @@
           =form_tag "/send_pending_notification", method: "post" do
             =hidden_field_tag :id, notification.id
             %button.btn.btn-success.btn-xs{:type => 'submit'} Send text
+          =form_tag '/destroy_pending_notification', method: "delete" do
+            =hidden_field_tag :id, notification.id
+            %button.btn.btn-danger.btn-xs{:type => 'submit'} Delete  
          
             
     

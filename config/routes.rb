@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
   get '/sent_notifications', to: 'notifications#sent'
   get '/pending_notifications', to: 'notifications#pending'
+  
+  delete '/destroy_pending_notification', to: 'notifications#destroy_pending'
+  
   post '/send_pending_notification', to: 'notifications#send_notification'
 
   get 'ui(/:action)', controller: 'ui'
