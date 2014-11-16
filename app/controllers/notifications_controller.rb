@@ -5,6 +5,7 @@ class NotificationsController < ApplicationController
     @notification = Notification.new
     @customers = current_user_customers
     @notifications = notifications(sent: true)
+    @customer = Customer.new
     
   end
 

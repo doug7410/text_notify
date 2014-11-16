@@ -32,3 +32,9 @@
     color: #468847;
     text-align: left;
  }
+
+ .skin-1{
+    background-image: url("/assets/img/ZLSw0SXxThSrkXRIiCdT_DSC_0345.jpg") !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+ }
