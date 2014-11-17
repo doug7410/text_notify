@@ -5,6 +5,33 @@ describe NotificationsController do
   let!(:bob_user) { Fabricate(:user) }
   before { sign_in bob_user }
   
+  describe "GET index" do
+    it "sets the new @notification" do
+      get :index
+      expect(assigns(:notification)).to be_instance_of(Notification)
+    end
+
+    it "sets @customers to the signed in user's customers" do
+      tom = Fabricate(:customer, user: bob_user)
+      mike = Fabricate(:customer, user: bob_user, phone_number: '1234567897')
+      get :index 
+      expect(assigns(:customers)).to eq([tom, mike])
+    end
+
+    it "sest a new @customer" do
+      get :index
+      expect(assigns(:customer)).to be_instance_of(Customer)
+    end
+
+    it "sets @notifications to the sent notifications" do
+      tom = Fabricate(:customer, user: bob_user)
+      notification1 = Fabricate(:notification, customer: tom, sid: '123456')
+      notification2 = Fabricate(:notification, customer: tom, sid: '123456')
+      get :index 
+      expect(assigns(:notifications)).to eq([notification1, notification2])
+    end
+  end
+
   describe "GET new" do
     it "sets the new @notification" do
       get :new

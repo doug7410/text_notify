@@ -15,7 +15,6 @@ class NotificationsController < ApplicationController
   end
 
   def create
-      binding.pry
     @notification = Notification.new(notification_params)
     @customers = current_user_customers
 

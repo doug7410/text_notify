@@ -34,7 +34,11 @@
  }
 
  .skin-1{
-    background-image: url("/assets/img/ZLSw0SXxThSrkXRIiCdT_DSC_0345.jpg") !important;
+    background-image: url("https://unsplash.com/photos/4mta-DkJUAg/download") !important;
     background-size: cover !important;
     background-attachment: fixed !important;
+ }
+
+ .user-info{
+    line-height: 16px !important;
  }
