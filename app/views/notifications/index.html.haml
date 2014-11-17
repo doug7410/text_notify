@@ -1,7 +1,7 @@
 =render 'shared/page_header', title: "Notifications"
 
 .row
-  .col-sm-4
+  .col-sm-6
     .widget-box
       .widget-header
         %h4.widget-title
@@ -9,31 +9,42 @@
           Send an Individual Text
       .widget-body
         .widget-main.no-padding 
-          = bootstrap_form_for @notification, inline_errors: false do |f|
+          = form_tag  '/notifications' do 
             %fieldset
-              = f.alert_message "Please fix the errors below."
               %div
-                =f.label :customer_id, "Choose a customer"
-                or
-                =link_to new_customer_path do
-                  create a new one 
-                  %i.ace-icon.glyphicon.glyphicon-plus 
+                %h4 Choose an existing customer
+                
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-user
-                  = f.select :customer_id, options_for_select(@customers.all.decorate.map {|c| [c.name + " - " +  c.display_phone_number, c.id]}) , hide_label: true
+                  = select_tag :customer_id, options_for_select([["Choose a customer from this list", nil]].concat( @customers.all.decorate.map {|c| [c.name + " - " +  c.display_phone_number, c.id]})) , class: "form-control"
+                %hr
+                %h4 Or add a new cusomer below
+
+                .input-group
+                  .row
+                    .col-sm-3
+                      =label_tag :first_name
+                      =text_field_tag :first_name, nil, class: "form-control"
+                    .col-sm-3
+                      =label_tag :last_name
+                      =text_field_tag :last_name, nil, class: "form-control"
+                    .col-sm-6
+                      =label_tag :phone_number
+                      =text_field_tag :phone_number , nil,class: "form-control"
+
               %hr
               %div
-                =f.label :message
+                =label_tag :message
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-comment
-                  =f.text_field :message, class: "form-control", :placeholder => "the message", hide_label: true
+                  =text_area_tag :message, nil, class: "form-control", :placeholder => "Type your message here. You can use up to 50 characters", hide_label: true
             .form-actions.center
               %button.btn.btn-sm.btn-success{:type => "submit"}
                 Send Notification
                 %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
-  .col-sm-4
+  .col-sm-6
     .widget-box
       .widget-header
         %h4.widget-title
@@ -65,43 +76,6 @@
               %button.btn.btn-sm.btn-success{:type => "submit"}
                 Send Notification
                 %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
-  .col-sm-4
-    .widget-box
-      .widget-header
-        %h4.widget-title
-          %i.ace-icon.fa.fa-user
-          Create a New Customer
-      .widget-body
-        .widget-main.no-padding
-          = bootstrap_form_for @customer, inline_errors: false do |f|
-            =f.hidden_field :user_id, value: current_user.id
-            %fieldset
-              = f.alert_message "Please fix the errors below."
-              .row
-                .col-xs-6
-                  = f.label :first_name, "First Name"
-                  .input-group
-                    %span.input-group-addon
-                      %i.ace-icon.fa.fa-user
-                    =f.text_field :first_name, class: "form-control", :placeholder => "Jon", hide_label: true
-                .col-xs-6
-                  = f.label :last_name, "Last Name"
-                  .input-group
-                    %span.input-group-addon
-                      %i.ace-icon.fa.fa-user
-                    =f.text_field :last_name, class: "form-control", :placeholder => "Snow", hide_label: true    
-              %hr
-              .row
-                .col-xs-12
-                  =f.label :phone_number, "Phone Number"
-                  .input-group
-                    %span.input-group-addon
-                      %i.ace-icon.fa.fa-phone
-                    =f.text_field :phone_number, class: "form-control input-mask-phone", hide_label: true
-            .form-actions.center
-              %button.btn.btn-sm.btn-success{:type => "submit"}
-                Create Customer
-                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110              
 %hr        
 =render 'shared/page_header', title: "Sent Notifications"
 

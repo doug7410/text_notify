@@ -15,11 +15,11 @@ class NotificationsController < ApplicationController
   end
 
   def create
+      binding.pry
     @notification = Notification.new(notification_params)
     @customers = current_user_customers
 
     if @notification.valid?
-      
       if params[:do_not_send]
         save_without_sending(@notification)
       else

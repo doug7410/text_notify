@@ -10,6 +10,7 @@
         %small
           %i.fa.fa-bullhorn
           Text Notify
+
     %nav.navbar-menu.collapse.navbar-collapse.pull-left{:role => "navigation"}
       %ul.nav.navbar-nav
         %li
@@ -20,6 +21,10 @@
           =link_to customers_path do
             %i.ace-icon.fa.fa-user
             Customers
+        %li
+          =link_to customers_path do
+            %i.ace-icon.fa.fa-group
+            Customer Groups
     .navbar-buttons.navbar-header.pull-right{:role => "navigation"}
       - if user_signed_in?
         %ul.nav.ace-nav

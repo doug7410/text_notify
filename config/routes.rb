@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   
   root to: "pages#front"
+  get '/dashboard', to: "pages#dashboard"
 
   resources :customers
   resources :notifications, only: [:index, :new, :create]
