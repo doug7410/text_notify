@@ -16,22 +16,44 @@ class NotificationsController < ApplicationController
   end
 
   def create
+
+    # if customer_id is empty and none of the customer
+    # fields are filled in it should say "the customer
+    # can't be empty" and ignore validation errors 
+    # on the new customer form
+    # 
+    # if the customer_id is present it should ignore 
+    # errors on the new customer form
+    # 
+    # if the customer_id is empty and any of the new
+    # customer fields are filled out it should display 
+    # validation errors on the new customer, but not
+    #  display a "customer cant be empty" message from
+    #   the notification validations
+
+    # binding.pry
     @notification = Notification.new(notification_params)
     @notifications = notifications(sent: true)
     @customers = current_user_customers
     @customer = Customer.new
-    # @customer = Customer.find_by_id(notification_params[:customer_id])
+    # # @customer = Customer.find_by_id(notification_params[:customer_id])
 
-    if notification_params[:customer_id].empty?
-      @notification.customer = Customer.new(customer_params.merge({user_id: current_user.id}))
-      
-      # @notification.customer = @customer if @customer.save
+    # binding.pry
+    if notification_params[:customer_id].empty? and new_customer_form_not_empty?
+      # binding.pry 
+      @customer.update(customer_params.merge({user_id: current_user.id}))
+      @customer.valid?
+      # binding.pry
+      @notification.customer = @customer
+    else
+      @customer = Customer.find(notification_params[:customer_id])
     end
-
-    if @notification.valid?
-      if params[:do_not_send]
-        save_without_sending(@notification)
-      else
+    
+    # binding.pry
+    
+    if @notification.valid? && @customer.valid?
+    #   if params[:do_not_send]
+    #     save_without_sending(@notification)
         result = send_text_message(@notification)
 
         if result.successful? 
@@ -41,11 +63,12 @@ class NotificationsController < ApplicationController
           flash[:success] = "The message has been sent."
           redirect_to notifications_path
         else
+          flash[:danger] = result.error_message
           render :index
         end
-      end
-    else
-      # binding.pry
+    #   end
+    # else
+    #   # binding.pry
       render :index
     end
   end
@@ -96,6 +119,13 @@ class NotificationsController < ApplicationController
   end
   
 private
+
+  def new_customer_form_not_empty?
+    customer = customer_params[:first_name]
+    customer += customer_params[:last_name]
+    customer += customer_params[:phone_number]
+    !customer.empty?
+  end
 
   def current_user_customers
     Customer.where("user_id = ?", current_user.id)
