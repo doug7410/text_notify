@@ -6,6 +6,7 @@ class NotificationsController < ApplicationController
     @customers = current_user_customers
     @notifications = notifications(sent: true)
     @customer = Customer.new
+    @notification.customer = Customer.new
     
   end
 
@@ -16,7 +17,16 @@ class NotificationsController < ApplicationController
 
   def create
     @notification = Notification.new(notification_params)
+    @notifications = notifications(sent: true)
     @customers = current_user_customers
+    @customer = Customer.new
+    # @customer = Customer.find_by_id(notification_params[:customer_id])
+
+    if notification_params[:customer_id].empty?
+      @notification.customer = Customer.new(customer_params.merge({user_id: current_user.id}))
+      
+      # @notification.customer = @customer if @customer.save
+    end
 
     if @notification.valid?
       if params[:do_not_send]
@@ -29,14 +39,14 @@ class NotificationsController < ApplicationController
           @notification.sent_date = Time.now 
           @notification.save
           flash[:success] = "The message has been sent."
-          redirect_to new_notification_path
+          redirect_to notifications_path
         else
-          flash[:danger] = result.error_message
-          render :new
+          render :index
         end
       end
     else
-      render :new
+      # binding.pry
+      render :index
     end
   end
 
@@ -105,8 +115,13 @@ private
     notifications
   end
 
+
   def notification_params 
     params.require(:notification).permit(:customer_id, :message)
+  end
+
+  def customer_params 
+    params.require(:customer).permit(:first_name, :last_name, :phone_number)
   end
 
   def save_without_sending(notification)
