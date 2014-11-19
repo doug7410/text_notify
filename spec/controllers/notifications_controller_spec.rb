@@ -51,29 +51,33 @@ describe NotificationsController do
 
     context "[with valid input and sending the notification to an existing customer]" do
       let!(:alice) { Fabricate(:customer, phone_number: '9546381523', user: bob_user) }
+
+      let(:valid_post_create_request) do
+        post :create, notification: {customer_id: alice.id, message: "Hello Alice!"}, customer: {first_name: "", last_name: "", phone_number: ""}
+      end
       
       it "[redirects to the notifications index path]", :vcr do
-        post :create, notification: {customer_id: alice.id, message: "Hello Alice!"}
+        valid_post_create_request
         expect(response).to redirect_to notifications_path
       end
       
       it "[saves the notification with the corrent customer and message]", :vcr do
-        post :create, notification: {customer_id: alice.id, message: "Hello Alice!"}
+        valid_post_create_request
         expect(alice.notifications.first.message).to eq("Hello Alice!")
       end
 
       it "[sets 'sent_date' for the notification to the current date]", :vcr do
-        post :create, notification: {customer_id: alice.id, message: "Hello Alice!"}
+        valid_post_create_request
         expect(alice.notifications.first.sent_date).to be_present #TODO add time cop gem to test this beter
       end
       
       it "[sets the flash success message]", :vcr do
-        post :create, notification: {customer_id: alice.id, message: "Hello Alice!"}
+        valid_post_create_request
         expect(flash[:success]).to be_present
       end
       
       it "[saves the sid from twillio for the notification]", :vcr do
-        post :create, notification: {customer_id: alice.id, message: "Hello Alice!"}
+        valid_post_create_request
         expect(Notification.last.sid).not_to be_nil
       end
     end
@@ -111,24 +115,6 @@ describe NotificationsController do
       end
     end
 
-    # context "[with valid input and saving the notification]" do
-    #   let(:bob) { Fabricate(:customer) }      
-
-    #   it "[saves the notification and does not send the message]" do
-    #     post :create, notification: {customer_id: bob.id, message: "Hello Bob!" } , do_not_send: '1'
-    #     expect(Notification.last.sid).to be_nil
-    #   end
-
-    #   it "[sets the flash message]" do
-    #     post :create, notification: {customer_id: bob.id, message: "Hello Bob!" } , do_not_send: '1'
-    #     expect(Notification.count).to eq(1)
-    #   end
-
-    #   it "[redirectst to the new notification page]" do
-    #     post :create, notification: {customer_id: bob.id, message: "Hello Bob!" } , do_not_send: '1'
-    #     expect(response).to redirect_to new_notification_path
-    #   end
-    # end
 
     context "[with invalid input and an existing customer]" do
       it "[does not save the notification with missing message]", :vcr do
