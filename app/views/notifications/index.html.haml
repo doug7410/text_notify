@@ -20,7 +20,7 @@
                     %li= msg      
             %fieldset
               %div
-                %h4 Choose an existing customer
+                = f.label :customer_id, "Choose an existing customer"
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-user
@@ -42,7 +42,7 @@
 
               %hr
               %div
-                =label_tag :message
+                =f.label :message
                 .input-group
                   %span.input-group-addon
                     %i.ace-icon.fa.fa-comment

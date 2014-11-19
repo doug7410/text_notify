@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+  helper_method :trigger_errors
+  
   protected
 
   def layout_by_resource
@@ -13,5 +15,9 @@ class ApplicationController < ActionController::Base
     else
       "application"
     end
+  end
+
+  def trigger_errors(object)
+    object.valid?
   end
 end
