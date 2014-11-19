@@ -156,8 +156,13 @@ describe NotificationsController do
     end
 
     context "[with invalid input and a new customer]" do
-        it "[renders the index template]" do
+        it "[renders the index template with invalid customer info]" do
           post :create, notification: {customer_id: "", message: "Hello Alice!"}, customer: {first_name: "Doug", last_name: "", phone_number: ""}
+          expect(response).to render_template :index
+        end
+
+        it "[renders the index template with valid customer info and a missing message]" do
+          post :create, notification: {customer_id: "", message: ""}, customer: {first_name: "Doug", last_name: "Stein", phone_number: "1234567891"}
           expect(response).to render_template :index
         end
 

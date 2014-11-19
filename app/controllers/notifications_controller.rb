@@ -29,9 +29,8 @@ class NotificationsController < ApplicationController
       if @customer.valid?
         @notification.customer = @customer
         if @notification.valid?
-          
+
           result = send_text_message(@notification)
-        
           if result.successful? 
             @notification.sid = result.response.sid
             @notification.sent_date = Time.now 
@@ -44,7 +43,8 @@ class NotificationsController < ApplicationController
             flash[:danger] = result.error_message
             render :index
           end
-
+        else
+          render :index
         end
       else
         @notification.errors.clear
