@@ -1,35 +1,73 @@
 class NotificationsController < ApplicationController
   before_filter :authenticate_user!
     
+  def index
+    @notification = Notification.new
+    @customers = current_user_customers
+    @notifications = notifications(sent: true)
+    @customer = Customer.new
+    @notification.customer = Customer.new
+    
+  end
+
   def new
     @notification = Notification.new
     @customers = current_user_customers
   end
 
   def create
-    @notification = Notification.new(notification_params)
+    @notifications = notifications(sent: true)
     @customers = current_user_customers
 
-    if @notification.valid?
-      
-      if params[:do_not_send]
-        save_without_sending(@notification)
-      else
-        result = send_text_message(@notification)
+    @notification = Notification.new(notification_params)
+    @customer = Customer.new(customer_params.merge({user_id: current_user.id}))
 
-        if result.successful? 
-          @notification.sid = result.response.sid
-          @notification.sent_date = Time.now 
-          @notification.save
-          flash[:success] = "The message has been sent."
-          redirect_to new_notification_path
+    if notification_params[:customer_id].empty? && !new_customer_form_not_empty?
+      @notification.valid?
+      render :index
+    elsif notification_params[:customer_id].empty? && new_customer_form_not_empty? 
+      if @customer.valid?
+        @notification.customer = @customer
+        if @notification.valid?
+
+          result = send_text_message(@notification)
+          if result.successful? 
+            @notification.sid = result.response.sid
+            @notification.sent_date = Time.now 
+            @notification.save
+            @customer.save
+            flash[:success] = "Success!"
+            redirect_to notifications_path
+          else
+            @notification.errors[:base] << result.error_message
+            flash[:danger] = result.error_message
+            render :index
+          end
         else
-          flash[:danger] = result.error_message
-          render :new
+          render :index
         end
+      else
+        @notification.errors.clear
+        render :index
       end
-    else
-      render :new
+    else #if the customer allready exists
+      if @notification.valid?
+        result = send_text_message(@notification)
+        
+          if result.successful? 
+            @notification.sid = result.response.sid
+            @notification.sent_date = Time.now 
+            @notification.save
+            @customer.save
+            flash[:success] = "Success!"
+            redirect_to notifications_path
+          else
+            @notification.errors[:base] << result.error_message
+            render :index
+          end
+      else
+        render :index
+      end
     end
   end
 
@@ -80,6 +118,13 @@ class NotificationsController < ApplicationController
   
 private
 
+  def new_customer_form_not_empty?
+    customer = customer_params[:first_name]
+    customer += customer_params[:last_name]
+    customer += customer_params[:phone_number]
+    !customer.empty?
+  end
+
   def current_user_customers
     Customer.where("user_id = ?", current_user.id)
   end
@@ -98,8 +143,13 @@ private
     notifications
   end
 
+
   def notification_params 
     params.require(:notification).permit(:customer_id, :message)
+  end
+
+  def customer_params 
+    params.require(:customer).permit(:first_name, :last_name, :phone_number)
   end
 
   def save_without_sending(notification)

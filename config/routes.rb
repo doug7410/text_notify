@@ -3,9 +3,10 @@ Rails.application.routes.draw do
 
   
   root to: "pages#front"
+  get '/dashboard', to: "pages#dashboard"
 
   resources :customers
-  resources :notifications, only: [:new, :create]
+  resources :notifications, only: [:index, :new, :create]
 
   get '/sent_notifications', to: 'notifications#sent'
   get '/pending_notifications', to: 'notifications#pending'

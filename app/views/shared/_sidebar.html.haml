@@ -1,4 +1,4 @@
-#sidebar.sidebar.responsive.sidebar-fixed.sidebar-scroll
+#sidebar.sidebar.h-sidebar.navbar-collapse.collapse
   #sidebar-shortcuts.sidebar-shortcuts
     #sidebar-shortcuts-large.sidebar-shortcuts-large
   %ul.nav.nav-list
@@ -10,7 +10,12 @@
         %b.arrow.fa.fa-angle-down
       %b.arrow
       %ul.submenu
-        %li.active
+        %li
+          =link_to notifications_path do
+            %i.menu-icon.fa.fa-caret-right
+            Notifications
+          %b.arrow
+        %li
           =link_to new_notification_path do
             %i.menu-icon.fa.fa-caret-right
             New Notification
@@ -25,7 +30,7 @@
             %i.menu-icon.fa.fa-caret-right
             Pending Notifications
           %b.arrow  
-    %li.active.open
+    %li
       %a.dropdown-toggle{:href => "#"}
         %i.menu-icon.fa.fa-user
         %span.menu-text

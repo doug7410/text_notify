@@ -24,12 +24,10 @@
     /[if lte IE 8]
       <script src="/assets/js/html5shiv.min.js"></script>
       <script src="/assets/js/respond.min.js"></script>
-  %body.no-skin
+  %body.skin-1
     =render 'shared/header'
-    #main-container.main-container
-      =render 'shared/sidebar'
+    #main-container.main-container.container
       .main-content
-        =render 'shared/breadcrumbs'
         .page-content
           .page-content-area
             .row
