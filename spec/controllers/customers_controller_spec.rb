@@ -13,7 +13,7 @@ describe CustomersController do
   end
 
   describe "GET index" do
-    it "only shows customers that belong to the signed in user" do
+    it "sets the @customers that belong to the signed in user" do
       tom_user = Fabricate(:user)
       customer1 = Fabricate(:customer, user: bob_user) 
       customer2 = Fabricate(:customer, user: tom_user)
@@ -37,6 +37,14 @@ describe CustomersController do
       bob_user = Fabricate(:user)
       post :create, customer: Fabricate.attributes_for(:customer,first_name: "Toby", phone_number: '(555)666-7788', user_id: bob_user.id)
       expect(bob_user.customers.first.first_name).to eq("Toby")
+    end
+
+    it "sets the @customers that belong to the signed in user" do
+      tom_user = Fabricate(:user)
+      customer1 = Fabricate(:customer, user: bob_user) 
+      customer2 = Fabricate(:customer, user: tom_user)
+      get :index
+      expect(assigns(:customers)).to eq([customer1]) 
     end
   end
 

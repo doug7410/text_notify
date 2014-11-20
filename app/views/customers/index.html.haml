@@ -76,5 +76,11 @@
             %button.btn.btn-danger.btn-sm
               %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
               Delete
-        
+%script{:src => "/assets/js/jquery-ui.custom.min.js"}
+%script{:src => "/assets/js/jquery.maskedinput.min.js"}
+:javascript
+  jQuery(function($) {
+    $.mask.definitions['~']='[+-]';
+    $('.input-mask-phone').mask('(999) 999-9999');
+  });       
             

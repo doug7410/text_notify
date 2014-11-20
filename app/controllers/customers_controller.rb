@@ -14,7 +14,8 @@ class CustomersController < ApplicationController
 
   def create
     @customer = Customer.new(customer_params.merge(formated_phone_number))
-
+    @customers = Customer.all.where("user_id = ?", current_user.id).decorate
+    
     if @customer.save
       flash[:success] = "#{@customer.first_name} #{@customer.last_name} has been successfully added."
       redirect_to :customers
