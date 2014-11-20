@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :customers
   resources :notifications, only: [:index, :new, :create]
+  resources :groups, only: [:index, :create, :show]
 
   get '/sent_notifications', to: 'notifications#sent'
   get '/pending_notifications', to: 'notifications#pending'

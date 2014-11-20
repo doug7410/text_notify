@@ -1,0 +1,13 @@
+=bootstrap_form_for @group, inline_errors: false do |f|
+  %fieldset
+    = f.alert_message "Please fix the errors below."
+    %div
+      =f.label :name, "Group Name"
+      .input-group
+        %span.input-group-addon
+          %i.ace-icon.fa.fa-group
+        =f.text_field :name, hide_label: true
+  .form-actions.center
+    %button.btn.btn-sm.btn-success{:type => "submit"}
+      Save
+      %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110

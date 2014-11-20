@@ -1,0 +1,46 @@
+=render 'shared/page_header', title: "Customer Groups"
+
+.row
+  .col-sm-6
+    .widget-box.widget-color-blue
+      .widget-header
+        %h4.widget-title
+          %i.ace-icon.fa.fa-group
+          Create a new customer group
+      .widget-body
+        .widget-main.no-padding
+          =render 'group_form'
+  .col-sm-6
+    .widget-box.widget-color-blue
+      .widget-header
+        %h4.widget-title
+          %i.ace-icon.fa.fa-list-alt
+          Your customer groups
+      .widget-body
+        .widget-main
+          - if @groups.any?
+            %table#sample-table-1.table.table-striped.table-bordered.table-hover
+              %thead
+                %tr
+                  %th Name
+                  %th Customers
+                  %th Notifications
+                  %th 
+              %tbody
+                -@groups.each do |group|
+                  %tr
+                    %td= link_to "#{group.name}", '#'
+                    %td= link_to "#{group.customers.count}", '#'
+                    %td= link_to "10", '#'
+                    %td
+                      =link_to group do
+                        %button.btn.btn-primary.btn-xs
+                          %i.ace-icon.fa.fa-pencil.align-top.bigger-125
+                          Manage
+                      %button.btn.btn-danger.btn-xs
+                        %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
+                        Delete
+          -else
+            .alert.alert-warning
+              %strong You don't have any groups yet. 
+              Use the form on the left to ad a new one

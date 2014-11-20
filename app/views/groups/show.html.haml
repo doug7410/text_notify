@@ -1,0 +1,79 @@
+.page-header
+  %h1
+    Customer Groups
+    %small
+      %i.ace-icon.fa.fa-angle-double-right
+      = @group.name
+
+.row
+  .col-sm-6
+    .widget-box.widget-color-blue
+      .widget-header
+        %h4.widget-title
+          %i.ace-icon.fa.fa-group
+          Customer group
+      .widget-body
+        .widget-main.no-padding
+          =render 'group_form'
+
+    .widget-box.widget-color-blue
+      .widget-header
+        %h4.widget-title
+          %i.ace-icon.fa.fa-list-alt
+          Customers in this group
+      .widget-body
+        .widget-main
+          - if @group_customers.any?
+            %table#sample-table-1.table.table-striped.table-bordered.table-hover
+              %thead
+                %tr
+                  %th Name
+                  %th Phone Number
+                  %th 
+              %tbody
+                -@group_customers.each do |customer|
+                  %tr
+                    %td= link_to "#{customer.name}", '#'
+                    %td= "#{customer.phone_number}"
+                    %td
+                      =link_to '#' do
+                        %button.btn.btn-primary.btn-xs
+                          %i.ace-icon.fa.fa-pencil.align-top.bigger-125
+                          Remove 
+          -else
+            .alert.alert-warning
+              %strong You don't have any customers in this group yet. 
+              Add some from the customer list.        
+  .col-sm-6
+    .widget-box.widget-color-blue
+      .widget-header
+        %h4.widget-title
+          %i.ace-icon.fa.fa-user
+          Customers
+      .widget-body
+        .widget-main
+          - if @customers_not_in_group.any?
+            %table#sample-table-1.table.table-striped.table-bordered.table-hover
+              %thead
+                %tr
+                  %th Name
+                  %th Phone Number
+                  %th 
+              %tbody
+                -@customers_not_in_group.each do |customer|
+                  %tr
+                    %td= link_to "#{customer.decorate.name}", '#'
+                    %td= "#{customer.phone_number}"
+                    %td
+                      =link_to '#' do
+                        %button.btn.btn-primary.btn-xs
+                          %i.ace-icon.fa.fa-pencil.align-top.bigger-125
+                          Add to Group 
+          -else
+            .alert.alert-warning
+              -if Customer.count > 0
+                %strong There are no customers that are not allready in this group
+                =link_to "create a new customer", new_customer_path
+              -else  
+                %strong There are no customers that are not allready in this group
+                =link_to "create a new customer", new_customer_path          
