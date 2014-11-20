@@ -6,8 +6,10 @@ class NotificationsController < ApplicationController
     @customers = current_user_customers
     @notifications = notifications(sent: true)
     @customer = Customer.new
-    @notification.customer = Customer.new
-    
+    @notification.customer = Customer.new #TODO : why do I need this?
+    @group_notification = GroupNotification.new
+    @groups = Group.where("user_id = ?", current_user.id)
+    @group = Group.new
   end
 
   def new

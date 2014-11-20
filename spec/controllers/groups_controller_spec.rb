@@ -31,9 +31,15 @@ describe GroupsController do
         expect(Group.first.name).to eq("walk in customers") 
       end
 
-      it "[redirects to the groups page]" do
+      it "[redirects to the page of the new group]" do
         post :create, group: {name: "walk in customers"}
-        expect(response).to redirect_to(groups_path)
+        group = Group.first
+        expect(response).to redirect_to(group)
+      end
+
+      it "sets the flash success message" do
+        post :create, group: {name: "walk in customers"}
+        expect(flash[:success]).not_to be_nil
       end
     end 
 

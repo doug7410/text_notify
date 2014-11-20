@@ -10,7 +10,8 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(params.require(:group).permit(:name).merge(user_id: current_user.id))
     if @group.save
-      redirect_to groups_path
+      flash[:success] = "Customer group \"#{@group.name}\" has been saved."
+      redirect_to @group
     else
       @groups = Group.where("user_id = ?", current_user.id)
       render :index

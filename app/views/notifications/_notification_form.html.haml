@@ -1,0 +1,49 @@
+.widget-box.widget-color-blue
+  .widget-header
+    %h4.widget-title
+      %i.ace-icon.fa.fa-comment
+      Send an Individual Text
+  .widget-body
+    .widget-main.no-padding 
+      = form_for @notification do |f|
+        - if @notification.errors.any? or @customer.errors.any?
+          .alert.alert-danger
+            %h5 Please fix the errors below.
+            %ul
+              - @notification.errors.full_messages.each do |msg|
+                %li= msg
+              - @customer.errors.full_messages.each do |msg|
+                %li= msg      
+        %fieldset
+          %div
+            = f.label :customer_id, "Choose an existing customer"
+            .input-group
+              %span.input-group-addon
+                %i.ace-icon.fa.fa-user
+              = f.select :customer_id, options_for_select([["Choose a customer from this list", nil]].concat( @customers.all.decorate.map {|c| [c.name + " - " +  c.display_phone_number, c.id]}), @notification.customer_id), {}, { :class => 'form-control' }
+            %hr
+            %h4 Or add a new cusomer below
+            =fields_for @customer do |c|
+              .input-group
+                .row
+                  .col-sm-3
+                    =c.label :first_name
+                    =c.text_field :first_name, class: "form-control"
+                  .col-sm-3
+                    =c.label :last_name
+                    =c.text_field :last_name, class: "form-control"
+                  .col-sm-6
+                    =c.label :phone_number
+                    =c.text_field :phone_number ,class: "form-control"
+
+          %hr
+          %div
+            =f.label :message
+            .input-group
+              %span.input-group-addon
+                %i.ace-icon.fa.fa-comment
+              =f.text_area :message, class: "form-control", :placeholder => "Type your message here. You can use up to 50 characters", hide_label: true
+        .form-actions.center
+          %button.btn.btn-sm.btn-success{:type => "submit"}
+            Send Notification
+            %i.ace-icon.fa.fa-send.icon-on-right.bigger-110
