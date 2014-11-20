@@ -33,7 +33,7 @@
               %tbody
                 -@group_customers.each do |customer|
                   %tr
-                    %td= link_to "#{customer.name}", '#'
+                    %td= link_to "#{customer.name}", customer
                     %td= "#{customer.phone_number}"
                     %td
                       =link_to remove_from_group_path(@group, customer), method: 'post' do
@@ -62,7 +62,7 @@
               %tbody
                 -@customers_not_in_group.each do |customer|
                   %tr
-                    %td= link_to "#{customer.decorate.name}", '#'
+                    %td= link_to "#{customer.decorate.name}", customer
                     %td= "#{customer.phone_number}"
                     %td
                       =link_to add_to_group_path(@group, customer), method: 'post' do
