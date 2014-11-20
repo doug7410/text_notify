@@ -94,4 +94,102 @@ describe GroupsController do
     end
   end
 
+  describe "PATCH update" do
+    context "[with valid input]" do
+      it "[redirects to the show page]" do
+        group = Fabricate(:group, user: bob_user)
+        patch :update, id: group.id,  group: {name: "new name"}
+        expect(response).to redirect_to group
+      end
+
+      it "[updates the group name]" do
+        group = Fabricate(:group, user: bob_user)
+        patch :update, id: group.id,  group: {name: "new name"}
+        expect(bob_user.groups.first.name).to eq("new name")
+      end 
+      
+      it "[sets the flash success message]" do
+        group = Fabricate(:group, user: bob_user)
+        patch :update, id: group.id,  group: {name: "new name"}
+        expect(flash[:success]).not_to be_nil
+      end
+    end
+
+    context "[with invalid input]" do
+      it "[sets the @group_customers to all the customers that are in the group]" do
+        group = Fabricate(:group, user: bob_user)
+        tom = Fabricate(:customer)
+        dave = Fabricate(:customer, phone_number: '1234566544')
+        mike = Fabricate(:customer, phone_number: '1234566547')
+        group.customers << tom
+        group.customers << dave
+        patch :update, id: group.id,  group: {name: ""}
+        expect(assigns(:group_customers)).to eq([tom, dave])
+      end
+      
+      it "[sets the @customers_not_in_group to the customers that are not in the group]" do
+        group = Fabricate(:group, user: bob_user)
+        tom = Fabricate(:customer)
+        dave = Fabricate(:customer, phone_number: '1234566544')
+        mike = Fabricate(:customer, phone_number: '1234566547')
+        group.customers << tom
+        group.customers << dave
+        patch :update, id: group.id,  group: {name: ""}
+        expect(assigns(:customers_not_in_group)).to eq([mike])
+      end
+
+      it "[sets the @group]" do
+        group = Fabricate(:group, user: bob_user)
+        patch :update, id: group.id,  group: {name: ""}
+        expect(assigns(:group)).to eq(group)
+      end
+
+      it "[renders the show template with invalid input]" do
+        group = Fabricate(:group, user: bob_user)
+        patch :update, id: group.id,  group: {name: ""}
+        expect(response).to render_template :show
+      end
+    end
+  end
+
+  describe "POST add_customer" do
+    it "[redirect_to the show page]" do
+      group = Fabricate(:group, user: bob_user)
+      dave = Fabricate(:customer)
+      post :add_customer, id: group.id, customer_id: dave.id
+      expect(response).to redirect_to group_path(group)
+    end
+
+    it "[associates the customer with the group]" do
+      group = Fabricate(:group, user: bob_user)
+      dave = Fabricate(:customer)
+      post :add_customer, id: group.id, customer_id: dave.id
+      expect(group.customers.first).to eq(dave)
+    end
+
+    it "[sets the @customers_not_in_group to the customers that are not in the group]" do
+      group = Fabricate(:group, user: bob_user)
+      tom = Fabricate(:customer)
+      dave = Fabricate(:customer, phone_number: '1234566544')
+      mike = Fabricate(:customer, phone_number: '1234566547')
+      post :add_customer, id: group.id, customer_id: tom.id
+      expect(assigns(:customers_not_in_group)).to eq([dave, mike])
+    end 
+
+    it "[sets the @group_customers to all the customers that are in the group]" do
+      group = Fabricate(:group, user: bob_user)
+      tom = Fabricate(:customer)
+      dave = Fabricate(:customer, phone_number: '1234566544')
+      mike = Fabricate(:customer, phone_number: '1234566547')
+      post :add_customer, id: group.id, customer_id: tom.id
+      expect(assigns(:group_customers)).to eq([tom])
+    end
+
+    it "[sets the @group]" do
+      group = Fabricate(:group, user: bob_user)
+      tom = Fabricate(:customer)
+      post :add_customer, id: group.id, customer_id: tom.id
+      expect(assigns(:group)).to eq(group)
+    end 
+  end
 end

@@ -14,8 +14,8 @@
           Customer group
       .widget-body
         .widget-main.no-padding
-          =render 'group_form'
-
+          =render 'group_form', button_label: "Update Group Name"
+    .space-6
     .widget-box.widget-color-blue
       .widget-header
         %h4.widget-title
@@ -65,7 +65,7 @@
                     %td= link_to "#{customer.decorate.name}", '#'
                     %td= "#{customer.phone_number}"
                     %td
-                      =link_to '#' do
+                      =link_to add_to_group_path(@group, customer), method: 'post' do
                         %button.btn.btn-primary.btn-xs
                           %i.ace-icon.fa.fa-pencil.align-top.bigger-125
                           Add to Group 

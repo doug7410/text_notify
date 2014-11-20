@@ -7,7 +7,10 @@ Rails.application.routes.draw do
 
   resources :customers
   resources :notifications, only: [:index, :new, :create]
-  resources :groups, only: [:index, :create, :show]
+  resources :groups, only: [:index, :create, :show, :update]
+
+
+  post '/add_to_group/:id/:customer_id', to: "groups#add_customer", as: "add_to_group"
 
   get '/sent_notifications', to: 'notifications#sent'
   get '/pending_notifications', to: 'notifications#pending'
