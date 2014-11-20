@@ -5,6 +5,7 @@ class CustomersController < ApplicationController
 
   def index
     @customers = Customer.all.where("user_id = ?", current_user.id).decorate
+    @customer = Customer.new
   end
 
   def new
@@ -16,9 +17,9 @@ class CustomersController < ApplicationController
 
     if @customer.save
       flash[:success] = "#{@customer.first_name} #{@customer.last_name} has been successfully added."
-      redirect_to :new_customer
+      redirect_to :customers
     else
-      render :new
+      render :index
     end
   end
 
@@ -40,6 +41,7 @@ class CustomersController < ApplicationController
     else
       flash[:warning] = "That customer does not exist."
     end
+    @customer = Customer.new
     render :index
   end
 

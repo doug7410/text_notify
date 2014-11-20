@@ -19,6 +19,11 @@ describe CustomersController do
       customer2 = Fabricate(:customer, user: tom_user)
       get :index
       expect(assigns(:customers)).to eq([customer1]) 
+    end
+
+    it "sets the new @customer" do
+      get :new
+      expect(assigns(:customer)).to be_instance_of(Customer)
     end 
   end
 
@@ -45,6 +50,11 @@ describe CustomersController do
       it "renders the index template" do
         delete :destroy, id: 1
         expect(response).to render_template(:index)
+      end
+
+      it "sets the new @customer" do
+        delete :destroy, id: 1
+        expect(assigns(:customer)).to be_instance_of(Customer)
       end 
     end
   end
