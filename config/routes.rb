@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
 
   post '/add_to_group/:id/:customer_id', to: "groups#add_customer", as: "add_to_group"
+  post '/remove_from_group/:id/:customer_id', to: "groups#remove_customer", as: "remove_from_group"
 
   get '/sent_notifications', to: 'notifications#sent'
   get '/pending_notifications', to: 'notifications#pending'

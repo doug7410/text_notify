@@ -36,9 +36,9 @@
                     %td= link_to "#{customer.name}", '#'
                     %td= "#{customer.phone_number}"
                     %td
-                      =link_to '#' do
-                        %button.btn.btn-primary.btn-xs
-                          %i.ace-icon.fa.fa-pencil.align-top.bigger-125
+                      =link_to remove_from_group_path(@group, customer), method: 'post' do
+                        %button.btn.btn-danger.btn-xs
+                          %i.ace-icon.glyphicon.glyphicon-remove.align-top.bigger-125
                           Remove 
           -else
             .alert.alert-warning
