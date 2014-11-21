@@ -30,21 +30,43 @@ describe NotificationsController do
       get :index 
       expect(assigns(:notifications)).to eq([notification1, notification2])
     end
+
+    it "[sets a new @group_notification]" do
+      get :index
+      expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
+    end
+
+    it "[sets a new customer for the notification]" do
+      get :index
+      expect(assigns(:notification).customer).to be_instance_of(Customer)
+    end  
+
+    it "[sets @groups to all the groups for the signed in user]" do
+      group1 = Fabricate(:group, user: bob_user)
+      group2 = Fabricate(:group)
+      get :index
+      expect(assigns(:groups)).to eq([group1])
+    end 
+
+    it "[sets an empty @group for the select dropdown]" do
+      get :index
+      expect(assigns(:group)).to be_instance_of(Group)
+    end
   end
 
-  describe "GET new" do
-    it "sets the new @notification" do
+  describe "GET new" do   
+    it "[sets the new @notification]" do
       get :new
       expect(assigns(:notification)).to be_instance_of(Notification)
     end
 
-    it "sets @customers to customers associated with the signed in user" do
+    it "[sets @customers to customers associated with the signed in user]" do
       tom_user = Fabricate(:user)
       customer1 = Fabricate(:customer, user: bob_user)
       customer2 = Fabricate(:customer, user: tom_user)
       get :new
       expect(assigns(:customers)).to eq([customer1])
-    end
+    end 
   end
 
   describe "POST create" do
@@ -145,6 +167,25 @@ describe NotificationsController do
         notification2 = Fabricate(:notification, customer_id: tom.id, sid: '12345')
         post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
         expect(assigns(:notifications)).to eq([notification2])
+      end
+
+      it "[sets a new @group_notification]" do
+        post :create, notification: {customer_id: "", message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
+        expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
+      end
+
+      it "[sets @groups to all the groups for the signed in user]" do
+        bob = Fabricate(:customer, user: bob_user)
+        group1 = Fabricate(:group, user: bob_user)
+        group2 = Fabricate(:group)
+        post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
+        expect(assigns(:groups)).to eq([group1])
+      end 
+
+      it "[sets an empty @group for the select dropdown]" do
+        bob = Fabricate(:customer, user: bob_user)
+        post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
+        expect(assigns(:group)).to be_instance_of(Group)
       end
 
       it "[sets the @notification and renders the index template]", :vcr do

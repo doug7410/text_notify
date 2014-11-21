@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   before_filter :go_to_ui_pages, only: [:front]
 
   def front
-    render :layout => 'front_end'
+    # render :layout => 'front_end'
   end
 
   private

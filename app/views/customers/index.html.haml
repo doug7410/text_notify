@@ -1,5 +1,38 @@
 =render 'shared/page_header', title: "View Customers"
 
+.row
+  .col-sm-12
+    .widget-box
+      .widget-body
+        .widget-main.no-padding
+          = bootstrap_form_for @customer, inline_errors: false do |f|
+            =f.hidden_field :user_id, value: current_user.id
+            %fieldset
+              = f.alert_message "Please fix the errors below."
+              %div
+                = f.label :first_name, "First Name"
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-user
+                  =f.text_field :first_name, class: "form-control", :placeholder => "Jon", hide_label: true
+                = f.label :last_name, "Last Name"
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-user
+                  =f.text_field :last_name, class: "form-control", :placeholder => "Snow", hide_label: true    
+              %hr
+              %div
+                =f.label :phone_number, "Phone Number"
+                .input-group
+                  %span.input-group-addon
+                    %i.ace-icon.fa.fa-phone
+                  =f.text_field :phone_number, class: "form-control input-mask-phone", hide_label: true
+            .form-actions.center
+              %button.btn.btn-sm.btn-success{:type => "submit"}
+                Save Customer
+                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
+.space-6
+%hr
 %form.form-inline
   Filter By:
   %input.input-medium{:placeholder => "Customer Name", :type => "text"}/
@@ -43,5 +76,11 @@
             %button.btn.btn-danger.btn-sm
               %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
               Delete
-        
+%script{:src => "/assets/js/jquery-ui.custom.min.js"}
+%script{:src => "/assets/js/jquery.maskedinput.min.js"}
+:javascript
+  jQuery(function($) {
+    $.mask.definitions['~']='[+-]';
+    $('.input-mask-phone').mask('(999) 999-9999');
+  });       
             

@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141112165651) do
+ActiveRecord::Schema.define(version: 20141120215921) do
+
+  create_table "customer_groups", force: true do |t|
+    t.integer "customer_id"
+    t.integer "group_id"
+  end
 
   create_table "customers", force: true do |t|
     t.string   "first_name"
@@ -20,6 +25,20 @@ ActiveRecord::Schema.define(version: 20141112165651) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+  end
+
+  create_table "group_notifications", force: true do |t|
+    t.integer  "group_id"
+    t.string   "group_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "notifications", force: true do |t|

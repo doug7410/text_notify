@@ -6,8 +6,10 @@ class NotificationsController < ApplicationController
     @customers = current_user_customers
     @notifications = notifications(sent: true)
     @customer = Customer.new
-    @notification.customer = Customer.new
-    
+    @notification.customer = Customer.new #TODO : why do I need this?
+    @group_notification = GroupNotification.new
+    @groups = Group.where("user_id = ?", current_user.id)
+    @group = Group.new
   end
 
   def new
@@ -19,7 +21,10 @@ class NotificationsController < ApplicationController
     @notifications = notifications(sent: true)
     @customers = current_user_customers
     @notification = Notification.new(notification_params)
-    @customer = Customer.new(customer_params.merge({user_id: current_user.id}))
+    @customer = Customer.new(customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number]), user_id: current_user.id}))
+    @group_notification = GroupNotification.new
+    @groups = Group.where("user_id = ?", current_user.id)
+    @group = Group.new
 
     if the_customer_is_missing
       trigger_errors(@notification)
