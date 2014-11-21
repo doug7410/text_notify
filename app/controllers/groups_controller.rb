@@ -54,6 +54,6 @@ private
   def set_up_customers_and_group
     @group = Group.find(params[:id])
     @group_customers = @group.customers.decorate
-    @customers_not_in_group = Customer.all - @group.customers
+    @customers_not_in_group = current_user.customers.all - @group.customers
   end 
 end

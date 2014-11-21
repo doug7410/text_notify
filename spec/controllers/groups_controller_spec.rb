@@ -88,12 +88,12 @@ describe GroupsController do
       expect(assigns(:group_customers)).to eq([tom, dave])
     end
     
-    it "[sets the @customers_not_in_group to the customers that are not in the group]" do
+    it "[sets the @customers_not_in_group to the signed in user's customers that are not in the group]" do
+      alice_user = Fabricate(:user)
       group1 = Fabricate(:group, user: bob_user)
-      tom = Fabricate(:customer)
-      dave = Fabricate(:customer, phone_number: '1234566544')
-      mike = Fabricate(:customer, phone_number: '1234566547')
-      group1.customers << tom
+      tom = Fabricate(:customer, user: alice_user)
+      dave = Fabricate(:customer, phone_number: '1234566544', user: bob_user)
+      mike = Fabricate(:customer, phone_number: '1234566547',user: bob_user)
       group1.customers << dave
       get :show, id: group1.id
       expect(assigns(:customers_not_in_group)).to eq([mike])
@@ -133,16 +133,16 @@ describe GroupsController do
         expect(assigns(:group_customers)).to eq([tom, dave])
       end
       
-      it "[sets the @customers_not_in_group to the customers that are not in the group]" do
-        group = Fabricate(:group, user: bob_user)
-        tom = Fabricate(:customer)
-        dave = Fabricate(:customer, phone_number: '1234566544')
-        mike = Fabricate(:customer, phone_number: '1234566547')
-        group.customers << tom
-        group.customers << dave
-        patch :update, id: group.id,  group: {name: ""}
-        expect(assigns(:customers_not_in_group)).to eq([mike])
-      end
+     it "[sets the @customers_not_in_group to the signed in user's customers that are not in the group]" do
+      alice_user = Fabricate(:user)
+      group1 = Fabricate(:group, user: bob_user)
+      tom = Fabricate(:customer, user: alice_user)
+      dave = Fabricate(:customer, phone_number: '1234566544', user: bob_user)
+      mike = Fabricate(:customer, phone_number: '1234566547',user: bob_user)
+      group1.customers << dave
+      get :show, id: group1.id
+      expect(assigns(:customers_not_in_group)).to eq([mike])
+    end
 
       it "[sets the @group]" do
         group = Fabricate(:group, user: bob_user)
