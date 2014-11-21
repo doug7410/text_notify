@@ -28,10 +28,7 @@ describe CustomersController do
   end
 
   describe "POST create" do
-    it "saves the phone number as a 10 digit number" do
-      post :create, customer: Fabricate.attributes_for(:customer, phone_number: '(555)666-7788')
-      expect(Customer.first.phone_number).to eq('5556667788')
-    end
+    
 
     it "associates the new customer with the signed in user" do 
       bob_user = Fabricate(:user)

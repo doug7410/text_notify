@@ -10,4 +10,10 @@ class Customer < ActiveRecord::Base
   validates :phone_number, length: { is: 10 }
   validates :phone_number, numericality: { only_integer: true }
 
+
+  def self.format_phone_number(number) 
+    number.gsub(/\D/, "")
+  end
+
+
 end

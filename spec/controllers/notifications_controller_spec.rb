@@ -169,6 +169,25 @@ describe NotificationsController do
         expect(assigns(:notifications)).to eq([notification2])
       end
 
+      it "[sets a new @group_notification]" do
+        post :create, notification: {customer_id: "", message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
+        expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
+      end
+
+      it "[sets @groups to all the groups for the signed in user]" do
+        bob = Fabricate(:customer, user: bob_user)
+        group1 = Fabricate(:group, user: bob_user)
+        group2 = Fabricate(:group)
+        post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
+        expect(assigns(:groups)).to eq([group1])
+      end 
+
+      it "[sets an empty @group for the select dropdown]" do
+        bob = Fabricate(:customer, user: bob_user)
+        post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
+        expect(assigns(:group)).to be_instance_of(Group)
+      end
+
       it "[sets the @notification and renders the index template]", :vcr do
         bob = Fabricate(:customer)
         post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
