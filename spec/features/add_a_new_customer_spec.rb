@@ -9,7 +9,7 @@ feature "Add A New customer" do
     click_button "Save Customer"
     
     expect(page).to have_content("Freddy Mercury has been successfully added")
-    expect(current_path).to eq(new_customer_path)
+    expect(current_path).to eq(customers_path)
   end
 
   scenario "[a user adds a new customer with invalid info]" do
