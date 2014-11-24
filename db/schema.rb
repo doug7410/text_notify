@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120215921) do
+ActiveRecord::Schema.define(version: 20141124223141) do
 
   create_table "customer_groups", force: true do |t|
     t.integer "customer_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20141120215921) do
     t.string   "sid"
     t.datetime "sent_date"
     t.datetime "item_picked_up_date"
+    t.integer  "group_notification_id"
   end
 
   create_table "users", force: true do |t|
