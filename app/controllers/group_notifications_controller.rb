@@ -3,16 +3,27 @@ class GroupNotificationsController < ApplicationController
 
   def create
 
-    group_notification = GroupNotification.create(params.require(:group_notification).permit(:group_id, :group_message))
+    @group_notification = GroupNotification.create(params.require(:group_notification).permit(:group_id, :group_message))
 
+    if @group_notification.valid?
+      @group_notification.group.customers.each do |customer|
+        notification = Notification.new(customer: customer, message: @group_notification.group_message, group_notification: @group_notification)
 
-    group_notification.group.customers.each do |customer|
-      notification = Notification.new(customer: customer, message: group_notification.group_message, group_notification: group_notification)
-
-        handle_sending_text_message(notification)
+          handle_sending_text_message(notification)
+      end
+      flash[:success] = "A text has been successfully sent to the \"#{@group_notification.group.name}\" group."
+      redirect_to notifications_path
+    else
+      @notification = Notification.new
+      @customers = current_user_customers
+      @notifications = notifications(sent: true)
+      @customer = Customer.new
+      @notification.customer = Customer.new #TODO : why do I need this?
+      @groups = current_user.groups.all
+      @group = Group.new
+      flash[:error] = "There was a problem."
+      render 'notifications/index'
     end
-    flash[:success] = "A text has been successfully sent to the \"#{group_notification.group.name}\" group."
-    redirect_to notifications_path
   end
 
 private 
@@ -26,5 +37,23 @@ private
     notification.sid = result.response.sid
     notification.sent_date = Time.now 
     notification.save
+  end
+
+  def current_user_customers
+    Customer.where("user_id = ?", current_user.id)
+  end
+
+  def notifications(options={})
+    notifications = []
+    current_user.customers.each do |customer|
+      customer.notifications.each do |note|
+        if options[:sent]
+          notifications << note if note.sid.present?
+        else
+          notifications << note if note.sid.nil?
+        end
+      end
+    end
+    notifications
   end
 end 
