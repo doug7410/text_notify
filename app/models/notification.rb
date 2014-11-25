@@ -4,4 +4,5 @@ class Notification < ActiveRecord::Base
   
   validates_presence_of :customer, :message
 
+
 end

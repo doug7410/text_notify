@@ -6,7 +6,7 @@ describe GroupNotificationsController do
   before { sign_in bob_user}
   
   describe "POST create" do
-    context "with valid input" do
+    context "with valid input", :vcr do
       it "redirects to the notifications index page" do
         group = Fabricate(:group)
         post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
@@ -34,13 +34,13 @@ describe GroupNotificationsController do
       end 
 
       it "sends a text message to each customer in the group" do
-        # tom = Fabricate(:customer, user: bob_user)
-        # doug = Fabricate(:customer, phone_number: '3053452021', user: bob_user)
-        # group = Fabricate(:group, user: bob_user)
-        # group.customers << [tom, doug]
-        # post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
-        # group_notification = bob_user.groups.first. group_notifications.first
-        # expect(group_notification.notifications.sent).to eq(2)
+        tom = Fabricate(:customer, user: bob_user)
+        doug = Fabricate(:customer, phone_number: '3053452021', user: bob_user)
+        group = Fabricate(:group, user: bob_user)
+        group.customers << [tom, doug]
+        post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
+        group_notification = bob_user.groups.first. group_notifications.first
+        expect(group_notification.notifications.sent.count).to eq(2)
       end 
     end
 
