@@ -1,7 +1,7 @@
 require 'spec_helper'
 include Warden::Test::Helpers
 
-describe GroupNotificationsController do
+describe GroupNotificationsController   do
   let!(:bob_user) { Fabricate(:user)}
   before { sign_in bob_user}
   
@@ -21,7 +21,7 @@ describe GroupNotificationsController do
         post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
         expect(bob_user.group_notifications.count).to eq(1)
 
-      end
+      end 
 
       it "creates a notifications for each customer associated with the group" do
         tom = Fabricate(:customer, user: bob_user)

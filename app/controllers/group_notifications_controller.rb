@@ -9,31 +9,22 @@ class GroupNotificationsController < ApplicationController
     group_notification.group.customers.each do |customer|
       notification = Notification.new(customer: customer, message: group_notification.group_message, group_notification: group_notification)
 
-        handle_sending_text_message(notification: notification)
+        handle_sending_text_message(notification)
     end
 
     redirect_to notifications_path
   end
 
-  def handle_sending_text_message(options={})
-    result = send_text_message(options[:notification])
-    # if result.successful? 
-      options[:notification].sid = result.response.sid
-      options[:notification].sent_date = Time.now 
-      options[:notification].save
-      options[:customer].save if options[:customer]
-      flash[:success] = "A text to #{options[:notification].customer.decorate.name} has been sent!"
-      # redirect_to notifications_path
-    # else
-      # options[:notification].errors[:base] << result.error_message
-      # render :index 
-    # end
-  end
+private 
 
-  def send_text_message(notification)
-    TwilioWrapper::REST::Client.send_message({
+  def handle_sending_text_message(notification)
+    result = TwilioWrapper::REST::Client.send_message({
       :to => notification.customer.phone_number,
       :body => notification.message
     })
+
+    notification.sid = result.response.sid
+    notification.sent_date = Time.now 
+    notification.save
   end
-end
+end 
