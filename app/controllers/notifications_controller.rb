@@ -39,15 +39,18 @@ class NotificationsController < ApplicationController
         end
       else
         @notification.errors.clear
+        flash[:error] = "There was a problem."
         render :index
       end
     elsif sending_to_an_existing_customer
       if @notification.valid?
         handle_sending_text_message(notification: @notification)
       else
+        flash[:error] = "There was a problem."
         render :index 
       end
     else
+      flash[:error] = "There was a problem."
       render :index
     end
   end

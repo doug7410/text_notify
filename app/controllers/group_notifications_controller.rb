@@ -11,7 +11,7 @@ class GroupNotificationsController < ApplicationController
 
         handle_sending_text_message(notification)
     end
-
+    flash[:success] = "A text has been successfully sent to the \"#{group_notification.group.name}\" group."
     redirect_to notifications_path
   end
 

@@ -194,6 +194,13 @@ describe NotificationsController do
         expect(response).to render_template :index
         expect(assigns(:notification)).to be_instance_of(Notification)
       end
+
+      it "[sets the flash error message]" do
+        bob = Fabricate(:customer)
+        post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
+        expect(response).to render_template :index
+        expect(flash[:error]).to be_present
+      end
     end
 
     context "[with invalid input and a new customer]" do

@@ -42,6 +42,14 @@ describe GroupNotificationsController   do
         group_notification = bob_user.groups.first. group_notifications.first
         expect(group_notification.notifications.sent.count).to eq(2)
       end 
+
+      it "sets the flash success message" do
+        tom = Fabricate(:customer, user: bob_user)
+        group = Fabricate(:group, user: bob_user)
+        group.customers << [tom]
+        post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
+        expect(flash[:success]).to be_present
+      end
     end
 
     context "with invalid input" do
