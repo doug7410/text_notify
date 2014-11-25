@@ -36,24 +36,17 @@
       %th
         Sent on
         %i.ace-icon.fa.fa-calendar.bigger-110
-      %th
-        Picked up on 
-        %i.ace-icon.fa.fa-calendar.bigger-110
       %th Customer
       %th Phone Number
       %th Message
-      %th
   %tbody
     -@notifications.each do |notification|
       %tr
         %td= notification.decorate.sent_date
-        %td= notification.item_picked_up_date
         %td
           = link_to notification.customer.decorate.name, customer_path(notification.customer)
         %td= notification.customer.phone_number
         %td= notification.message
-        %td
-          %button.btn.btn-danger.btn-xs Mark Picked Up
             
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
