@@ -33,10 +33,14 @@ private
       :to => notification.customer.phone_number,
       :body => notification.message
     })
-
-    notification.sid = result.response.sid
-    notification.sent_date = Time.now 
-    notification.save
+    binding.pry
+    if result.successful?
+      notification.sid = result.response.sid
+      notification.sent_date = Time.now 
+      notification.save
+    else
+      notification.save
+    end
   end
 
   def current_user_customers

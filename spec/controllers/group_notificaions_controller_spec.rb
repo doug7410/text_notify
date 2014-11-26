@@ -33,7 +33,7 @@ describe GroupNotificationsController   do
         expect(group_notification.notifications.count).to eq(2)
       end 
 
-      it "sends a text message to each customer in the group" do
+      it "[sends a text message to each customer in the group]" do
         tom = Fabricate(:customer, user: bob_user)
         doug = Fabricate(:customer, phone_number: '3053452021', user: bob_user)
         group = Fabricate(:group, user: bob_user)
@@ -53,7 +53,18 @@ describe GroupNotificationsController   do
     end
 
     context "[with valid input and failed phone numbers]" do
-      
+      it "[sends the texts to the valid numbers]" do
+        tom = Fabricate(:customer, user: bob_user)
+        doug = Fabricate(:customer, phone_number: '5555555555', user: bob_user)
+        group = Fabricate(:group, user: bob_user)
+        group.customers << [tom, doug]
+        post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
+        group_notification = bob_user.groups.first. group_notifications.first
+        expect(group_notification.notifications.sent.count).to eq(1)
+
+      end
+      it "[sets the status of the failed phone numbers to 'failed']"
+
     end
 
     context "[with invalid input]" do
