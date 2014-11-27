@@ -1,6 +1,6 @@
 class TwilioWrapper
   attr_reader :response, :error_message
-  @@client = Twilio::REST::Client.new(ENV['twilio_account_sid'], ENV['twilio_auth_token'])
+  @client = Twilio::REST::Client.new(ENV['twilio_account_sid'], ENV['twilio_auth_token'])
 
   def initialize(options={})
     @response = options[:response]
@@ -11,7 +11,7 @@ class TwilioWrapper
     begin
       
 
-      response = @@client.account.messages.create({
+      response = @client.account.messages.create({
         :from => '+18554965033',  
         # :from => '+15005550006',  
         :to => options[:to], 
@@ -19,7 +19,7 @@ class TwilioWrapper
         :status_callback => 'http://text-notify.herokuapp.com/twilio_callback'
       })
 
-      message = @@client.account.messages.get(response.sid)
+      message = @client.account.messages.get(response.sid)
       error_message = message.error_message
 
       # binding.pry
