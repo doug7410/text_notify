@@ -35,10 +35,9 @@ private
     })
     if result.successful?
       notification.sid = result.response.sid
-      # notification.status = TwilioWrapper.message_status(notification.sid) 
       notification.save
     else
-      # notification.status = 'failed'  
+      notification.status = 'failed'  
       notification.save
     end
   end

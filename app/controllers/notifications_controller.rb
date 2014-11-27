@@ -118,7 +118,6 @@ private
     result = send_text_message(options[:notification])
     if result.successful? 
       options[:notification].sid = result.response.sid
-      options[:notification].status = TwilioWrapper.message_status(result.response.sid) 
       options[:notification].save
       options[:customer].save if options[:customer]
       flash[:success] = "A text to #{options[:notification].customer.decorate.name} has been sent!"
