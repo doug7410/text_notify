@@ -6,6 +6,10 @@
     = f.label :email
     %br/
     = f.email_field :email, autofocus: true
+    %br/
+    = f.label :full_name
+    %br/
+    = f.text_field :full_name
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     %div
       Currently waiting confirmation for: #{resource.unconfirmed_email}
