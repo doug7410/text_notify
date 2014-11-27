@@ -7,7 +7,7 @@ class GroupNotificationsController < ApplicationController
 
     if @group_notification.valid?
       @group_notification.group.customers.each do |customer|
-        notification = Notification.new(customer: customer, message: @group_notification.group_message, group_notification: @group_notification)
+        notification = Notification.new(customer: customer, message: @group_notification.group_message, group_notification_id: @group_notification.id)
 
           handle_sending_text_message(notification)
       end
