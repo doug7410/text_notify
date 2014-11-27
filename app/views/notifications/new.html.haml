@@ -7,7 +7,7 @@
         .widget-main.no-padding 
           = bootstrap_form_for @notification, inline_errors: false do |f|
             %fieldset
-              = f.alert_message "Please fix the errors below."
+              = f.alert_message
               %div
                 =f.label :customer_id, "Choose a customer"
                 or
