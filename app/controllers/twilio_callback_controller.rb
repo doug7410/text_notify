@@ -4,6 +4,7 @@ class TwilioCallbackController < ApplicationController
   def status
     notification = Notification.where("sid = ?", params[:MessageSid]).first
     notification.status = params[:MessageStatus]
+    notification.error_code = params[:ErrorCode]
     notification.save
   end
 
