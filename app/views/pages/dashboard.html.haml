@@ -4,30 +4,30 @@
   .col-xs-5
     %h3.lead 
       Your Business Profile 
-      %small=link_to "Edit your profile", "#"
+      %small=link_to "Edit your profile", edit_user_registration_path
     .profile-user-info.profile-user-info-striped
       .profile-info-row
         .profile-info-name Full Name
         .profile-info-value
-          %span#username.editable John Doe
+          %span#username.editable= current_user.full_name
       .profile-info-row
         .profile-info-name Email 
         .profile-info-value
-          %span#city.editable john@example.com
+          %span#city.editable= current_user.email
       .profile-info-row
         .profile-info-name Company Name 
         .profile-info-value
-          %span#age.editable Some Cool Company
+          %span#age.editable Some Cool Company <TODO>
           %br 
           %small (this will appear in the text you send to customers)
       .profile-info-row
         .profile-info-name Joined
         .profile-info-value
-          %span#signup.editable 2010/06/20
+          %span#signup.editable= current_user.created_at
       .profile-info-row
         .profile-info-name Membership
         .profile-info-value
-          %span#login.editable Gold
+          %span#login.editable Gold <TODO>
 
   .col-xs-7
     %h3.lead Your Text Notify Stats  
@@ -36,39 +36,53 @@
         .infobox-icon
           %i.ace-icon.fa.fa-user
         .infobox-data
-          %span.infobox-data-number 32
+          %span.infobox-data-number= @customers.count
           .infobox-content 
             customers
-            =link_to "view", "#"
+            =link_to "view", customers_path
       .infobox.infobox-blue
         .infobox-icon
           %i.ace-icon.fa.fa-group
         .infobox-data
-          %span.infobox-data-number 3
+          %span.infobox-data-number=current_user.groups.count
           .infobox-content 
             customer groups
-            =link_to "view", "#"
+            =link_to "view", groups_path
       .infobox.infobox-pink
         .infobox-icon
           %i.ace-icon.fa.fa-send
         .infobox-data
-          %span.infobox-data-number 25
+          %span.infobox-data-number= Notification.all.delivered.count
           .infobox-content 
             deliverd notifications 
-            =link_to "view", "#"
+            =link_to "view", notifications_path
       .infobox.infobox-orange2
         .infobox-icon
           %i.ace-icon.fa.fa-send-o
         .infobox-data
-          %span.infobox-data-number 10
+          %span.infobox-data-number= current_user.group_notifications.count
           .infobox-content 
             group notifications
-            =link_to "view", "#"
+            =link_to "view", notifications_path
       .infobox.infobox-red
         .infobox-icon
           %i.ace-icon.fa.fa-send-o
         .infobox-data
-          %span.infobox-data-number 6
+          %span.infobox-data-number= Notification.all.failed.count
           .infobox-content 
             failed deliveries 
-            =link_to "view", "#"
+            =link_to "view", notifications_path
+%hr
+.row
+  .col-sm-4
+    =link_to notifications_path, class: "btn btn-app dash-btn btn-success" do
+      %i.ace-icon.fa.fa-send.bigger-230
+      New Notification
+  .col-sm-4
+    =link_to customers_path, class: "btn btn-app dash-btn" do
+      %i.ace-icon.fa.fa-user.bigger-230
+      Add Customer
+  .col-sm-4
+    =link_to groups_path, class: "btn btn-app dash-btn btn-purple" do
+      %i.ace-icon.fa.fa-group.bigger-230
+      Add Group    
