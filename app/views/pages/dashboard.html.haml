@@ -1,3 +1,74 @@
 =render 'shared/page_header', title: "Dashboard"
 
-Statistics about customers, notifications, and groups will go here as well as information from the users profile. Use the links above to explore the current functionality in the app.
+.row
+  .col-xs-5
+    %h3.lead 
+      Your Business Profile 
+      %small=link_to "Edit your profile", "#"
+    .profile-user-info.profile-user-info-striped
+      .profile-info-row
+        .profile-info-name Full Name
+        .profile-info-value
+          %span#username.editable John Doe
+      .profile-info-row
+        .profile-info-name Email 
+        .profile-info-value
+          %span#city.editable john@example.com
+      .profile-info-row
+        .profile-info-name Company Name 
+        .profile-info-value
+          %span#age.editable Some Cool Company
+          %br 
+          %small (this will appear in the text you send to customers)
+      .profile-info-row
+        .profile-info-name Joined
+        .profile-info-value
+          %span#signup.editable 2010/06/20
+      .profile-info-row
+        .profile-info-name Membership
+        .profile-info-value
+          %span#login.editable Gold
+
+  .col-xs-7
+    %h3.lead Your Text Notify Stats  
+    .infobox-container
+      .infobox.infobox-green
+        .infobox-icon
+          %i.ace-icon.fa.fa-user
+        .infobox-data
+          %span.infobox-data-number 32
+          .infobox-content 
+            customers
+            =link_to "view", "#"
+      .infobox.infobox-blue
+        .infobox-icon
+          %i.ace-icon.fa.fa-group
+        .infobox-data
+          %span.infobox-data-number 3
+          .infobox-content 
+            customer groups
+            =link_to "view", "#"
+      .infobox.infobox-pink
+        .infobox-icon
+          %i.ace-icon.fa.fa-send
+        .infobox-data
+          %span.infobox-data-number 25
+          .infobox-content 
+            deliverd notifications 
+            =link_to "view", "#"
+      .infobox.infobox-orange2
+        .infobox-icon
+          %i.ace-icon.fa.fa-send-o
+        .infobox-data
+          %span.infobox-data-number 10
+          .infobox-content 
+            group notifications
+            =link_to "view", "#"
+      .infobox.infobox-red
+        .infobox-icon
+          %i.ace-icon.fa.fa-send-o
+        .infobox-data
+          %span.infobox-data-number 6
+          .infobox-content 
+            failed deliveries 
+            =link_to "view", "#"
