@@ -6,6 +6,7 @@ class TwilioCallbackController < ApplicationController
     notification.status = params[:MessageStatus]
     notification.error_code = params[:ErrorCode]
     notification.save
+    render nothing: true
   end
 
   private
