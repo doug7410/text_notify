@@ -20,5 +20,7 @@ Rails.application.routes.draw do
   
   post '/send_pending_notification', to: 'notifications#send_notification'
 
+  post '/twilio_callback', to: 'twilio_callback#status'
+
   get 'ui(/:action)', controller: 'ui'
 end

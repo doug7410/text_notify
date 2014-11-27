@@ -16,9 +16,9 @@ class GroupNotificationsController < ApplicationController
     else
       @notification = Notification.new
       @customers = current_user_customers
-      @notifications = notifications(sent: true)
+      @notifications = Notification.all
       @customer = Customer.new
-      @notification.customer = Customer.new #TODO : why do I need this?
+      # @notification.customer = Customer.new #TODO : why do I need this?
       @groups = current_user.groups.all
       @group = Group.new
       flash[:error] = "There was a problem."
@@ -29,16 +29,16 @@ class GroupNotificationsController < ApplicationController
 private 
 
   def handle_sending_text_message(notification)
-    result = TwilioWrapper::REST::Client.send_message({
+    result = TwilioWrapper.send_message({
       :to => notification.customer.phone_number,
       :body => notification.message
     })
-    binding.pry
     if result.successful?
       notification.sid = result.response.sid
-      notification.sent_date = Time.now 
+      # notification.status = TwilioWrapper.message_status(notification.sid) 
       notification.save
     else
+      # notification.status = 'failed'  
       notification.save
     end
   end
@@ -47,17 +47,5 @@ private
     Customer.where("user_id = ?", current_user.id)
   end
 
-  def notifications(options={})
-    notifications = []
-    current_user.customers.each do |customer|
-      customer.notifications.each do |note|
-        if options[:sent]
-          notifications << note if note.sid.present?
-        else
-          notifications << note if note.sid.nil?
-        end
-      end
-    end
-    notifications
-  end
+  
 end 

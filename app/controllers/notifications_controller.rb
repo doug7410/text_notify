@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
   def index
     @notification = Notification.new
     @customers = current_user_customers
-    @notifications = notifications(sent: true)
+    @notifications = Notification.all
     @customer = Customer.new
     @notification.customer = Customer.new #TODO : why do I need this?
     @group_notification = GroupNotification.new
@@ -118,7 +118,7 @@ private
     result = send_text_message(options[:notification])
     if result.successful? 
       options[:notification].sid = result.response.sid
-      options[:notification].sent_date = Time.now 
+      options[:notification].status = TwilioWrapper.message_status(result.response.sid) 
       options[:notification].save
       options[:customer].save if options[:customer]
       flash[:success] = "A text to #{options[:notification].customer.decorate.name} has been sent!"
@@ -170,7 +170,7 @@ private
   end
 
   def send_text_message(notification)
-    TwilioWrapper::REST::Client.send_message({
+    TwilioWrapper.send_message({
       :to => notification.customer.phone_number,
       :body => notification.message
     })

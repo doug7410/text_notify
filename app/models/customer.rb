@@ -1,6 +1,6 @@
 class Customer < ActiveRecord::Base
   belongs_to :user
-  has_many :notifications
+  has_many :notifications, -> { order "created_at ASC" }
   
   has_many :customer_groups
   has_many :groups, through: :customer_groups

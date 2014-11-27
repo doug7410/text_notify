@@ -2,7 +2,7 @@ class NotificationDecorator < Draper::Decorator
   delegate_all
 
   def sent_date
-    object.sent_date.strftime("%m/%d/%Y - %I:%M%p") if object.sent_date
+    object.created_on.strftime("%m/%d/%Y - %I:%M%p") if object.sent_date
   end
 
   def created_at

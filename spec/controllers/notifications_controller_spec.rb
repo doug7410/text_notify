@@ -23,12 +23,12 @@ describe NotificationsController do
       expect(assigns(:customer)).to be_instance_of(Customer)
     end
 
-    it "sets @notifications to the sent notifications" do
+    it "sets @notifications to all the notifications ordered DESC by created on date" do
       tom = Fabricate(:customer, user: bob_user)
-      notification1 = Fabricate(:notification, customer: tom, sid: '123456')
+      notification1 = Fabricate(:notification, customer: tom, sid: '123456', created_at: 1.days.ago)
       notification2 = Fabricate(:notification, customer: tom, sid: '123456')
       get :index 
-      expect(assigns(:notifications)).to eq([notification1, notification2])
+      expect(assigns(:notifications)).to eq(Notification.all)
     end
 
     it "[sets a new @group_notification]" do
@@ -109,7 +109,7 @@ describe NotificationsController do
         post :create, notification: {customer_id: "", message: "Hello Alice!"}, customer: Fabricate.attributes_for(:customer, first_name: "Douglas")
       end
 
-      it "[redirects to the notifications index path]", :vcr do
+      it "[redirects to the notifications index path]", record: :none do
         valid_post_create_request
         expect(response).to redirect_to notifications_path
       end
