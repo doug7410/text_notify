@@ -13,7 +13,6 @@ class TwilioWrapper
 
       response = @client.account.messages.create({
         :from => '+18554965033',  
-        # :from => '+15005550006',  
         :to => options[:to], 
         :body => options[:body],
         :status_callback => 'http://text-notify.herokuapp.com/twilio_callback'
@@ -22,12 +21,10 @@ class TwilioWrapper
       message = @client.account.messages.get(response.sid)
       error_message = message.error_message
 
-      # binding.pry
       if error_message
         new(error_message: "There was a problem with the phone number - (#{error_message}) - Please verify that the number is correct.")
       else
         new(response: response)
-        # binding.pry
       end
     rescue Twilio::REST::RequestError => e
       new(error_message: e.message)
@@ -43,5 +40,3 @@ class TwilioWrapper
     response.present?  
   end
 end 
-
-

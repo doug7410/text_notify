@@ -2,7 +2,6 @@ class GroupNotificationsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-
     @group_notification = GroupNotification.create(params.require(:group_notification).permit(:group_id, :group_message))
 
     if @group_notification.valid?
@@ -45,6 +44,4 @@ private
   def current_user_customers
     Customer.where("user_id = ?", current_user.id)
   end
-
-  
 end 
