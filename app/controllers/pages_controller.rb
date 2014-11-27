@@ -1,14 +1,28 @@
 class PagesController < ApplicationController
   
-  before_filter :go_to_ui_pages, only: [:front]
+  before_filter :authenticate_user!, only: [:dashboard]
+  
 
   def front
-    # render :layout => 'front_end'
+    redirect_to dashboard_path if current_user
+  end 
+
+  def dashboard
+    @customers = current_user.customers.all
+    @notifications = all_notifications(@customers)
   end
 
-  private
-  
-  def go_to_ui_pages
-    redirect_to dashboard_path if user_signed_in?
+private
+
+  def all_notifications(customers)
+    notifications = []
+      
+    customers.each do |customer|
+      customer.notifications.each do |notification|
+        notifications << notification
+      end
+    end
+    notifications
   end
+
 end
