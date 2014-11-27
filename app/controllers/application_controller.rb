@@ -3,19 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  # layout :layout_by_resource
-
   helper_method :trigger_errors
   
   protected
 
-  def layout_by_resource
-    if devise_controller? && resource_name == :user && action_name == "new"
-       #I origonally had a different layout, I'm leaving this incase I want to change later
-    else
-      "application"
-    end
-  end 
 
   def trigger_errors(object)
     object.valid?
