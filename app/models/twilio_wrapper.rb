@@ -11,10 +11,12 @@ module TwilioWrapper
 
       def self.send_message(options={})
         begin
-          client = Twilio::REST::Client.new(ENV['twilio_account_sid'], ENV['twilio_auth_token'])
+          client = Twilio::REST::Client.new(
+            , ENV['twilio_auth_token'])
 
           response = client.account.messages.create({
-            :from => '+15619238682',  
+            :from => '+15005550006',  
+            # :from => '+15619238682',  
             :to => options[:to], 
             :body => options[:body]  
           })

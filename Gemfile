@@ -12,7 +12,7 @@ gem 'haml-rails'
 gem 'devise'
 gem 'bootstrap_form'
 gem 'draper', '~> 1.3'
-gem 'twilio-ruby' 
+gem 'twilio-ruby', '~> 3.12'
 gem 'figaro'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
