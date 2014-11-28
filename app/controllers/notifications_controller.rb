@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
   def index
     @notification = Notification.new
     @customers = current_user_customers
-    @notifications = Notification.where(user: current_user)
+    @notifications = Notification.where(user_id: current_user.id)
     @customer = Customer.new
     @notification.customer = Customer.new #TODO : why do I need this?
     @group_notification = GroupNotification.new
@@ -13,9 +13,9 @@ class NotificationsController < ApplicationController
   end
 
   def create
-    @notifications = Notification.where(user: current_user)
+    @notifications = Notification.where(user_id: current_user.id)
     @customers = current_user_customers
-    @notification = Notification.new(notification_params.merge(user: current_user))
+    @notification = Notification.new(notification_params.merge(user_id: current_user.id))
     @customer = Customer.new(customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number]), user_id: current_user.id}))
     @group_notification = GroupNotification.new
     @groups = Group.where("user_id = ?", current_user.id)

@@ -15,7 +15,7 @@ class GroupNotificationsController < ApplicationController
     else
       @notification = Notification.new
       @customers = current_user_customers
-      @notifications = Notification.where(user: current_user)
+      @notifications = Notification.where(user_id: current_user.id)
       @customer = Customer.new
       # @notification.customer = Customer.new #TODO : why do I need this?
       @groups = current_user.groups.all
