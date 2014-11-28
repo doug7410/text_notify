@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/dashboard', to: "pages#dashboard", as: "dashboard"
 
   resources :customers
-  resources :notifications, only: [:index, :new, :create]
+  resources :notifications, only: [:index, :create]
   resources :groups, only: [:index, :create, :show, :update]
   resources :group_notifications, only: [:create]
 
