@@ -15,7 +15,7 @@ class GroupNotificationsController < ApplicationController
     else
       @notification = Notification.new
       @customers = current_user_customers
-      @notifications = Notification.all
+      @notifications = Notification.where(user: current_user)
       @customer = Customer.new
       # @notification.customer = Customer.new #TODO : why do I need this?
       @groups = current_user.groups.all
@@ -33,9 +33,11 @@ private
       :body => notification.message
     })
     if result.successful?
+      notification.user = current_user
       notification.sid = result.response.sid
       notification.save
     else
+      notification.user = current_user
       notification.status = 'failed'  
       notification.save
     end

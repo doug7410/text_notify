@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141127013248) do
+ActiveRecord::Schema.define(version: 20141128171721) do
 
   create_table "customer_groups", force: true do |t|
     t.integer "customer_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20141127013248) do
     t.integer  "group_notification_id"
     t.string   "status"
     t.string   "error_code"
+    t.integer  "user_id"
   end
 
   create_table "users", force: true do |t|

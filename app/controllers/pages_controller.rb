@@ -10,21 +10,8 @@ class PagesController < ApplicationController
   def dashboard
     @customers = current_user.customers.all
     @notifications = all_notifications(@customers)
-
-    @delivered_notifications = []
-    @failed_notifications = []
-
-    @notifications.each do |notification|
-      if notification.status ==  'delivered'
-        @delivered_notifications << notification
-      end
-    end
-
-    @notifications.each do |notification|
-      if notification.status !=  'delivered'
-        @failed_notifications << notification
-      end
-    end
+    @delivered_notifications = current_user.notifications.delivered.all
+    @failed_notifications = current_user.notifications.failed.all 
   end
 
 private
