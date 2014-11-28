@@ -60,7 +60,7 @@ describe GroupNotificationsController   do
         group.customers << [tom, doug]
         post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
         group_notification = bob_user.groups.first. group_notifications.first
-        expect(group_notification.notifications.delivered.count).to eq(1)
+        expect(group_notification.notifications.last.status).not_to eq('failed')
       end
 
       it "[sets the status of the failed phone numbers to 'failed']", :vcr do
@@ -101,21 +101,16 @@ describe GroupNotificationsController   do
         expect(assigns(:customer)).to be_instance_of(Customer)
       end
 
-      it "sets @notifications to the sent notifications", :vcr do
-        notification1 = Fabricate(:notification, customer: tom, sid: '123456')
+      it "sets @notifications to the signed in user's notifications", :vcr do
+        notification1 = Fabricate(:notification, customer: tom, sid: '123456', user: bob_user)
         notification2 = Fabricate(:notification, customer: tom, sid: '123456')
         invalid_post_request
-        expect(assigns(:notifications)).to eq([notification2, notification1])
+        expect(assigns(:notifications)).to eq([notification1])
       end
 
       it "[sets the @group_notification]", :vcr do
         invalid_post_request
         expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
-      end
-
-      it "[sets a new customer for the notification]", :vcr do
-        invalid_post_request
-        expect(assigns(:notification).customer).to be_instance_of(Customer)
       end  
 
       it "[sets @groups to all the groups for the signed in user]", :vcr do
