@@ -21,15 +21,24 @@ describe PagesController do
       expect(assigns(:customers)).to eq([doug, tom])
     end
 
-    it "sets all the @notifications for the signed in user" do
+    it "sets all the @delivered_notifications for the signed in user" do
       doug = Fabricate(:customer, user: bob_user) 
-      notification1 = Fabricate(:notification, customer: doug)
+      notification1 = Fabricate(:notification, customer: doug, status: "delivered")
       notification2 = Fabricate(:notification, customer: doug)
 
       get :dashboard
-      expect(assigns(:notifications)).to eq([notification2, notification1])
+      expect(assigns(:delivered_notifications)).to eq([notification1])
 
     end
-  
+    
+    it "sets all the @failed_notifications for the signed in user" do
+      doug = Fabricate(:customer, user: bob_user) 
+      notification1 = Fabricate(:notification, customer: doug, status: "delivered")
+      notification2 = Fabricate(:notification, customer: doug)
+
+      get :dashboard
+      expect(assigns(:failed_notifications)).to eq([notification2])
+
+    end  
   end
 end

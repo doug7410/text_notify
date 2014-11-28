@@ -52,7 +52,7 @@
         .infobox-icon
           %i.ace-icon.fa.fa-send
         .infobox-data
-          %span.infobox-data-number= Notification.all.delivered.count
+          %span.infobox-data-number= @delivered_notifications.count
           .infobox-content 
             deliverd notifications 
             =link_to "view", notifications_path
@@ -68,7 +68,7 @@
         .infobox-icon
           %i.ace-icon.fa.fa-send-o
         .infobox-data
-          %span.infobox-data-number= Notification.all.failed.count
+          %span.infobox-data-number= @failed_notifications.count
           .infobox-content 
             failed deliveries 
             =link_to "view", notifications_path
