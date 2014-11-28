@@ -23,7 +23,8 @@ describe PagesController do
 
     it "sets all the @delivered_notifications for the signed in user" do
       doug = Fabricate(:customer, user: bob_user) 
-      notification1 = Fabricate(:notification, customer: doug, status: "delivered")
+      notification1 = Fabricate(:notification, customer: doug, status: "delivered", user: bob_user)
+      notification2 = Fabricate(:notification, customer: doug, status: "delivered")
       notification2 = Fabricate(:notification, customer: doug)
 
       get :dashboard
@@ -33,8 +34,9 @@ describe PagesController do
     
     it "sets all the @failed_notifications for the signed in user" do
       doug = Fabricate(:customer, user: bob_user) 
-      notification1 = Fabricate(:notification, customer: doug, status: "delivered")
-      notification2 = Fabricate(:notification, customer: doug)
+      notification1 = Fabricate(:notification, customer: doug, status: "delivered", user: bob_user)
+      notification2 = Fabricate(:notification, customer: doug, status: "failed", user: bob_user)
+      notification3 = Fabricate(:notification, customer: doug)
 
       get :dashboard
       expect(assigns(:failed_notifications)).to eq([notification2])
