@@ -15,6 +15,11 @@ gem 'draper', '~> 1.3'
 gem 'twilio-ruby', '~> 3.12'
 gem 'figaro'
 gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'slim'
+gem 'sidekiq'
+gem 'unicorn'
+gem 'paratrooper'
 
 group :development do
   gem 'spring'

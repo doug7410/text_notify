@@ -34,7 +34,7 @@ describe TwilioWrapper do
      end
   end
 
-  describe '#message_status' do
+  describe '#message_status', :vcr do
 
     it "sets the message status" do
       expect(TwilioWrapper.message_status('SM073e2f4c26e64eafa589d77229c07877')).to eq('delivered')

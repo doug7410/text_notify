@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
   before_filter :authenticate_user!
+  before_action :update_notification_statuses!
     
   def index
     @notification = Notification.new
@@ -53,6 +54,10 @@ class NotificationsController < ApplicationController
 
   
 private
+
+  def update_notification_statuses!
+    Notification.where(user_id: current_user.id).each { |n| n.update_status! }
+  end
 
   def sending_to_an_existing_customer
     notification_params[:customer_id]

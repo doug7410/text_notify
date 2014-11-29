@@ -15,18 +15,18 @@ feature "Sent a text to an individual customer" do
 
   scenario '[send a text to a new customer with valid input]', :vcr do
     visit notifications_path
-    fill_in_notification_form(first_name: "John", last_name: "Doe", phone_number: "5005550006", message: "I'm a message!") 
+    fill_in_notification_form(first_name: "John", last_name: "Doe", phone_number: "9546381523", message: "I'm a message!") 
     click_button "Send Notification" 
     expect(page).to have_content("A text to John Doe has been sent!")
   end
  
   scenario '[send a text to an new customer with invalid input]', :vcr do
     visit notifications_path
-    fill_in_notification_form(first_name: "", last_name: "Doe", phone_number: "5005550006", message: "I'm a message!") 
+    fill_in_notification_form(first_name: "", last_name: "Doe", phone_number: "9546381523", message: "I'm a message!") 
     click_button "Send Notification" 
     expect(page).to have_content("First name can't be blank")
 
-    fill_in_notification_form(first_name: "John", last_name: "Doe", phone_number: "5005550006", message: "") 
+    fill_in_notification_form(first_name: "John", last_name: "Doe", phone_number: "9546381523", message: "") 
     click_button "Send Notification" 
     expect(page).to have_content("Message can't be blank")
   end
