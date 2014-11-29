@@ -7,6 +7,7 @@ class GroupNotificationsController < ApplicationController
     if @group_notification.valid?
       @group_notification.group.customers.each do |customer|
         notification = Notification.create(customer_id: customer.id, message: @group_notification.group_message, group_notification_id: @group_notification.id, user_id: current_user.id)
+          sleep 1
 
           Notification.delay.send_text(notification.id)
       end
