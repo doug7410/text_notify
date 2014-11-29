@@ -25,7 +25,7 @@ class Notification < ActiveRecord::Base
     end
   end
 
-  def update_status
+  def update_status!
     if (self.sid and self.status == nil) or (self.sid and self.status == 'sent') 
       self.update(status: TwilioWrapper.message_status(sid)) 
     end
