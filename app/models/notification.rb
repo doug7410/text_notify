@@ -9,4 +9,21 @@ class Notification < ActiveRecord::Base
   validates_presence_of :customer, :user, :message
 
 
+  def send_text(user)
+    result = TwilioWrapper.send_message({
+      :to => customer.phone_number,
+      :body => message
+    })
+    if result.successful?
+      self.user = user
+      self.sid = result.response.sid
+      self.save
+    else
+      self.user = user
+      self.status = 'failed'  
+      self.save
+    end
+  end
+
+
 end
