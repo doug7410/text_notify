@@ -32,7 +32,7 @@ class TwilioWrapper
   end
 
   def self.message_status(sid)
-    message = @@client.account.messages.get(sid)
+    message = @client.account.messages.get(sid)
     message.status
   end 
 

@@ -1,5 +1,7 @@
 class GroupNotificationsController < ApplicationController
   before_filter :authenticate_user!
+  before_action :update_notification_statuses!
+
 
   def create
     @group_notification = GroupNotification.create(params.require(:group_notification).permit(:group_id, :group_message))
@@ -15,8 +17,10 @@ class GroupNotificationsController < ApplicationController
       flash[:success] = "A text has been successfully sent to the \"#{@group_notification.group.name}\" group."
       redirect_to notifications_path
     else
+      
       @notification = Notification.new
       @customers = current_user_customers
+      update_notification_statuses  
       @notifications = Notification.where(user_id: current_user.id)
       @customer = Customer.new
       @groups = current_user.groups.all
@@ -27,6 +31,10 @@ class GroupNotificationsController < ApplicationController
   end
 
 private 
+
+  def update_notification_statuses!
+    Notification.where(user_id: current_user.id).each { |n| n.update_status! }
+  end
 
   def current_user_customers
     Customer.where("user_id = ?", current_user.id)

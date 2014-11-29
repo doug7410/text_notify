@@ -11,7 +11,6 @@ class Notification < ActiveRecord::Base
 
 
   def self.send_text(notification_id)
-    sleep 1
     notification = self.find(notification_id)
     result = TwilioWrapper.send_message({
       :to => notification.customer.phone_number,
@@ -25,6 +24,13 @@ class Notification < ActiveRecord::Base
       notification.save
     end
   end
+
+  def update_status
+    if (self.sid and self.status == nil) or (self.sid and self.status == 'sent') 
+      self.update(status: TwilioWrapper.message_status(sid)) 
+    end
+
+  end 
 
 
 end
