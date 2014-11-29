@@ -11,6 +11,7 @@ class Notification < ActiveRecord::Base
 
 
   def self.send_text(notification_id)
+    sleep 1
     notification = self.find(notification_id)
     result = TwilioWrapper.send_message({
       :to => notification.customer.phone_number,
