@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", registrations: 'users/registrations' }
 
@@ -23,4 +25,6 @@ Rails.application.routes.draw do
   post '/twilio_callback', to: 'twilio_callback#status'
 
   get 'ui(/:action)', controller: 'ui'
+
+  mount Sidekiq::Web, at: '/sidekiq'
 end

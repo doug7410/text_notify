@@ -6,9 +6,9 @@ class GroupNotificationsController < ApplicationController
 
     if @group_notification.valid?
       @group_notification.group.customers.each do |customer|
-        notification = Notification.create(customer: customer, message: @group_notification.group_message, group_notification_id: @group_notification.id, user_id: current_user.id)
+        notification = Notification.create(customer_id: customer.id, message: @group_notification.group_message, group_notification_id: @group_notification.id, user_id: current_user.id)
 
-        Notification.delay.send_text(notification.id)
+          Notification.delay.send_text(notification.id)
       end
 
       flash[:success] = "A text has been successfully sent to the \"#{@group_notification.group.name}\" group."
@@ -18,7 +18,6 @@ class GroupNotificationsController < ApplicationController
       @customers = current_user_customers
       @notifications = Notification.where(user_id: current_user.id)
       @customer = Customer.new
-      # @notification.customer = Customer.new #TODO : why do I need this?
       @groups = current_user.groups.all
       @group = Group.new
       flash[:error] = "There was a problem."
