@@ -6,10 +6,11 @@ class GroupNotificationsController < ApplicationController
 
     if @group_notification.valid?
       @group_notification.group.customers.each do |customer|
-        notification = Notification.new(customer: customer, message: @group_notification.group_message, group_notification_id: @group_notification.id)
+        notification = Notification.create(customer: customer, message: @group_notification.group_message, group_notification_id: @group_notification.id, user_id: current_user.id)
 
-          notification.send_text(current_user)
+        Notification.delay.send_text(notification.id)
       end
+
       flash[:success] = "A text has been successfully sent to the \"#{@group_notification.group.name}\" group."
       redirect_to notifications_path
     else

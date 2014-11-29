@@ -16,6 +16,7 @@ gem 'twilio-ruby', '~> 3.12'
 gem 'figaro'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'sidekiq'
+gem 'unicorn'
 
 group :development do
   gem 'spring'

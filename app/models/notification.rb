@@ -1,3 +1,4 @@
+
 class Notification < ActiveRecord::Base
   default_scope -> { order "created_at DESC" }
   scope :delivered, -> { where(status: 'delivered') }
@@ -9,19 +10,18 @@ class Notification < ActiveRecord::Base
   validates_presence_of :customer, :user, :message
 
 
-  def send_text(user)
+  def self.send_text(notification_id)
+    notification = self.find(notification_id)
     result = TwilioWrapper.send_message({
-      :to => customer.phone_number,
-      :body => message
+      :to => notification.customer.phone_number,
+      :body => notification.message
     })
     if result.successful?
-      self.user = user
-      self.sid = result.response.sid
-      self.save
+      notification.sid = result.response.sid
+      notification.save
     else
-      self.user = user
-      self.status = 'failed'  
-      self.save
+      notification.status = 'failed'  
+      notification.save
     end
   end
 
