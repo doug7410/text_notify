@@ -20,7 +20,6 @@ class GroupNotificationsController < ApplicationController
       
       @notification = Notification.new
       @customers = current_user_customers
-      update_notification_statuses  
       @notifications = Notification.where(user_id: current_user.id)
       @customer = Customer.new
       @groups = current_user.groups.all

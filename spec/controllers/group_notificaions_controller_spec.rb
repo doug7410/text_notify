@@ -102,8 +102,8 @@ describe GroupNotificationsController   do
       end
 
       it "sets @notifications to the signed in user's notifications", :vcr do
-        notification1 = Fabricate(:notification, customer: tom, sid: '123456', user: bob_user)
-        notification2 = Fabricate(:notification, customer: tom, sid: '123456')
+        notification1 = Fabricate(:notification, customer: tom, user: bob_user)
+        notification2 = Fabricate(:notification, customer: tom)
         invalid_post_request
         expect(assigns(:notifications)).to eq([notification1])
       end

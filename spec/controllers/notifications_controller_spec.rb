@@ -25,9 +25,9 @@ describe NotificationsController do
 
     it "[sets @notifications to all of the current_user's notifications ordered DESC by created on date]" do
       tom = Fabricate(:customer, user: bob_user)
-      notification1 = Fabricate(:notification, customer: tom, sid: '123456', created_at: 1.days.ago, user: bob_user)
-      notification2 = Fabricate(:notification, customer: tom, sid: '123456', user: bob_user)
-      notification3 = Fabricate(:notification, customer: tom, sid: '123456', user: Fabricate(:user))
+      notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, user: bob_user)
+      notification2 = Fabricate(:notification, customer: tom,  user: bob_user)
+      notification3 = Fabricate(:notification, customer: tom,  user: Fabricate(:user))
       get :index 
       expect(assigns(:notifications)).to eq([notification2, notification1])
     end 
@@ -143,9 +143,9 @@ describe NotificationsController do
 
       it "[sets @notifications to all of the current_user's notifications ordered DESC by created on date]" do
         tom = Fabricate(:customer, user: bob_user)
-        notification1 = Fabricate(:notification, customer: tom, sid: '123456', created_at: 1.days.ago, user: bob_user)
-        notification2 = Fabricate(:notification, customer: tom, sid: '123456', user: bob_user)
-        notification3 = Fabricate(:notification, customer: tom, sid: '123456', user: Fabricate(:user))
+        notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, user: bob_user)
+        notification2 = Fabricate(:notification, customer: tom,  user: bob_user)
+        notification3 = Fabricate(:notification, customer: tom,  user: Fabricate(:user))
         post :create, notification: {customer_id: tom.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
         expect(assigns(:notifications)).to eq([notification2, notification1])
       end
@@ -218,9 +218,9 @@ describe NotificationsController do
 
         it "[sets @notifications to all of the current_user's notifications ordered DESC by created on date]" do
           tom = Fabricate(:customer, user: bob_user)
-          notification1 = Fabricate(:notification, customer: tom, sid: '123456', created_at: 1.days.ago, user: bob_user)
-          notification2 = Fabricate(:notification, customer: tom, sid: '123456', user: bob_user)
-          notification3 = Fabricate(:notification, customer: tom, sid: '123456', user: Fabricate(:user))
+          notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, user: bob_user)
+          notification2 = Fabricate(:notification, customer: tom,  user: bob_user)
+          notification3 = Fabricate(:notification, customer: tom,  user: Fabricate(:user))
           post :create, notification: {customer_id: tom.id, message: ""}, customer: {first_name: "Doug", last_name: "Smith", phone_number: ""}
           expect(assigns(:notifications)).to eq([notification2, notification1])
         end

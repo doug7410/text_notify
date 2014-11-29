@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 29 Nov 2014 07:35:41 GMT
+      - Sat, 29 Nov 2014 16:23:43 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -45,5 +45,5 @@ http_interactions:
         "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM073e2f4c26e64eafa589d77229c07877.json",
         "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM073e2f4c26e64eafa589d77229c07877/Media.json"}}'
     http_version: 
-  recorded_at: Sat, 29 Nov 2014 07:35:59 GMT
+  recorded_at: Sat, 29 Nov 2014 16:24:03 GMT
 recorded_with: VCR 2.9.3
