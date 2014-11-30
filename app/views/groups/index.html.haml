@@ -1,16 +1,7 @@
 =render 'shared/page_header', title: "Customer Groups"
 
 .row
-  .col-sm-6
-    .widget-box.widget-color-blue
-      .widget-header
-        %h4.widget-title
-          %i.ace-icon.fa.fa-group
-          Create a new customer group
-      .widget-body
-        .widget-main.no-padding
-          =render 'group_form', button_label: "Save Group"
-  .col-sm-6
+  .col-sm-12
     .widget-box.widget-color-blue
       .widget-header
         %h4.widget-title
@@ -18,6 +9,7 @@
           Your customer groups
       .widget-body
         .widget-main
+          =render 'group_form', button_label: "Save Group"
           - if @groups.any?
             %table#sample-table-1.table.table-striped.table-bordered.table-hover
               %thead
