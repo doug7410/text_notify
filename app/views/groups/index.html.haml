@@ -2,7 +2,7 @@
 
 .row
   .col-sm-12
-    =render 'group_form', button_label: "Add Group"
+    =render 'group_form', button_label: "Add Group", title: "Create a new group"
     .space-6
     %hr
     .widget-box.widget-color-blue
@@ -24,8 +24,8 @@
                 -@groups.each do |group|
                   %tr
                     %td= link_to "#{group.name}", group
-                    %td= link_to "#{group.customers.count}", '#'
-                    %td= link_to "10", '#'
+                    %td= group.customers.count
+                    %td= group.notifications.count
                     %td
                       =link_to group do
                         %button.btn.btn-primary.btn-xs

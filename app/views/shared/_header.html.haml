@@ -14,9 +14,13 @@
       %nav.navbar-menu.collapse.navbar-collapse.pull-left{:role => "navigation"}
         %ul.nav.navbar-nav
           %li
+            =link_to dashboard_path do
+              %i.ace-icon.fa.fa-tachometer
+              Dashboard
+          %li
             =link_to notifications_path do
               %i.ace-icon.fa.fa-comment
-              Notification Texts
+              Notifications
           %li
             =link_to customers_path do
               %i.ace-icon.fa.fa-user
