@@ -2,6 +2,9 @@
 
 .row
   .col-sm-12
+    =render 'group_form', button_label: "Add Group"
+    .space-6
+    %hr
     .widget-box.widget-color-blue
       .widget-header
         %h4.widget-title
@@ -9,7 +12,6 @@
           Your customer groups
       .widget-body
         .widget-main
-          =render 'group_form', button_label: "Save Group"
           - if @groups.any?
             %table#sample-table-1.table.table-striped.table-bordered.table-hover
               %thead
@@ -21,7 +23,7 @@
               %tbody
                 -@groups.each do |group|
                   %tr
-                    %td= link_to "#{group.name}", '#'
+                    %td= link_to "#{group.name}", group
                     %td= link_to "#{group.customers.count}", '#'
                     %td= link_to "10", '#'
                     %td

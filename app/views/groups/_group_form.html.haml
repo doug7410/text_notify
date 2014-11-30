@@ -1,13 +1,18 @@
-=bootstrap_form_for @group, inline_errors: false do |f|
-  %fieldset
-    = f.alert_message "Please fix the errors below."
-    %div
-      =f.label :name, "Group Name"
-      .input-group
-        %span.input-group-addon
-          %i.ace-icon.fa.fa-group
-        =f.text_field :name, hide_label: true
-  .form-actions.center
-    %button.btn.btn-sm.btn-success{:type => "submit"}
-      =button_label
-      %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
+.widget-box
+  .widget-header
+    %h4.widget-title
+      %i.ace-icon.fa.fa-list-alt
+      Add a new Group
+  .widget-body
+    .widget-main
+      =bootstrap_form_for @group, layout: :inline, inline_errors: false do |f|
+        %fieldset
+          = f.alert_message "Please fix the errors below."
+          %div
+            .input-group
+              %span.input-group-addon
+                %i.ace-icon.fa.fa-group
+              =f.text_field :name, hide_label: true, placeholder: "Group Name"
+              %button.btn.btn-sm.btn-success{:type => "submit"}
+                =button_label
+                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
