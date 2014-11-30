@@ -26,6 +26,7 @@ class GroupsController < ApplicationController
       flash[:success] = "The customer group has been updated."
       redirect_to @group
     else
+      flash[:error] = "There was a problem."
       render :show
     end
   end

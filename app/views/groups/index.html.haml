@@ -1,16 +1,10 @@
 =render 'shared/page_header', title: "Customer Groups"
 
 .row
-  .col-sm-6
-    .widget-box.widget-color-blue
-      .widget-header
-        %h4.widget-title
-          %i.ace-icon.fa.fa-group
-          Create a new customer group
-      .widget-body
-        .widget-main.no-padding
-          =render 'group_form', button_label: "Save Group"
-  .col-sm-6
+  .col-sm-12
+    =render 'group_form', button_label: "Add Group", title: "Create a new group"
+    .space-6
+    %hr
     .widget-box.widget-color-blue
       .widget-header
         %h4.widget-title
@@ -29,9 +23,9 @@
               %tbody
                 -@groups.each do |group|
                   %tr
-                    %td= link_to "#{group.name}", '#'
-                    %td= link_to "#{group.customers.count}", '#'
-                    %td= link_to "10", '#'
+                    %td= link_to "#{group.name}", group
+                    %td= group.customers.count
+                    %td= group.notifications.count
                     %td
                       =link_to group do
                         %button.btn.btn-primary.btn-xs

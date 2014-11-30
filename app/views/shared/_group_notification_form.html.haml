@@ -13,7 +13,7 @@
             .input-group
               %span.input-group-addon
                 %i.ace-icon.fa.fa-user
-              = f.select :group_id, options_for_select([["Choose a group from this list", nil]].concat( @groups.all.map {|g| [g.name + ' (' + g.customers.count.to_s + ' customers)', g.id]}), @group.id), hide_label: true
+              = f.select :group_id, options_for_select([["Choose a group from this list", nil]].concat( @groups.all.map {|g| [g.name + ' (' + g.customers.count.to_s + ' customers)', g.id]})), hide_label: true
           %hr
           %h4 
             or 
