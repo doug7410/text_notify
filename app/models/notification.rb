@@ -10,18 +10,20 @@ class Notification < ActiveRecord::Base
   validates_presence_of :customer, :user, :message
 
 
-  def self.send_text(notification_id)
-    notification = self.find(notification_id)
-    result = TwilioWrapper.send_message({
-      :to => notification.customer.phone_number,
-      :body => notification.message
-    })
+  def send_text
+      TwilioWrapper.send_message({
+        :to => customer.phone_number,
+        :body => message
+      })
+  end
+
+  def save_with_status(result)
     if result.successful?
-      notification.sid = result.response.sid
-      notification.save
+      self.sid = result.response.sid
+      self.save
     else
-      notification.status = 'failed'  
-      notification.save
+      self.status = 'failed'  
+      self.save
     end
   end
 

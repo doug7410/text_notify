@@ -37,10 +37,6 @@ describe NotificationsController do
       expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
     end
 
-    it "[sets a new customer for the notification]" do
-      get :index
-      expect(assigns(:notification).customer).to be_instance_of(Customer)
-    end  
 
     it "[sets @groups to all the groups for the signed in user]" do
       group1 = Fabricate(:group, user: bob_user)
@@ -48,11 +44,6 @@ describe NotificationsController do
       get :index
       expect(assigns(:groups)).to eq([group1])
     end 
-
-    it "[sets an empty @group for the select dropdown]" do
-      get :index
-      expect(assigns(:group)).to be_instance_of(Group)
-    end
   end
 
 
@@ -96,7 +87,7 @@ describe NotificationsController do
         post :create, notification: {customer_id: "", message: "Hello Alice!"}, customer: Fabricate.attributes_for(:customer, first_name: "Douglas")
       end
 
-      it "[redirects to the notifications index path]", record: :none do
+      it "[redirects to the notifications index path]", :vcr do
         valid_post_create_request
         expect(response).to redirect_to notifications_path
       end
@@ -134,7 +125,7 @@ describe NotificationsController do
 
       it "[sets the @customers for the current user]" do
         alice_user = Fabricate(:user)
-        tom = Fabricate(:customer, user: bob_user, phone_number: '1234567890')
+        tom = Fabricate(:customer, user: bob_user, phone_number: '9546381523')
         frank = Fabricate(:customer, user: bob_user, phone_number: '1234567891')
         amy = Fabricate(:customer, user: alice_user, phone_number: '1234567892')
         post :create, notification: {customer_id: tom.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
@@ -163,13 +154,8 @@ describe NotificationsController do
         expect(assigns(:groups)).to eq([group1])
       end 
 
-      it "[sets an empty @group for the select dropdown]" do
-        bob = Fabricate(:customer, user: bob_user)
-        post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
-        expect(assigns(:group)).to be_instance_of(Group)
-      end
 
-      it "[sets the @notification and renders the index template]", :vcr do
+      it "[sets the @notification and renders the index template]" do
         bob = Fabricate(:customer)
         post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
         expect(response).to render_template :index

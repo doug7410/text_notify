@@ -1,29 +1,17 @@
 class GroupNotificationsController < ApplicationController
-  before_filter :authenticate_user!
-  before_action :update_notification_statuses!
+  before_filter :authenticate_user!, :update_notification_statuses!, :set_up_notification_page
 
 
   def create
     @group_notification = GroupNotification.create(params.require(:group_notification).permit(:group_id, :group_message))
 
     if @group_notification.valid?
-      @group_notification.group.customers.each do |customer|
-        notification = Notification.create(customer_id: customer.id, message: @group_notification.group_message, group_notification_id: @group_notification.id, user_id: current_user.id)
-          sleep 1
-
-          Notification.delay.send_text(notification.id)
-      end
-
       flash[:success] = "A text has been successfully sent to the \"#{@group_notification.group.name}\" group."
       redirect_to notifications_path
+      send_text_to_each_customer_in_group
     else
-      
       @notification = Notification.new
-      @customers = current_user_customers
-      @notifications = Notification.where(user_id: current_user.id)
       @customer = Customer.new
-      @groups = current_user.groups.all
-      @group = Group.new
       flash[:error] = "There was a problem."
       render 'notifications/index'
     end
@@ -31,11 +19,13 @@ class GroupNotificationsController < ApplicationController
 
 private 
 
-  def update_notification_statuses!
-    Notification.where(user_id: current_user.id).each { |n| n.update_status! }
+  def send_text_to_each_customer_in_group
+    @group_notification.group.customers.each do |customer|
+      notification = Notification.create(customer_id: customer.id, message: @group_notification.group_message, group_notification_id: @group_notification.id, user_id: current_user.id)
+        result = notification.send_text
+        notification.save_with_status(result)
+    end
   end
 
-  def current_user_customers
-    Customer.where("user_id = ?", current_user.id)
-  end
+  
 end 

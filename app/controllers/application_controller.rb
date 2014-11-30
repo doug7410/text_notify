@@ -15,4 +15,14 @@ class ApplicationController < ActionController::Base
   def trigger_errors(object)
     object.valid?
   end
+
+  def set_up_notification_page
+    @customers = Customer.where("user_id = ?", current_user.id)
+    @notifications = Notification.where("user_id = ?", current_user.id)
+    @groups = Group.where("user_id = ?", current_user.id)
+  end
+
+  def update_notification_statuses!
+    Notification.where(user_id: current_user.id).each { |n| n.update_status! }
+  end
 end

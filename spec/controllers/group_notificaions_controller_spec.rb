@@ -52,8 +52,8 @@ describe GroupNotificationsController   do
       end
     end
 
-    context "[with valid input and failed phone numbers]", :vcr do
-      it "[sends the texts to the valid numbers]" do
+    context "[with valid input and failed phone numbers]" do
+      it "[sends the texts to the valid numbers]", :vcr do
         tom = Fabricate(:customer, user: bob_user)
         doug = Fabricate(:customer, phone_number: '5555555555', user: bob_user)
         group = Fabricate(:group, user: bob_user)
@@ -118,11 +118,6 @@ describe GroupNotificationsController   do
         invalid_post_request
         expect(assigns(:groups)).to eq([group])
       end 
-
-      it "[sets an empty @group for the select dropdown]", :vcr do
-        invalid_post_request
-        expect(assigns(:group)).to be_instance_of(Group)
-      end
 
       it "[sets the flash error message]", :vcr do
         invalid_post_request
