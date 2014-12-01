@@ -31,9 +31,10 @@
                         %button.btn.btn-primary.btn-xs
                           %i.ace-icon.fa.fa-pencil.align-top.bigger-125
                           Manage
-                      %button.btn.btn-danger.btn-xs
-                        %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
-                        Delete
+                      = link_to group, method: "delete" do
+                        %button.btn.btn-danger.btn-xs
+                          %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
+                          Delete
           -else
             .alert.alert-warning
               %strong You don't have any groups yet. 

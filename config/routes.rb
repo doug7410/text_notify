@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :customers
   resources :notifications, only: [:index, :create]
-  resources :groups, only: [:index, :create, :show, :update]
+  resources :groups
   resources :group_notifications, only: [:create]
 
   post '/add_to_group/:id/:customer_id', to: "groups#add_customer", as: "add_to_group"

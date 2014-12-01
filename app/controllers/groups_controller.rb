@@ -27,9 +27,21 @@ class GroupsController < ApplicationController
         if @group.update(params.require(:group).permit(:name))
           flash[:success] = "Group name has been updated."
         end
-        
+          
         render :show
       end
+    end
+  end
+
+  def destroy
+    group = Group.find(params[:id])
+    if group.user == current_user
+      group.destroy
+      flash[:error] = "#{group.name} has been deleted"
+      redirect_to groups_path
+    else
+      flash[:error] = "You can't delete that group"
+      render :index
     end
   end
 
