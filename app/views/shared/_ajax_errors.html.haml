@@ -1,0 +1,6 @@
+#ajax-alert-box.alert.alert-error
+  %h5 There were errors
+  %ul
+    - object.errors.full_messages.each do |msg| 
+      %li
+        = msg

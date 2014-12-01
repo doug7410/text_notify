@@ -22,12 +22,14 @@ class GroupsController < ApplicationController
   end
 
   def update
-    if @group.update(params.require(:group).permit(:name))
-      flash[:success] = "The customer group has been updated."
-      redirect_to @group
-    else
-      flash[:error] = "There was a problem."
-      render :show
+    respond_to do |format|
+      format.js do
+        if @group.update(params.require(:group).permit(:name))
+          flash[:success] = "Group name has been updated."
+        end
+        
+        render :show
+      end
     end
   end
 
