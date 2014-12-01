@@ -1,6 +1,6 @@
 .page-header
   %h1
-    Customer Groups
+    Groups
 
 .row
   .col-sm-12
@@ -8,7 +8,7 @@
       = "#{@group.name.capitalize} Group"
       %small
         = link_to "change name", "#", class: "update_name_button"    
-    = render 'group_form', button_label: "Update", title: "Update group name"  
+    = render 'group_form', button_label: "Update", title: "Update group name", ajax_option: true  
     %hr
   .col-sm-6
     .widget-box.widget-color-blue

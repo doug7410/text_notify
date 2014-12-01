@@ -5,7 +5,7 @@
       =title
   .widget-body
     #group-form.widget-main
-      =form_for @group, layout: :inline, inline_errors: false, remote: true do |f|
+      =form_for @group, layout: :inline, inline_errors: false, remote: ajax_option do |f|
         %fieldset
           %div
             .input-group
