@@ -10,8 +10,8 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(params.require(:group).permit(:name).merge(user_id: current_user.id))
     if @group.save
-      flash[:success] = "Customer group \"#{@group.name}\" has been saved."
-      redirect_to @group
+      flash[:success] = "The \"#{@group.name}\" group has been created."
+      redirect_to groups_path
     else
       @groups = Group.where("user_id = ?", current_user.id)
       render :index
@@ -22,12 +22,26 @@ class GroupsController < ApplicationController
   end
 
   def update
-    if @group.update(params.require(:group).permit(:name))
-      flash[:success] = "The customer group has been updated."
-      redirect_to @group
+    respond_to do |format|
+      format.js do
+        if @group.update(params.require(:group).permit(:name))
+          flash[:success] = "Group name has been updated."
+        end
+          
+        render :show
+      end
+    end
+  end
+
+  def destroy
+    group = Group.find(params[:id])
+    if group.user == current_user
+      group.destroy
+      flash[:error] = "#{group.name} has been deleted"
+      redirect_to groups_path
     else
-      flash[:error] = "There was a problem."
-      render :show
+      flash[:error] = "You can't delete that group"
+      render :index
     end
   end
 

@@ -68,8 +68,6 @@ describe GroupsController do
     end
   end
 
-  
-
   describe "GET show" do
     it "sets the @group" do
       group1 = Fabricate(:group, user: bob_user)
@@ -157,6 +155,50 @@ describe GroupsController do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    it "[redirects to the groups index page]" do
+      group = Fabricate(:group, user: bob_user )
+      delete :destroy, id: group.id
+      expect(response).to redirect_to groups_path
+    end 
+
+    it "[deletes the group]" do
+      group = Fabricate(:group, user: bob_user )
+      expect(Group.count).to eq(1)
+      delete :destroy, id: group.id
+      expect(Group.count).to eq(0)
+    end
+
+    it "[deletes all the customer groupings related to the group]" do
+      tom = Fabricate(:customer, user: bob_user)
+      fun_group = Fabricate(:group, user: bob_user )
+      CustomerGroup.create(group: fun_group, customer: tom)
+      delete :destroy, id: fun_group.id
+      expect(CustomerGroup.count).to eq(0)
+    end
+
+    it "does not delete any customer groupings that are not associated to the group being deleted" do
+      tom = Fabricate(:customer, user: bob_user)
+      fun_group = Fabricate(:group, user: bob_user )
+      CustomerGroup.create(group: Fabricate(:group), customer: tom)
+      delete :destroy, id: fun_group.id
+      expect(CustomerGroup.count).to eq(1)
+    end
+
+    it "[does not delete the group if it's not associated witht he signed in user]" do
+      group = Fabricate(:group, user: Fabricate(:user))
+      delete :destroy, id: group.id
+      expect(Group.count).to eq(1)
+    end 
+
+    it "[renders the index template if the group doesn't belong to the user]" do
+      group = Fabricate(:group, user: Fabricate(:user))
+      delete :destroy, id: group.id
+      expect(response).to render_template :index
+    end
+
+  end 
 
   describe "POST add_customer" do
     it "[redirect_to the show page]" do

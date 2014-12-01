@@ -5,7 +5,7 @@
     .widget-box
       .widget-body
         .widget-main.no-padding
-          = bootstrap_form_for @customer, inline_errors: false do |f|
+          = bootstrap_form_for @customer, layout: :inline, inline_errors: false do |f|
             =f.hidden_field :user_id, value: current_user.id
             %fieldset
               = f.alert_message "Please fix the errors below."

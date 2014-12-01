@@ -4,10 +4,9 @@
       %i.ace-icon.fa.fa-list-alt
       =title
   .widget-body
-    .widget-main
-      =bootstrap_form_for @group, layout: :inline, inline_errors: false do |f|
+    #group-form.widget-main
+      =form_for @group, layout: :inline, inline_errors: false, remote: ajax_option do |f|
         %fieldset
-          = f.alert_message "Please fix the errors below."
           %div
             .input-group
               %span.input-group-addon

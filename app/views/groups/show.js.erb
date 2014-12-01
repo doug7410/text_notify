@@ -1,0 +1,11 @@
+$(document).ready(function(){
+
+  <% if @group.errors.any? %>
+    $("#ajax-alert-box").remove();
+    $(".alert-success").remove();
+    $("#group-form").prepend('<%= escape_javascript(render( "shared/ajax_errors", object: @group)).html_safe %>');
+  <% else %>
+    window.location.href = '/groups/' + <%= @group.id %>
+  <% end %>
+
+});
