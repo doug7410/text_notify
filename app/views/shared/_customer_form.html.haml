@@ -1,0 +1,21 @@
+= bootstrap_form_for @customer, layout: :inline, inline_errors: false do |f|
+  =f.hidden_field :user_id, value: current_user.id
+  %fieldset
+    = f.alert_message "Please fix the errors below."
+    %div
+      .input-group
+        %span.input-group-addon
+          %i.ace-icon.fa.fa-user
+        =f.text_field :first_name, class: "form-control", :placeholder => "Enter First Name", hide_label: true
+      .input-group
+        %span.input-group-addon
+          %i.ace-icon.fa.fa-user
+        =f.text_field :last_name, class: "form-control", :placeholder => "Enter Last Name", hide_label: true    
+      .input-group
+        %span.input-group-addon
+          %i.ace-icon.fa.fa-phone
+        =f.text_field :phone_number, class: "form-control input-mask-phone", :placeholder => "(555)555-5555", hide_label: true
+      .input-group
+        %button.btn.btn-sm.btn-success{:type => "submit"}
+          Save Customer
+          %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110

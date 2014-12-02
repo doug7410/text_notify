@@ -31,10 +31,10 @@ describe GroupsController do
         expect(Group.first.name).to eq("walk in customers") 
       end
 
-      it "[redirects to the page of the new group]" do
+      it "[redirects to the groups path]" do
         post :create, group: {name: "walk in customers"}
         group = Group.first
-        expect(response).to redirect_to(group)
+        expect(response).to redirect_to(groups_path)
       end
 
       it "sets the flash success message" do
@@ -99,58 +99,37 @@ describe GroupsController do
   end
 
   describe "PATCH update" do
+    it "[renders the javascript show template]" do
+      group = Fabricate(:group, business_owner: bob_business_owner)
+      xhr :patch, :update, id: group.id,  group: {name: "new name"}
+      expect(response).to render_template :show
+    end
+
     context "[with valid input]" do
-      it "[redirects to the show page]" do
-        group = Fabricate(:group, business_owner: bob_business_owner)
-        patch :update, id: group.id,  group: {name: "new name"}
-        expect(response).to redirect_to group
-      end
 
       it "[updates the group name]" do
         group = Fabricate(:group, business_owner: bob_business_owner)
-        patch :update, id: group.id,  group: {name: "new name"}
+        xhr :patch, :update, id: group.id,  group: {name: "new name"}
         expect(bob_business_owner.groups.first.name).to eq("new name")
       end 
       
       it "[sets the flash success message]" do
         group = Fabricate(:group, business_owner: bob_business_owner)
-        patch :update, id: group.id,  group: {name: "new name"}
+        xhr :patch, :update, id: group.id,  group: {name: "new name"}
         expect(flash[:success]).not_to be_nil
       end
     end
 
     context "[with invalid input]" do
-      it "[sets the @group_customers to all the customers that are in the group]" do
-        group = Fabricate(:group, business_owner: bob_business_owner)
-        tom = Fabricate(:customer)
-        dave = Fabricate(:customer, phone_number: '1234566544')
-        mike = Fabricate(:customer, phone_number: '1234566547')
-        group.customers << tom
-        group.customers << dave
-        patch :update, id: group.id,  group: {name: ""}
-        expect(assigns(:group_customers)).to eq([tom, dave])
-      end
-      
-     it "[sets the @customers_not_in_group to the signed in business_owner's customers that are not in the group]" do
-      alice_business_owner = Fabricate(:business_owner)
-      group1 = Fabricate(:group, business_owner: bob_business_owner)
-      tom = Fabricate(:customer, business_owner: alice_business_owner)
-      dave = Fabricate(:customer, phone_number: '1234566544', business_owner: bob_business_owner)
-      mike = Fabricate(:customer, phone_number: '1234566547',business_owner: bob_business_owner)
-      group1.customers << dave
-      get :show, id: group1.id
-      expect(assigns(:customers_not_in_group)).to eq([mike])
-    end
-
       it "[sets the @group]" do
         group = Fabricate(:group, business_owner: bob_business_owner)
-        patch :update, id: group.id,  group: {name: ""}
+        xhr :patch, :update, id: group.id,  group: {name: ""}
         expect(assigns(:group)).to eq(group)
       end
 
       it "[renders the show template with invalid input]" do
         group = Fabricate(:group, business_owner: bob_business_owner)
-        patch :update, id: group.id,  group: {name: ""}
+        xhr :patch, :update, id: group.id,  group: {name: ""}
         expect(response).to render_template :show
       end
     end

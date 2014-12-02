@@ -1,11 +1,14 @@
 require 'spec_helper'
-
+include Warden::Test::Helpers
+Warden.test_mode!
+  
+  
 feature "Sent a text to an individual customer" do 
-  given(:bob) { Fabricate(:business_owner)}
-  background { sign_in_business_owner(bob) }
+  let(:doug) { Fabricate(:business_owner)}
+  background {login_as doug, scope: :business_owner, run_callbacks: false}
 
   scenario '[send a text to an existing customer with valid input]', :vcr do
-    tom = Fabricate(:customer, business_owner: bob).decorate 
+    tom = Fabricate(:customer, business_owner: doug).decorate 
     visit notifications_path
     select tom.id, :from => "Choose an existing customer"
     fill_in "Message", with: "I'm a message!"

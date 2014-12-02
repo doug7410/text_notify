@@ -1,10 +1,13 @@
 require 'spec_helper'
+include Warden::Test::Helpers
+Warden.test_mode!
 
 feature "Add A New customer" do
+  let(:doug) { Fabricate(:business_owner)}
+  background {login_as doug, scope: :business_owner, run_callbacks: false}
+  
   scenario "[a business_owner adds a new customer with valid info]" do
-    sign_in_business_owner
     visit new_customer_path
- 
     fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '5555555555')
     click_button "Save Customer"
     
@@ -13,9 +16,7 @@ feature "Add A New customer" do
   end
 
   scenario "[a business_owner adds a new customer with invalid info]" do
-    sign_in_business_owner
     visit new_customer_path
-    
     fill_in_customer_form()
     click_button "Save Customer"
     
@@ -28,12 +29,12 @@ feature "Add A New customer" do
 
 
   scenario "[a business_owner adds a new customer with an invalid phone number]" do
-    sign_in_business_owner
     visit new_customer_path
-    
     fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '555555555')
     click_button "Save Customer"
     
     expect(page).to have_content("Phone number is the wrong length (should be 10 characters)")  
   end
+
+  Warden.test_reset!
 end

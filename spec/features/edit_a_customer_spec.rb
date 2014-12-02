@@ -1,8 +1,11 @@
 require 'spec_helper'
+include Warden::Test::Helpers
+Warden.test_mode!
 
 feature "edit a customer" do
   let(:doug) { Fabricate(:business_owner)}
-  background { sign_in_business_owner(doug) }
+
+  background {login_as doug, scope: :business_owner, run_callbacks: false}
 
   given!(:bob) { Fabricate(:customer, first_name: "Bob", last_name: "Smith", phone_number: "5555555555", business_owner: doug).decorate }
 
@@ -16,6 +19,7 @@ feature "edit a customer" do
     visit customer_path(bob.id)
 
     fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '7778889999')
+
     click_button "Update Customer"
     
     expect(page).to have_content("Customer - Freddy Mercury has been updated.")
@@ -23,6 +27,7 @@ feature "edit a customer" do
     expect(page).to have_selector("input[value='Mercury']")
     expect(page).to have_selector("input[value='(777)888-9999']")
   end
+
   scenario '[a business_owner updates a customer with invalid info]' do
     visit customer_path(bob.id)
     fill_in_customer_form(first_name: '', last_name: '', phone_number: '555555555')
@@ -33,5 +38,7 @@ feature "edit a customer" do
     expect(page).to have_content("Last name can't be blank")
     expect(page).to have_content("Phone number is the wrong length (should be 10 characters)")  
   end
+  
+  Warden.test_reset!
 end
 
