@@ -11,7 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141128171721) do
+ActiveRecord::Schema.define(version: 20141202183613) do
+
+  create_table "business_owners", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "full_name"
+  end
+
+  add_index "business_owners", ["email"], name: "index_business_owners_on_email", unique: true
+  add_index "business_owners", ["reset_password_token"], name: "index_business_owners_on_reset_password_token", unique: true
+
+  create_table "business_owsers", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "business_owsers", ["email"], name: "index_business_owsers_on_email", unique: true
+  add_index "business_owsers", ["reset_password_token"], name: "index_business_owsers_on_reset_password_token", unique: true
 
   create_table "customer_groups", force: true do |t|
     t.integer "customer_id"
@@ -24,7 +61,7 @@ ActiveRecord::Schema.define(version: 20141128171721) do
     t.string   "phone_number"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer  "business_owner_id"
   end
 
   create_table "group_notifications", force: true do |t|
@@ -36,7 +73,7 @@ ActiveRecord::Schema.define(version: 20141128171721) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
-    t.integer  "user_id"
+    t.integer  "business_owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -52,7 +89,7 @@ ActiveRecord::Schema.define(version: 20141128171721) do
     t.integer  "group_notification_id"
     t.string   "status"
     t.string   "error_code"
-    t.integer  "user_id"
+    t.integer  "business_owner_id"
   end
 
   create_table "users", force: true do |t|

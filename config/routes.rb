@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: "users/sessions", registrations: 'users/registrations' }
+  devise_for :business_owners, controllers: { registrations: 'business_owners/registrations' }
 
   
   root to: "pages#front"

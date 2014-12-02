@@ -1,17 +1,17 @@
 class PagesController < ApplicationController
   
-  before_filter :authenticate_user!, only: [:dashboard]
+  before_filter :authenticate_business_owner!, only: [:dashboard]
   
 
   def front
-    redirect_to dashboard_path if current_user
+    redirect_to dashboard_path if current_business_owner
   end 
 
   def dashboard
-    @customers = current_user.customers.all
+    @customers = current_business_owner.customers.all
     @notifications = all_notifications(@customers)
-    @delivered_notifications = current_user.notifications.delivered.all
-    @failed_notifications = current_user.notifications.failed.all 
+    @delivered_notifications = current_business_owner.notifications.delivered.all
+    @failed_notifications = current_business_owner.notifications.failed.all 
   end
 
 private

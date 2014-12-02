@@ -1,19 +1,19 @@
 class GroupsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_business_owner!
   before_filter :set_up_customers_and_group, only: [:show, :update]
 
   def index
     @group = Group.new
-    @groups = Group.where("user_id = ?", current_user.id)
+    @groups = Group.where("business_owner_id = ?", current_business_owner.id)
   end
 
   def create
-    @group = Group.new(params.require(:group).permit(:name).merge(user_id: current_user.id))
+    @group = Group.new(params.require(:group).permit(:name).merge(business_owner_id: current_business_owner.id))
     if @group.save
       flash[:success] = "The \"#{@group.name}\" group has been created."
       redirect_to groups_path
     else
-      @groups = Group.where("user_id = ?", current_user.id)
+      @groups = Group.where("business_owner_id = ?", current_business_owner.id)
       render :index
     end
   end
@@ -35,7 +35,7 @@ class GroupsController < ApplicationController
 
   def destroy
     group = Group.find(params[:id])
-    if group.user == current_user
+    if group.business_owner == current_business_owner
       group.destroy
       flash[:error] = "#{group.name} has been deleted"
       redirect_to groups_path
@@ -69,6 +69,6 @@ private
   def set_up_customers_and_group
     @group = Group.find(params[:id])
     @group_customers = @group.customers.decorate
-    @customers_not_in_group = current_user.customers.all - @group.customers
+    @customers_not_in_group = current_business_owner.customers.all - @group.customers
   end 
 end

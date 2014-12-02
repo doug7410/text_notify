@@ -17,12 +17,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_up_notification_page
-    @customers = Customer.where("user_id = ?", current_user.id)
-    @notifications = Notification.where("user_id = ?", current_user.id)
-    @groups = Group.where("user_id = ?", current_user.id)
+    @customers = Customer.where("business_owner_id = ?", current_business_owner.id)
+    @notifications = Notification.where("business_owner_id = ?", current_business_owner.id)
+    @groups = Group.where("business_owner_id = ?", current_business_owner.id)
   end
 
   def update_notification_statuses!
-    Notification.where(user_id: current_user.id).each { |n| n.update_status! }
+    Notification.where(business_owner_id: current_business_owner.id).each { |n| n.update_status! }
   end
 end

@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_filter :authenticate_user!, :update_notification_statuses!, :set_up_notification_page
+  before_filter :authenticate_business_owner!, :update_notification_statuses!, :set_up_notification_page
     
   def index
     @notification = Notification.new
@@ -8,8 +8,8 @@ class NotificationsController < ApplicationController
   end
 
   def create
-    @notification = Notification.new(notification_params.merge(user_id: current_user.id))
-    @customer = Customer.new(customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number]), user_id: current_user.id}))
+    @notification = Notification.new(notification_params.merge(business_owner_id: current_business_owner.id))
+    @customer = Customer.new(customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number]), business_owner_id: current_business_owner.id}))
     @group_notification = GroupNotification.new
     
 

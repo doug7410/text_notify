@@ -4,10 +4,10 @@ class Notification < ActiveRecord::Base
   scope :delivered, -> { where(status: 'delivered') }
   scope :failed, -> { where.not(status: 'delivered') }
   belongs_to :customer
-  belongs_to :user  
+  belongs_to :business_owner  
   belongs_to :group_notification
   
-  validates_presence_of :customer, :user, :message
+  validates_presence_of :customer, :business_owner, :message
 
 
   def send_text
