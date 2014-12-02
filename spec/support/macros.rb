@@ -1,8 +1,8 @@
-def sign_in_user(user=nil)
-  logged_in_user = user || Fabricate(:user)
-  visit new_user_session_path
-  fill_in "user_email", with: logged_in_user.email
-  fill_in "user_password", with: logged_in_user.password
+def sign_in_business_owner(business_owner=nil)
+  logged_in_business_owner = business_owner || Fabricate(:business_owner)
+  visit new_business_owner_session_path
+  fill_in "business_owner_email", with: logged_in_business_owner.email
+  fill_in "business_owner_password", with: logged_in_business_owner.password
   click_button "Login"
   expect(page).to have_content("Signed in successfully.")  
 end

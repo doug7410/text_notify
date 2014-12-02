@@ -10,7 +10,7 @@
         %small
           %i.fa.fa-bullhorn
           Text Notify
-    - if user_signed_in?
+    - if business_owner_signed_in?
       %nav.navbar-menu.collapse.navbar-collapse.pull-left{:role => "navigation"}
         %ul.nav.navbar-nav
           %li
@@ -30,13 +30,13 @@
               %i.ace-icon.fa.fa-group
               Groups
     .navbar-buttons.navbar-header.pull-right{:role => "navigation"}
-      - if user_signed_in?
+      - if business_owner_signed_in?
         %ul.nav.ace-nav
           %li.light-blue
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
               %span.user-info
                 %small Welcome,
-                =current_user.full_name
+                =current_business_owner.full_name
               %i.ace-icon.fa.fa-caret-down
             %ul.user-menu.dropdown-menu-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-close
               %li
@@ -44,16 +44,16 @@
                   %i.ace-icon.fa.fa-cog
                   Settings
               %li
-                = link_to edit_user_registration_path do
+                = link_to edit_business_owner_registration_path do
                   %i.ace-icon.fa.fa-user
                   Profile
               %li.divider
               %li
-                = link_to destroy_user_session_path, method: :delete do
+                = link_to destroy_business_owner_session_path, method: :delete do
                   %i.ace-icon.fa.fa-power-off
                   Logout
       - else
         %p.navbar-text
-          = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'
+          = link_to "Sign up", new_business_owner_registration_path, :class => 'navbar-link'
           |
-          \#{link_to "Login", new_user_session_path, :class => 'navbar-link'}
+          \#{link_to "Login", new_business_owner_session_path, :class => 'navbar-link'}

@@ -1,10 +1,10 @@
 class CustomersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_business_owner!
   before_filter :find_customer, only: [:show, :update]
 
 
   def index
-    @customers = Customer.all.where("user_id = ?", current_user.id).decorate
+    @customers = Customer.all.where("business_owner_id = ?", current_business_owner.id).decorate
     @customer = Customer.new
   end
 
@@ -14,7 +14,7 @@ class CustomersController < ApplicationController
 
   def create
     @customer = Customer.new(customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number])}))
-    @customers = Customer.all.where("user_id = ?", current_user.id).decorate
+    @customers = Customer.all.where("business_owner_id = ?", current_business_owner.id).decorate
 
     if @customer.save
       flash[:success] = "#{@customer.first_name} #{@customer.last_name} has been successfully added."
@@ -53,7 +53,7 @@ class CustomersController < ApplicationController
   end
 
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :phone_number, :user_id)
+    params.require(:customer).permit(:first_name, :last_name, :phone_number, :business_owner_id)
   end 
 
   

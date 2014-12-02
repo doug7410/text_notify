@@ -45,7 +45,6 @@
       %tr
         %td
           = notification.decorate.created_at
-          = " (userID - #{notification.user.id})"
         %td
           = link_to notification.customer.decorate.name, customer_path(notification.customer)
         %td= notification.customer.phone_number

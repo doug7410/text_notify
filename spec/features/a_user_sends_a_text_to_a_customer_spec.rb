@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 feature "Sent a text to an individual customer" do 
-  given(:bob) { Fabricate(:user)}
-  background { sign_in_user(bob) }
+  given(:bob) { Fabricate(:business_owner)}
+  background { sign_in_business_owner(bob) }
 
   scenario '[send a text to an existing customer with valid input]', :vcr do
-    tom = Fabricate(:customer, user: bob).decorate 
+    tom = Fabricate(:customer, business_owner: bob).decorate 
     visit notifications_path
     select tom.id, :from => "Choose an existing customer"
     fill_in "Message", with: "I'm a message!"

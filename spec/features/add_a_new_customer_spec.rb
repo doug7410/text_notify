@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 feature "Add A New customer" do
-  scenario "[a user adds a new customer with valid info]" do
-    sign_in_user
+  scenario "[a business_owner adds a new customer with valid info]" do
+    sign_in_business_owner
     visit new_customer_path
  
     fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '5555555555')
@@ -12,8 +12,8 @@ feature "Add A New customer" do
     expect(current_path).to eq(customers_path)
   end
 
-  scenario "[a user adds a new customer with invalid info]" do
-    sign_in_user
+  scenario "[a business_owner adds a new customer with invalid info]" do
+    sign_in_business_owner
     visit new_customer_path
     
     fill_in_customer_form()
@@ -27,8 +27,8 @@ feature "Add A New customer" do
   end
 
 
-  scenario "[a user adds a new customer with an invalid phone number]" do
-    sign_in_user
+  scenario "[a business_owner adds a new customer with an invalid phone number]" do
+    sign_in_business_owner
     visit new_customer_path
     
     fill_in_customer_form(first_name: 'Freddy', last_name: 'Mercury', phone_number: '555555555')

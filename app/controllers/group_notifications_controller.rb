@@ -1,5 +1,5 @@
 class GroupNotificationsController < ApplicationController
-  before_filter :authenticate_user!, :update_notification_statuses!, :set_up_notification_page
+  before_filter :authenticate_business_owner!, :update_notification_statuses!, :set_up_notification_page
 
 
   def create
@@ -7,7 +7,7 @@ class GroupNotificationsController < ApplicationController
 
     if @group_notification.valid?
       @group_notification.save
-      GroupNotificationSenderWorker.perform_async(@group_notification.id, current_user.id)
+      GroupNotificationSenderWorker.perform_async(@group_notification.id, current_business_owner.id)
       flash[:success] = "A text has been successfully sent to the \"#{@group_notification.group.name}\" group."
       redirect_to notifications_path
     else

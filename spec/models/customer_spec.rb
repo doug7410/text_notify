@@ -6,7 +6,7 @@ describe Customer do
   it { should validate_presence_of(:phone_number)}
   it { should validate_numericality_of(:phone_number)}
   it { should ensure_length_of(:phone_number).is_equal_to(10) }
-  it { should validate_uniqueness_of(:phone_number).scoped_to(:user_id) }
+  it { should validate_uniqueness_of(:phone_number).scoped_to(:business_owner_id) }
 
   describe ".format_phone_number(number)" do
     it "strips out non-numeric characters" do

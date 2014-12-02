@@ -4,16 +4,16 @@
   .col-xs-5
     %h3.lead 
       Your Business Profile 
-      %small=link_to "Edit your profile", edit_user_registration_path
+      %small=link_to "Edit your profile", edit_business_owner_registration_path
     .profile-user-info.profile-user-info-striped
       .profile-info-row
         .profile-info-name Full Name
         .profile-info-value
-          %span#username.editable= current_user.full_name
+          %span#username.editable= current_business_owner.full_name
       .profile-info-row
         .profile-info-name Email 
         .profile-info-value
-          %span#city.editable= current_user.email
+          %span#city.editable= current_business_owner.email
       .profile-info-row
         .profile-info-name Company Name 
         .profile-info-value
@@ -23,7 +23,7 @@
       .profile-info-row
         .profile-info-name Joined
         .profile-info-value
-          %span#signup.editable= current_user.created_at
+          %span#signup.editable= current_business_owner.created_at
       .profile-info-row
         .profile-info-name Membership
         .profile-info-value
@@ -44,7 +44,7 @@
         .infobox-icon
           %i.ace-icon.fa.fa-group   
         .infobox-data
-          %span.infobox-data-number=current_user.groups.count
+          %span.infobox-data-number=current_business_owner.groups.count
           .infobox-content 
             customer groups
             =link_to "view", groups_path
@@ -60,7 +60,7 @@
         .infobox-icon
           %i.ace-icon.fa.fa-send-o
         .infobox-data
-          %span.infobox-data-number= current_user.group_notifications.count
+          %span.infobox-data-number= current_business_owner.group_notifications.count
           .infobox-content 
             group notifications
             =link_to "view", notifications_path
