@@ -2,8 +2,8 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe NotificationsController do
-  let!(:bob_user) { Fabricate(:user) }
-  before { sign_in bob_user }
+  let!(:bob_business_owner) { Fabricate(:business_owner) }
+  before { sign_in bob_business_owner }
   
   describe "GET index" do
     it "[sets the new @notification]" do
@@ -11,9 +11,9 @@ describe NotificationsController do
       expect(assigns(:notification)).to be_instance_of(Notification)
     end
 
-    it "[sets @customers to the signed in user's customers]" do
-      tom = Fabricate(:customer, user: bob_user)
-      mike = Fabricate(:customer, user: bob_user, phone_number: '1234567897')
+    it "[sets @customers to the signed in business_owner's customers]" do
+      tom = Fabricate(:customer, business_owner: bob_business_owner)
+      mike = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '1234567897')
       get :index 
       expect(assigns(:customers)).to eq([tom, mike])
     end
@@ -23,11 +23,11 @@ describe NotificationsController do
       expect(assigns(:customer)).to be_instance_of(Customer)
     end
 
-    it "[sets @notifications to all of the current_user's notifications ordered DESC by created on date]" do
-      tom = Fabricate(:customer, user: bob_user)
-      notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, user: bob_user)
-      notification2 = Fabricate(:notification, customer: tom,  user: bob_user)
-      notification3 = Fabricate(:notification, customer: tom,  user: Fabricate(:user))
+    it "[sets @notifications to all of the current_business_owner's notifications ordered DESC by created on date]" do
+      tom = Fabricate(:customer, business_owner: bob_business_owner)
+      notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, business_owner: bob_business_owner)
+      notification2 = Fabricate(:notification, customer: tom,  business_owner: bob_business_owner)
+      notification3 = Fabricate(:notification, customer: tom,  business_owner: Fabricate(:business_owner))
       get :index 
       expect(assigns(:notifications)).to eq([notification2, notification1])
     end 
@@ -38,8 +38,8 @@ describe NotificationsController do
     end
 
 
-    it "[sets @groups to all the groups for the signed in user]" do
-      group1 = Fabricate(:group, user: bob_user)
+    it "[sets @groups to all the groups for the signed in business_owner]" do
+      group1 = Fabricate(:group, business_owner: bob_business_owner)
       group2 = Fabricate(:group)
       get :index
       expect(assigns(:groups)).to eq([group1])
@@ -50,10 +50,10 @@ describe NotificationsController do
   describe "POST create" do
 
     context "[with valid input and sending the notification to an existing customer]" do
-      let(:alice) { Fabricate(:customer, phone_number: '9546381523', user: bob_user) }
+      let(:alice) { Fabricate(:customer, phone_number: '9546381523', business_owner: bob_business_owner) }
 
       let(:valid_post_create_request) do
-        post :create, notification: {customer_id: alice.id, message: "Hello Alice!", user_id: bob_user.id}, customer: {first_name: "", last_name: "", phone_number: ""}
+        post :create, notification: {customer_id: alice.id, message: "Hello Alice!", business_owner_id: bob_business_owner.id}, customer: {first_name: "", last_name: "", phone_number: ""}
       end
       
       it "[redirects to the notifications index path]", :vcr do
@@ -66,9 +66,9 @@ describe NotificationsController do
         expect(alice.notifications.first.message).to eq("Hello Alice!")
       end
 
-      it "[saves the notification with the correct user]", :vcr do
+      it "[saves the notification with the correct business_owner]", :vcr do
         valid_post_create_request
-        expect(Notification.first.user).to eq(bob_user)
+        expect(Notification.first.business_owner).to eq(bob_business_owner)
       end
 
       it "[sets the flash success message]", :vcr do
@@ -92,9 +92,9 @@ describe NotificationsController do
         expect(response).to redirect_to notifications_path
       end
 
-      it "[creates the new customer and associates them with the signed in user]", :vcr do
+      it "[creates the new customer and associates them with the signed in business_owner]", :vcr do
         valid_post_create_request
-        expect(bob_user.customers.first.first_name).to eq("Douglas")
+        expect(bob_business_owner.customers.first.first_name).to eq("Douglas")
       end
 
       it "[saves the notification with the current customer and message]", :vcr do
@@ -123,20 +123,20 @@ describe NotificationsController do
         expect(Notification.count).to eq(0)
       end
 
-      it "[sets the @customers for the current user]" do
-        alice_user = Fabricate(:user)
-        tom = Fabricate(:customer, user: bob_user, phone_number: '9546381523')
-        frank = Fabricate(:customer, user: bob_user, phone_number: '1234567891')
-        amy = Fabricate(:customer, user: alice_user, phone_number: '1234567892')
+      it "[sets the @customers for the current business_owner]" do
+        alice_business_owner = Fabricate(:business_owner)
+        tom = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '9546381523')
+        frank = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '1234567891')
+        amy = Fabricate(:customer, business_owner: alice_business_owner, phone_number: '1234567892')
         post :create, notification: {customer_id: tom.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
         expect(assigns(:customers)).to eq([tom, frank])
       end
 
-      it "[sets @notifications to all of the current_user's notifications ordered DESC by created on date]" do
-        tom = Fabricate(:customer, user: bob_user)
-        notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, user: bob_user)
-        notification2 = Fabricate(:notification, customer: tom,  user: bob_user)
-        notification3 = Fabricate(:notification, customer: tom,  user: Fabricate(:user))
+      it "[sets @notifications to all of the current_business_owner's notifications ordered DESC by created on date]" do
+        tom = Fabricate(:customer, business_owner: bob_business_owner)
+        notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, business_owner: bob_business_owner)
+        notification2 = Fabricate(:notification, customer: tom,  business_owner: bob_business_owner)
+        notification3 = Fabricate(:notification, customer: tom,  business_owner: Fabricate(:business_owner))
         post :create, notification: {customer_id: tom.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
         expect(assigns(:notifications)).to eq([notification2, notification1])
       end
@@ -146,9 +146,9 @@ describe NotificationsController do
         expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
       end
 
-      it "[sets @groups to all the groups for the signed in user]" do
-        bob = Fabricate(:customer, user: bob_user)
-        group1 = Fabricate(:group, user: bob_user)
+      it "[sets @groups to all the groups for the signed in business_owner]" do
+        bob = Fabricate(:customer, business_owner: bob_business_owner)
+        group1 = Fabricate(:group, business_owner: bob_business_owner)
         group2 = Fabricate(:group)
         post :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
         expect(assigns(:groups)).to eq([group1])
@@ -193,20 +193,20 @@ describe NotificationsController do
 
         # TODO: check for an invalid phone number error in the feature spec
 
-        it "[sets the @customers for the current user]" do
-          alice_user = Fabricate(:user)
-          tom = Fabricate(:customer, user: bob_user, phone_number: '1234567890')
-          frank = Fabricate(:customer, user: bob_user, phone_number: '1234567891')
-          amy = Fabricate(:customer, user: alice_user, phone_number: '1234567892')
+        it "[sets the @customers for the current business_owner]" do
+          alice_business_owner = Fabricate(:business_owner)
+          tom = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '1234567890')
+          frank = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '1234567891')
+          amy = Fabricate(:customer, business_owner: alice_business_owner, phone_number: '1234567892')
           post :create, notification: {customer_id: tom.id, message: ""}, customer: {first_name: "Doug", last_name: "Smith", phone_number: ""}
           expect(assigns(:customers)).to eq([tom, frank])
         end
 
-        it "[sets @notifications to all of the current_user's notifications ordered DESC by created on date]" do
-          tom = Fabricate(:customer, user: bob_user)
-          notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, user: bob_user)
-          notification2 = Fabricate(:notification, customer: tom,  user: bob_user)
-          notification3 = Fabricate(:notification, customer: tom,  user: Fabricate(:user))
+        it "[sets @notifications to all of the current_business_owner's notifications ordered DESC by created on date]" do
+          tom = Fabricate(:customer, business_owner: bob_business_owner)
+          notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, business_owner: bob_business_owner)
+          notification2 = Fabricate(:notification, customer: tom,  business_owner: bob_business_owner)
+          notification3 = Fabricate(:notification, customer: tom,  business_owner: Fabricate(:business_owner))
           post :create, notification: {customer_id: tom.id, message: ""}, customer: {first_name: "Doug", last_name: "Smith", phone_number: ""}
           expect(assigns(:notifications)).to eq([notification2, notification1])
         end

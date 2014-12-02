@@ -2,8 +2,8 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe GroupNotificationsController   do
-  let!(:bob_user) { Fabricate(:user)}
-  before { sign_in bob_user}
+  let!(:bob_business_owner) { Fabricate(:business_owner)}
+  before { sign_in bob_business_owner}
   
   describe "POST create" do
     context "[with valid input]" do
@@ -14,28 +14,28 @@ describe GroupNotificationsController   do
       end
 
       it "[creates a new group_notification]", :vcr do
-        tom = Fabricate(:customer, user: bob_user)
-        doug = Fabricate(:customer, phone_number: '3053452021', user: bob_user)
-        group = Fabricate(:group, user: bob_user)
+        tom = Fabricate(:customer, business_owner: bob_business_owner)
+        doug = Fabricate(:customer, phone_number: '3053452021', business_owner: bob_business_owner)
+        group = Fabricate(:group, business_owner: bob_business_owner)
         group.customers << [tom, doug]
         post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
-        expect(bob_user.group_notifications.count).to eq(1)
+        expect(bob_business_owner.group_notifications.count).to eq(1)
 
       end 
 
       it "[creates a notifications for each customer associated with the group]", :vcr do
-        tom = Fabricate(:customer, user: bob_user)
-        doug = Fabricate(:customer, phone_number: '3053452021', user: bob_user)
-        group = Fabricate(:group, user: bob_user)
+        tom = Fabricate(:customer, business_owner: bob_business_owner)
+        doug = Fabricate(:customer, phone_number: '3053452021', business_owner: bob_business_owner)
+        group = Fabricate(:group, business_owner: bob_business_owner)
         group.customers << [tom, doug]
         post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
-        group_notification = bob_user.groups.first.group_notifications.first
+        group_notification = bob_business_owner.groups.first.group_notifications.first
         expect(group_notification.notifications.count).to eq(2)
       end  
 
       it "[sets the flash success message]", :vcr do
-        tom = Fabricate(:customer, user: bob_user)
-        group = Fabricate(:group, user: bob_user)
+        tom = Fabricate(:customer, business_owner: bob_business_owner)
+        group = Fabricate(:group, business_owner: bob_business_owner)
         group.customers << [tom]
         post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
         expect(flash[:success]).to be_present
@@ -44,18 +44,18 @@ describe GroupNotificationsController   do
 
     context "[with valid input and failed phone numbers]" do
       it "[sends the texts to the valid numbers]", :vcr do
-        tom = Fabricate(:customer, user: bob_user)
-        doug = Fabricate(:customer, phone_number: '5555555555', user: bob_user)
-        group = Fabricate(:group, user: bob_user)
+        tom = Fabricate(:customer, business_owner: bob_business_owner)
+        doug = Fabricate(:customer, phone_number: '5555555555', business_owner: bob_business_owner)
+        group = Fabricate(:group, business_owner: bob_business_owner)
         group.customers << [tom, doug]
         post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
-        group_notification = bob_user.groups.first. group_notifications.first
+        group_notification = bob_business_owner.groups.first. group_notifications.first
         expect(group_notification.notifications.last.status).not_to eq('failed')
       end
 
       it "[sets the status of the failed phone numbers to 'failed']", :vcr do
-        doug = Fabricate(:customer, phone_number: '5555555555', user: bob_user)
-        group = Fabricate(:group, user: bob_user)
+        doug = Fabricate(:customer, phone_number: '5555555555', business_owner: bob_business_owner)
+        group = Fabricate(:group, business_owner: bob_business_owner)
         group.customers << [doug]
         post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
         expect(Notification.first.status).to eq('failed')
@@ -63,9 +63,9 @@ describe GroupNotificationsController   do
     end
 
     context "[with invalid input]" do
-      let(:tom) { Fabricate(:customer, user: bob_user) }
-      let(:mike) { Fabricate(:customer, user: bob_user, phone_number: '1234567897') }
-      let(:group) { Fabricate(:group, user: bob_user) }
+      let(:tom) { Fabricate(:customer, business_owner: bob_business_owner) }
+      let(:mike) { Fabricate(:customer, business_owner: bob_business_owner, phone_number: '1234567897') }
+      let(:group) { Fabricate(:group, business_owner: bob_business_owner) }
       before { group.customers << [tom] }
       let(:invalid_post_request) do
         post :create, group_notification: {group_id: group.id, group_message: ""}
@@ -81,7 +81,7 @@ describe GroupNotificationsController   do
         expect(assigns(:notification)).to be_instance_of(Notification)
       end
 
-      it "sets @customers to the signed in user's customers", :vcr do
+      it "sets @customers to the signed in business_owner's customers", :vcr do
         invalid_post_request
         expect(assigns(:customers)).to eq([tom, mike])
       end
@@ -91,8 +91,8 @@ describe GroupNotificationsController   do
         expect(assigns(:customer)).to be_instance_of(Customer)
       end
 
-      it "sets @notifications to the signed in user's notifications", :vcr do
-        notification1 = Fabricate(:notification, customer: tom, user: bob_user)
+      it "sets @notifications to the signed in business_owner's notifications", :vcr do
+        notification1 = Fabricate(:notification, customer: tom, business_owner: bob_business_owner)
         notification2 = Fabricate(:notification, customer: tom)
         invalid_post_request
         expect(assigns(:notifications)).to eq([notification1])
@@ -103,7 +103,7 @@ describe GroupNotificationsController   do
         expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
       end  
 
-      it "[sets @groups to all the groups for the signed in user]", :vcr do
+      it "[sets @groups to all the groups for the signed in business_owner]", :vcr do
         group2 = Fabricate(:group)
         invalid_post_request
         expect(assigns(:groups)).to eq([group])
