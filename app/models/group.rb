@@ -1,7 +1,7 @@
 class Group < ActiveRecord::Base
   belongs_to :business_owner
-  has_many :customer_groups
-  has_many :customers, through: :customer_groups
+  has_many :memberships
+  has_many :customers, through: :memberships
   has_many :group_notifications
   has_many :notifications, through: :group_notifications
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141202185207) do
+ActiveRecord::Schema.define(version: 20141202224159) do
 
   create_table "business_owners", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -31,11 +31,6 @@ ActiveRecord::Schema.define(version: 20141202185207) do
 
   add_index "business_owners", ["email"], name: "index_business_owners_on_email", unique: true
   add_index "business_owners", ["reset_password_token"], name: "index_business_owners_on_reset_password_token", unique: true
-
-  create_table "customer_groups", force: true do |t|
-    t.integer "customer_id"
-    t.integer "group_id"
-  end
 
   create_table "customers", force: true do |t|
     t.string   "first_name"
@@ -58,6 +53,11 @@ ActiveRecord::Schema.define(version: 20141202185207) do
     t.integer  "business_owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "memberships", force: true do |t|
+    t.integer "customer_id"
+    t.integer "group_id"
   end
 
   create_table "notifications", force: true do |t|
