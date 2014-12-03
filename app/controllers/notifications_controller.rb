@@ -1,6 +1,7 @@
 class NotificationsController < ApplicationController
-  before_filter :authenticate_business_owner!, :update_notification_statuses!, :set_up_notification_page
-    
+  before_action :authenticate_business_owner!, :update_notification_statuses!, :set_up_notification_page
+  before_action :set_up_notification_create, only: [:create]
+
   def index
     @notification = Notification.new
     @customer = Customer.new
@@ -8,34 +9,20 @@ class NotificationsController < ApplicationController
   end
 
   def create
-    @notification = Notification.new(notification_params.merge(business_owner_id: current_business_owner.id))
-    @customer = Customer.new(customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number]), business_owner_id: current_business_owner.id}))
-    @group_notification = GroupNotification.new
-    
-
     if the_customer_is_missing
-      trigger_errors(@notification)
-      flash[:error] = "There was a problem."
+      @notification.errors[:base] << "Please choose a customer or add a new one."
       render :index
     elsif a_new_customer_is_being_added 
-      if @customer.valid?
-        @notification.customer = @customer
-        if @notification.valid?
-          handle_sending_text_message(notification: @notification, customer: @customer)
-        else
-          flash[:error] = "There was a problem."
-          render :index
-        end
+      if customer_and_notification_valid?
+        send_text_and_redirect
       else
         @notification.errors.clear
-        flash[:error] = "There was a problem."
-        render :index
-      end
+        render :index    
+      end 
     elsif sending_to_an_existing_customer
       if @notification.valid?
-        handle_sending_text_message(notification: @notification)
+        send_text_and_redirect
       else
-        flash[:error] = "There was a problem."
         render :index 
       end
     else
@@ -46,6 +33,24 @@ class NotificationsController < ApplicationController
 
   
 private
+  def send_text_and_redirect
+    result = @notification.send_text
+    if result.successful? 
+      @notification.save_with_status(result)
+    else
+      @notification.errors[:base] << result.error_message
+    end
+    flash[:success] = "A text to #{@notification.customer.decorate.name} has been sent!"
+    redirect_to notifications_path
+  end
+  
+  def customer_and_notification_valid?
+    ActiveRecord::Base.transaction do
+      @customer.save
+      @notification.customer = @customer
+      @notification.save
+    end
+  end
 
   def sending_to_an_existing_customer
     !!notification_params[:customer_id]
@@ -66,21 +71,6 @@ private
     !customer.empty?
   end
 
-  def handle_sending_text_message(options={})
-    result = options[:notification].send_text
-    
-    if result.successful? 
-      options[:notification].save_with_status(result)
-      options[:customer].save if options[:customer]
-      flash[:success] = "A text to #{options[:notification].customer.decorate.name} has been sent!"
-      redirect_to notifications_path
-    else
-      options[:notification].errors[:base] << result.error_message
-      render :index 
-    end
-  end
-
-
   def notification_params 
     params.require(:notification).permit(:customer_id, :message)
   end
@@ -89,6 +79,9 @@ private
     params.require(:customer).permit(:first_name, :last_name, :phone_number)
   end
 
-
-
+  def set_up_notification_create
+    @group_notification = GroupNotification.new
+    @notification = Notification.new(notification_params.merge(business_owner_id: current_business_owner.id))
+    @customer = Customer.new(customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number]), business_owner_id: current_business_owner.id}))
+  end
 end

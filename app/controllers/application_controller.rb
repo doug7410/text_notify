@@ -12,10 +12,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:reset_password) { |u| u.permit(:full_name, :email, :password, :password_confirmation) }
   end
 
-  def trigger_errors(object)
-    object.valid?
-  end
-
   def set_up_notification_page
     @customers = Customer.where("business_owner_id = ?", current_business_owner.id)
     @notifications = Notification.where("business_owner_id = ?", current_business_owner.id)

@@ -7,7 +7,7 @@ class Notification < ActiveRecord::Base
   belongs_to :business_owner  
   belongs_to :group_notification
   
-  validates_presence_of :customer, :business_owner, :message
+  validates_presence_of :customer_id, :business_owner, :message
 
 
   def send_text
