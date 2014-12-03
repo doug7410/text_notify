@@ -45,30 +45,11 @@ class GroupsController < ApplicationController
     end
   end
 
-  def add_customer
-    @group = Group.find(params[:id])
-    customer = Customer.find(params[:customer_id])
-    @group.customers << customer
-    @customers_not_in_group = Customer.all - @group.customers
-    @group_customers = @group.customers.decorate
-    redirect_to group_path(@group)
-  end
-
-  def remove_customer
-    @group = Group.find(params[:id])
-    customer = Customer.find(params[:customer_id])
-    customer_group = @group.customer_groups.where("customer_id = ?", customer.id)
-    CustomerGroup.destroy(customer_group)
-    @customers_not_in_group = Customer.all - @group.customers
-    @group_customers = @group.customers.decorate
-    redirect_to group_path(@group)
-  end
-
 private 
   
   def set_up_customers_and_group
     @group = Group.find(params[:id])
-    @group_customers = @group.customers.decorate
+    @members = Membership.where(group: @group)
     @customers_not_in_group = current_business_owner.customers.all - @group.customers
   end 
 end

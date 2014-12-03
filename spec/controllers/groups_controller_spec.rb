@@ -75,15 +75,14 @@ describe GroupsController do
       expect(assigns(:group)).to eq(group1)
     end
 
-    it "[sets the @group_customers to all the customers that are in the group]" do
+    it "[sets the @members to all the customers that are in the group]" do
       group1 = Fabricate(:group, business_owner: bob_business_owner)
-      tom = Fabricate(:customer)
-      dave = Fabricate(:customer, phone_number: '1234566544')
-      mike = Fabricate(:customer, phone_number: '1234566547')
-      group1.customers << tom
-      group1.customers << dave
+      dave = Fabricate(:customer, phone_number: '1234566544', business_owner: bob_business_owner)
+      mike = Fabricate(:customer, phone_number: '1234566547', business_owner: bob_business_owner)
+      Membership.create(customer: dave, group: group1, current_business_owner: bob_business_owner)
+      Membership.create(customer: mike, group: group1, current_business_owner: bob_business_owner)
       get :show, id: group1.id
-      expect(assigns(:group_customers)).to eq([tom, dave])
+      expect(assigns(:members)).to eq(group1.memberships.all)
     end
     
     it "[sets the @customers_not_in_group to the signed in business_owner's customers that are not in the group]" do
@@ -92,7 +91,7 @@ describe GroupsController do
       tom = Fabricate(:customer, business_owner: alice_business_owner)
       dave = Fabricate(:customer, phone_number: '1234566544', business_owner: bob_business_owner)
       mike = Fabricate(:customer, phone_number: '1234566547',business_owner: bob_business_owner)
-      group1.customers << dave
+      Membership.create(customer: dave, group: group1, current_business_owner: bob_business_owner)
       get :show, id: group1.id
       expect(assigns(:customers_not_in_group)).to eq([mike])
     end
@@ -149,20 +148,21 @@ describe GroupsController do
       expect(Group.count).to eq(0)
     end
 
-    it "[deletes all the customer groupings related to the group]" do
+    it "[deletes all the memberships related to the group]" do
       tom = Fabricate(:customer, business_owner: bob_business_owner)
       fun_group = Fabricate(:group, business_owner: bob_business_owner )
-      CustomerGroup.create(group: fun_group, customer: tom)
+      Membership.create(group: fun_group, customer: tom, current_business_owner: bob_business_owner)
       delete :destroy, id: fun_group.id
-      expect(CustomerGroup.count).to eq(0)
+      expect(Membership.count).to eq(0)
     end
 
-    it "does not delete any customer groupings that are not associated to the group being deleted" do
+    it "[does not delete any Memberships that are not associated with the group being deleted]" do
       tom = Fabricate(:customer, business_owner: bob_business_owner)
       fun_group = Fabricate(:group, business_owner: bob_business_owner )
-      CustomerGroup.create(group: Fabricate(:group), customer: tom)
+      beer_group = Fabricate(:group, business_owner: bob_business_owner )
+      Membership.create(group: beer_group, customer: tom, current_business_owner: bob_business_owner)
       delete :destroy, id: fun_group.id
-      expect(CustomerGroup.count).to eq(1)
+      expect(Membership.count).to eq(1)
     end
 
     it "[does not delete the group if it's not associated witht he signed in business_owner]" do
@@ -179,95 +179,4 @@ describe GroupsController do
 
   end 
 
-  describe "POST add_customer" do
-    it "[redirect_to the show page]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      dave = Fabricate(:customer)
-      post :add_customer, id: group.id, customer_id: dave.id
-      expect(response).to redirect_to group_path(group)
-    end
-
-    it "[associates the customer with the group]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      dave = Fabricate(:customer)
-      post :add_customer, id: group.id, customer_id: dave.id
-      expect(group.customers.first).to eq(dave)
-    end
-
-    it "[sets the @customers_not_in_group to the customers that are not in the group]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      tom = Fabricate(:customer)
-      dave = Fabricate(:customer, phone_number: '1234566544')
-      mike = Fabricate(:customer, phone_number: '1234566547')
-      post :add_customer, id: group.id, customer_id: tom.id
-      expect(assigns(:customers_not_in_group)).to eq([dave, mike])
-    end 
-
-    it "[sets the @group_customers to all the customers that are in the group]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      tom = Fabricate(:customer)
-      dave = Fabricate(:customer, phone_number: '1234566544')
-      mike = Fabricate(:customer, phone_number: '1234566547')
-      post :add_customer, id: group.id, customer_id: tom.id
-      expect(assigns(:group_customers)).to eq([tom])
-    end
-
-    it "[sets the @group]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      tom = Fabricate(:customer)
-      post :add_customer, id: group.id, customer_id: tom.id
-      expect(assigns(:group)).to eq(group)
-    end 
-  end
-
-  describe "POST remove_customer" do
-    it "[redirect_to the show page]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      dave = Fabricate(:customer)
-      group.customers << dave
-      post :remove_customer, id: group.id, customer_id: dave.id
-      expect(response).to redirect_to group_path(group)
-    end 
-
-    it "[deletes the customer group]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      dave = Fabricate(:customer)
-      group.customers << dave
-      expect(group.customers.first).to eq(dave)
-      post :remove_customer, id: group.id, customer_id: dave.id
-      expect(group.customers.count).to eq(0)
-    end
-
-    it "[sets the @customers_not_in_group to the customers that are not in the group]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      tom = Fabricate(:customer)
-      dave = Fabricate(:customer, phone_number: '1234566544')
-      mike = Fabricate(:customer, phone_number: '1234566547')
-      group.customers << dave
-      expect(group.customers.first).to eq(dave)
-      post :remove_customer, id: group.id, customer_id: dave.id
-      expect(assigns(:customers_not_in_group)).to eq([tom, dave, mike])
-    end 
-
-    it "[sets the @group_customers to all the customers that are in the group]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      tom = Fabricate(:customer)
-      dave = Fabricate(:customer, phone_number: '1234566544')
-      mike = Fabricate(:customer, phone_number: '1234566547')
-      group.customers << tom
-      group.customers << dave
-      group.customers << mike
-      expect(group.customers.all).to eq([tom, dave, mike])
-      post :remove_customer, id: group.id, customer_id: tom.id
-      expect(assigns(:group_customers)).to eq([dave, mike])
-    end
-
-    it "[sets the @group]" do
-      group = Fabricate(:group, business_owner: bob_business_owner)
-      tom = Fabricate(:customer)
-      group.customers << tom
-      post :remove_customer, id: group.id, customer_id: tom.id
-      expect(assigns(:group)).to eq(group)
-    end 
-  end
 end
