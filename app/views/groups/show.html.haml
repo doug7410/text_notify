@@ -18,7 +18,7 @@
           = "Customers in the #{@group.name.capitalize} group"
       .widget-body
         .widget-main
-          - if @group_customers.any?
+          - if @members.any?
             %table#sample-table-1.table.table-striped.table-bordered.table-hover
               %thead
                 %tr
@@ -26,12 +26,12 @@
                   %th Phone Number
                   %th 
               %tbody
-                -@group_customers.each do |customer|
+                -@members.each do |member|
                   %tr
-                    %td= link_to "#{customer.name}", customer
-                    %td= "#{customer.phone_number}"
+                    %td= link_to "#{member.customer.decorate.name}", member.customer
+                    %td= "#{member.customer.phone_number}"
                     %td
-                      =link_to memberships_path(group: @group.id, customer: customer.id), method: 'delete' do
+                      =link_to membership_path(member.id), method: 'delete' do
                         %button.btn.btn-danger.btn-xs
                           %i.ace-icon.glyphicon.glyphicon-remove.align-top.bigger-125
                           Remove 

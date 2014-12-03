@@ -15,6 +15,15 @@ class MembershipsController < ApplicationController
   end
  
   def destroy
+    membership = Membership.find(params[:id])
+    group = Group.find(membership.group)
 
+    if group.business_owner == current_business_owner
+      membership.destroy
+    else
+      flash[:error] = "you can't delete that group"
+    end
+    
+    redirect_to group
   end
 end 

@@ -12,10 +12,12 @@ class Membership < ActiveRecord::Base
   private
 
   def ensure_customer_and_group_belong_to_business_owner
-    if group.business_owner == current_business_owner and customer.business_owner == current_business_owner
-      true
-    else
-      errors.add :category, "is invalid for user"
+    if current_business_owner
+      if group.business_owner == current_business_owner and customer.business_owner == current_business_owner
+        true
+      else
+        errors.add :customer, "this is not your customer"
+      end
     end
   end
 end
