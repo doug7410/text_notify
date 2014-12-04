@@ -3,8 +3,7 @@ class GroupNotificationsController < ApplicationController
 
 
   def create
-    @group_notification = GroupNotification.create(params.require(:group_notification).permit(:group_id, :group_message))
-
+    @group_notification = GroupNotification.create(params.require(:group_notification).permit(:group_id, :group_message).merge(business_owner_id: current_business_owner.id))
     if @group_notification.valid?
       @group_notification.save
       GroupNotificationSenderWorker.perform_async(@group_notification.id, current_business_owner.id)

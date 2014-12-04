@@ -109,9 +109,10 @@ describe NotificationsController do
       end
       
       it "[saves the sid from twillio for the notification]", :vcr do
-        valid_post_create_request
-        expect(Notification.last.sid).not_to be_nil
-      end
+        post :create, notification: {customer_id: "", message: "Hello Alice!"}, customer: {first_name: "Doug", last_name: "S", phone_number: '9546381523'
+        }        
+        expect(Notification.last.sid).not_to be_nil 
+      end     
     end
 
 

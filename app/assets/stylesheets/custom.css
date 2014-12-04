@@ -48,3 +48,7 @@
  .dash-btn{
     width: 100%  !important;
  }
+
+ .new_group .field_with_errors{
+    display: inline;
+ }

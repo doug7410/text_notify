@@ -23,7 +23,7 @@ http_interactions:
       message: CREATED
     headers:
       Date:
-      - Tue, 02 Dec 2014 19:01:47 GMT
+      - Thu, 04 Dec 2014 00:18:36 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -36,19 +36,19 @@ http_interactions:
       - none
     body:
       encoding: UTF-8
-      string: '{"sid": "SM7e7ddd4522164fcaaeba35f7fab0442c", "date_created": "Tue,
-        02 Dec 2014 19:01:46 +0000", "date_updated": "Tue, 02 Dec 2014 19:01:46 +0000",
+      string: '{"sid": "SM6e0e3d85ca8d43f1af4d02b05a53245a", "date_created": "Thu,
+        04 Dec 2014 00:18:36 +0000", "date_updated": "Thu, 04 Dec 2014 00:18:36 +0000",
         "date_sent": null, "account_sid": "ACb62e32327e8ec258781341a039e65c46", "to":
         "+19546381523", "from": "+18554965033", "body": "Hello Alice!", "status":
         "queued", "num_segments": "1", "num_media": "0", "direction": "outbound-api",
         "api_version": "2010-04-01", "price": null, "price_unit": "USD", "error_code":
-        null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM7e7ddd4522164fcaaeba35f7fab0442c.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM7e7ddd4522164fcaaeba35f7fab0442c/Media.json"}}'
+        null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM6e0e3d85ca8d43f1af4d02b05a53245a.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM6e0e3d85ca8d43f1af4d02b05a53245a/Media.json"}}'
     http_version: 
-  recorded_at: Tue, 02 Dec 2014 19:01:46 GMT
+  recorded_at: Thu, 04 Dec 2014 00:18:45 GMT
 - request:
     method: get
-    uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM7e7ddd4522164fcaaeba35f7fab0442c.json
+    uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM6e0e3d85ca8d43f1af4d02b05a53245a.json
     body:
       encoding: US-ASCII
       string: ''
@@ -67,7 +67,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 02 Dec 2014 19:01:47 GMT
+      - Thu, 04 Dec 2014 00:18:36 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -82,14 +82,14 @@ http_interactions:
       - https://www.twilio.com
     body:
       encoding: UTF-8
-      string: '{"sid": "SM7e7ddd4522164fcaaeba35f7fab0442c", "date_created": "Tue,
-        02 Dec 2014 19:01:46 +0000", "date_updated": "Tue, 02 Dec 2014 19:01:46 +0000",
-        "date_sent": "Tue, 02 Dec 2014 19:01:46 +0000", "account_sid": "ACb62e32327e8ec258781341a039e65c46",
+      string: '{"sid": "SM6e0e3d85ca8d43f1af4d02b05a53245a", "date_created": "Thu,
+        04 Dec 2014 00:18:36 +0000", "date_updated": "Thu, 04 Dec 2014 00:18:36 +0000",
+        "date_sent": "Thu, 04 Dec 2014 00:18:36 +0000", "account_sid": "ACb62e32327e8ec258781341a039e65c46",
         "to": "+19546381523", "from": "+18554965033", "body": "Hello Alice!", "status":
         "sent", "num_segments": "1", "num_media": "0", "direction": "outbound-api",
         "api_version": "2010-04-01", "price": null, "price_unit": "USD", "error_code":
-        null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM7e7ddd4522164fcaaeba35f7fab0442c.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM7e7ddd4522164fcaaeba35f7fab0442c/Media.json"}}'
+        null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM6e0e3d85ca8d43f1af4d02b05a53245a.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM6e0e3d85ca8d43f1af4d02b05a53245a/Media.json"}}'
     http_version: 
-  recorded_at: Tue, 02 Dec 2014 19:01:47 GMT
+  recorded_at: Thu, 04 Dec 2014 00:18:46 GMT
 recorded_with: VCR 2.9.3

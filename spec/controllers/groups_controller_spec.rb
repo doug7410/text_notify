@@ -151,7 +151,7 @@ describe GroupsController do
     it "[deletes all the memberships related to the group]" do
       tom = Fabricate(:customer, business_owner: bob_business_owner)
       fun_group = Fabricate(:group, business_owner: bob_business_owner )
-      Membership.create(group: fun_group, customer: tom, current_business_owner: bob_business_owner)
+      Fabricate(:membership, customer: tom, group: fun_group, current_business_owner: bob_business_owner)
       delete :destroy, id: fun_group.id
       expect(Membership.count).to eq(0)
     end
@@ -160,7 +160,7 @@ describe GroupsController do
       tom = Fabricate(:customer, business_owner: bob_business_owner)
       fun_group = Fabricate(:group, business_owner: bob_business_owner )
       beer_group = Fabricate(:group, business_owner: bob_business_owner )
-      Membership.create(group: beer_group, customer: tom, current_business_owner: bob_business_owner)
+      Fabricate(:membership, customer: tom, group: beer_group, current_business_owner: bob_business_owner)
       delete :destroy, id: fun_group.id
       expect(Membership.count).to eq(1)
     end
