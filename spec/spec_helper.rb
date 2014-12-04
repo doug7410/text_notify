@@ -73,7 +73,7 @@ RSpec.configure do |config|
   end
 
    if config.files_to_run.one?
-    config.default_formatter = 'doc'
+    # config.default_formatter = 'doc'
   end
 end
 

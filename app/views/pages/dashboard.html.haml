@@ -39,7 +39,6 @@
           %span.infobox-data-number= @customers.count
           .infobox-content 
             customers
-            =link_to "view", customers_path
       .infobox.infobox-blue
         .infobox-icon
           %i.ace-icon.fa.fa-group   
@@ -47,7 +46,6 @@
           %span.infobox-data-number=current_business_owner.groups.count
           .infobox-content 
             customer groups
-            =link_to "view", groups_path
       .infobox.infobox-pink
         .infobox-icon
           %i.ace-icon.fa.fa-send
@@ -55,7 +53,6 @@
           %span.infobox-data-number= @delivered_notifications.count
           .infobox-content 
             deliverd notifications 
-            =link_to "view", notifications_path
       .infobox.infobox-orange2
         .infobox-icon
           %i.ace-icon.fa.fa-send-o
@@ -63,7 +60,6 @@
           %span.infobox-data-number= current_business_owner.group_notifications.count
           .infobox-content 
             group notifications
-            =link_to "view", notifications_path
       .infobox.infobox-red
         .infobox-icon
           %i.ace-icon.fa.fa-send-o
@@ -71,7 +67,6 @@
           %span.infobox-data-number= @failed_notifications.count
           .infobox-content 
             failed deliveries 
-            =link_to "view", notifications_path
 %hr
 .row
   .col-sm-4

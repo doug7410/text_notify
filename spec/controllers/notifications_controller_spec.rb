@@ -208,7 +208,9 @@ describe NotificationsController do
     end
   end
 
-  
+  describe "GET view" do
+    
+  end  
 
  
 
