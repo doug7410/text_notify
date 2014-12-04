@@ -1,41 +1,42 @@
-=render 'shared/page_header', title: "Edit Customer - #{@customer.name}"
+=render 'shared/page_header', title: "Customer - #{@customer.name}"
 
-.row
-  .col-sm-8
-    .widget-box
-      .widget-body
-        .widget-main.no-padding
-          = bootstrap_form_for @customer, inline_errors: false do |f|
-            %fieldset
-              = f.alert_message "Please fix the errors below."
-              %div
-                = f.label :first_name, "First Name"
-                .input-group
-                  %span.input-group-addon
-                    %i.ace-icon.fa.fa-user
-                  =f.text_field :first_name, class: "form-control", :placeholder => "Jon", hide_label: true
-                = f.label :last_name, "Last Name"
-                .input-group
-                  %span.input-group-addon
-                    %i.ace-icon.fa.fa-user
-                  =f.text_field :last_name, class: "form-control", :placeholder => "Snow", hide_label: true    
-              %hr
-              %div
-                =f.label :phone_number, "Phone Number"
-                .input-group
-                  %span.input-group-addon
-                    %i.ace-icon.fa.fa-phone
-                  =f.text_field :phone_number, class: "form-control input-mask-phone", :placeholder => "555-555-5555", hide_label: true, vlaue: @customer.display_phone_number
-            .form-actions.center
-              %button.btn.btn-sm.btn-success{:type => "submit"}
-                Update Customer
-                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
-        
+= render 'customers/customer_form', title: 'Edit Customer', button_label: 'Update'
+%hr
+=link_to :back do
+  %button.btn.btn-xs.btn-primary
+    %i.ace-icon.fa.fa-arrow-left.icon-on-left
+    Go Back
+.space-6    
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th
+        Sent on
+        %i.ace-icon.fa.fa-calendar.bigger-110
+      %th
+        Picked up on 
+        %i.ace-icon.fa.fa-calendar.bigger-110
+      %th Customer
+      %th Phone Number
+      %th Message
+      %th
+  %tbody
+    - @customer.notifications.each do |notification|
+      %tr
+        %td= notification.created_at
+        %td 
+        %td= notification.customer.decorate.name
+        %td= notification.customer.decorate.display_phone_number
+        %td= notification.message 
+        %td
+          %button.btn.btn-danger.btn-xs Mark Picked Up
+
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript
   jQuery(function($) {
     $.mask.definitions['~']='[+-]';
     $('.input-mask-phone').mask('(999) 999-9999');
-  });  
-    
+  });       
+              
+            
