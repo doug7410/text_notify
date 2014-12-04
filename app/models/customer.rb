@@ -2,7 +2,7 @@ class Customer < ActiveRecord::Base
   belongs_to :business_owner
   has_many :notifications, -> { order "created_at ASC" }
   
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
 
   validates_presence_of :first_name, :last_name, :phone_number
