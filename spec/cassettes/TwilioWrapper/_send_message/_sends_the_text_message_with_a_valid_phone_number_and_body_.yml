@@ -23,7 +23,7 @@ http_interactions:
       message: CREATED
     headers:
       Date:
-      - Sat, 29 Nov 2014 16:23:44 GMT
+      - Thu, 04 Dec 2014 00:42:38 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
@@ -36,19 +36,19 @@ http_interactions:
       - none
     body:
       encoding: UTF-8
-      string: '{"sid": "SM52f483dae9664616b867836546fab2f2", "date_created": "Sat,
-        29 Nov 2014 16:23:44 +0000", "date_updated": "Sat, 29 Nov 2014 16:23:44 +0000",
+      string: '{"sid": "SM8cf099acaea348c29279d9406a5fc539", "date_created": "Thu,
+        04 Dec 2014 00:42:38 +0000", "date_updated": "Thu, 04 Dec 2014 00:42:38 +0000",
         "date_sent": null, "account_sid": "ACb62e32327e8ec258781341a039e65c46", "to":
         "+19546381523", "from": "+18554965033", "body": "test message", "status":
         "queued", "num_segments": "1", "num_media": "0", "direction": "outbound-api",
         "api_version": "2010-04-01", "price": null, "price_unit": "USD", "error_code":
-        null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM52f483dae9664616b867836546fab2f2.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM52f483dae9664616b867836546fab2f2/Media.json"}}'
+        null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM8cf099acaea348c29279d9406a5fc539.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM8cf099acaea348c29279d9406a5fc539/Media.json"}}'
     http_version: 
-  recorded_at: Sat, 29 Nov 2014 16:24:04 GMT
+  recorded_at: Thu, 04 Dec 2014 00:42:47 GMT
 - request:
     method: get
-    uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM52f483dae9664616b867836546fab2f2.json
+    uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM8cf099acaea348c29279d9406a5fc539.json
     body:
       encoding: US-ASCII
       string: ''
@@ -67,11 +67,11 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 29 Nov 2014 16:23:45 GMT
+      - Thu, 04 Dec 2014 00:42:39 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
-      - '772'
+      - '777'
       Connection:
       - close
       X-Powered-By:
@@ -82,14 +82,14 @@ http_interactions:
       - https://www.twilio.com
     body:
       encoding: UTF-8
-      string: '{"sid": "SM52f483dae9664616b867836546fab2f2", "date_created": "Sat,
-        29 Nov 2014 16:23:44 +0000", "date_updated": "Sat, 29 Nov 2014 16:23:44 +0000",
-        "date_sent": "Sat, 29 Nov 2014 16:23:44 +0000", "account_sid": "ACb62e32327e8ec258781341a039e65c46",
+      string: '{"sid": "SM8cf099acaea348c29279d9406a5fc539", "date_created": "Thu,
+        04 Dec 2014 00:42:38 +0000", "date_updated": "Thu, 04 Dec 2014 00:42:38 +0000",
+        "date_sent": "Thu, 04 Dec 2014 00:42:38 +0000", "account_sid": "ACb62e32327e8ec258781341a039e65c46",
         "to": "+19546381523", "from": "+18554965033", "body": "test message", "status":
-        "sent", "num_segments": "1", "num_media": "0", "direction": "outbound-api",
+        "delivered", "num_segments": "1", "num_media": "0", "direction": "outbound-api",
         "api_version": "2010-04-01", "price": null, "price_unit": "USD", "error_code":
-        null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM52f483dae9664616b867836546fab2f2.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM52f483dae9664616b867836546fab2f2/Media.json"}}'
+        null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM8cf099acaea348c29279d9406a5fc539.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM8cf099acaea348c29279d9406a5fc539/Media.json"}}'
     http_version: 
-  recorded_at: Sat, 29 Nov 2014 16:24:05 GMT
+  recorded_at: Thu, 04 Dec 2014 00:42:48 GMT
 recorded_with: VCR 2.9.3

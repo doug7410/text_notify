@@ -30,7 +30,8 @@ feature "Sent a text to an individual customer" do
     expect(page).to have_content("First name can't be blank")
 
     fill_in_notification_form(first_name: "John", last_name: "Doe", phone_number: "9546381523", message: "") 
-    click_button "Send Notification" 
+    click_button "Send Notification"
+    # save_and_open_page 
     expect(page).to have_content("Message can't be blank")
   end
  
@@ -45,7 +46,7 @@ feature "Sent a text to an individual customer" do
     visit notifications_path
     fill_in_notification_form(message: "I'm a message!")
     click_button "Send Notification" 
-    expect(page).to have_content("Customer can't be blank")
+    expect(page).to have_content("Please choose a customer or add a new one.")
   end
 end
 
