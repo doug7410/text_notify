@@ -19,7 +19,7 @@
       .widget-body
         .widget-main
           - if @members.any?
-            %table#sample-table-1.table.table-striped.table-bordered.table-hover
+            %table.table.table-striped.table-bordered.table-hover
               %thead
                 %tr
                   %th Name
@@ -31,7 +31,7 @@
                     %td= link_to "#{member.customer.decorate.name}", member.customer
                     %td= "#{member.customer.phone_number}"
                     %td
-                      =link_to membership_path(member.id), method: 'delete' do
+                      =link_to membership_path(member.id), method: 'delete', id: "member_#{member.customer.id}" do
                         %button.btn.btn-danger.btn-xs
                           %i.ace-icon.glyphicon.glyphicon-remove.align-top.bigger-125
                           Remove 
@@ -48,7 +48,7 @@
       .widget-body
         .widget-main
           - if @customers_not_in_group.any?
-            %table#sample-table-1.table.table-striped.table-bordered.table-hover
+            %table.table.table-striped.table-bordered.table-hover
               %thead
                 %tr
                   %th Name
