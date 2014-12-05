@@ -31,9 +31,6 @@ class NotificationsController < ApplicationController
     end
   end
 
-  def view
-  end
-
   
 private
   

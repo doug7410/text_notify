@@ -2,7 +2,11 @@
 
 = render 'customers/customer_form', title: 'Edit Customer', button_label: 'Update'
 %hr
-=render 'shared/back_button'
+=link_to customers_path do
+  %button.btn.btn-xs.btn-primary
+    %i.ace-icon.fa.fa-arrow-left.icon-on-left
+    Back to customers list
+
 .space-6    
 %table#sample-table-1.table.table-striped.table-bordered.table-hover
   %thead
