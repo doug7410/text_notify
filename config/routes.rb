@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :group_notifications, only: [:create]
   resources :memberships, only: [:create, :destroy]
 
+  get '/contact_us', to: "contact_us#index", as: "contact_us"
+
   post '/sms', to: 'sms#text'
 
   post '/twilio_callback', to: 'twilio_callback#status'
