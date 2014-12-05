@@ -6,8 +6,11 @@ class SmsController < ApplicationController
   skip_before_action :verify_authenticity_token
  
   def text
+
+    message = "Hey bro! Thanks for signing up! You said - #{params[:Body]} "
+
     response = Twilio::TwiML::Response.new do |r|
-      r.Message "Hey Monkey. Thanks for the message!"
+      r.Message(message)
     end
  
     render_twiml response
