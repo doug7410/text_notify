@@ -4,6 +4,9 @@ class Membership < ActiveRecord::Base
   belongs_to :customer
   belongs_to :group
 
+  # accepts_nested_attributes_for :customer
+
+
   validates_presence_of :customer, :group
   validates_uniqueness_of :group, scope: :customer
 

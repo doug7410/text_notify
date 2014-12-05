@@ -1,7 +1,8 @@
 .page-header
   %h1
     Groups
-
+=render 'shared/back_button'
+%hr
 .row
   .col-sm-12
     %h2.text-success
@@ -44,7 +45,7 @@
       .widget-header
         %h4.widget-title
           %i.ace-icon.fa.fa-user
-          Add customers to this group from this list
+          = "Add customers to the #{@group.name} group."
       .widget-body
         .widget-main
           - if @customers_not_in_group.any?
@@ -65,18 +66,36 @@
                           %i.ace-icon.fa.fa-pencil.align-top.bigger-125
                           Add to Group 
           -else
-            .alert.alert-warning
-              -if Customer.count > 0
-                %strong There are no customers that are not allready in this group
-                =link_to "create a new customer", new_customer_path
-              -else  
-                %strong There are no customers that are not allready in this group
-                =link_to "create a new customer", new_customer_path          
+            .widget-box
+              .widget-header
+                %h4.widget-title
+                  %i.ace-icon.fa.fa-user
+                  Create a new customer
+              .widget-body
+                .widget-main
+                  =bootstrap_form_for @group do |f|
+                    - if @customer.errors.any?
+                      .alert.alert-danger
+                        %ul
+                          - @customer.errors.full_messages.each do |msg|
+                            %li= msg
+                    =f.fields_for :customer do |c|
+                      =c.text_field :first_name, value: @customer.first_name
+                      =c.text_field :last_name, value: @customer.last_name
+                      =c.text_field :phone_number, class: "input-mask-phone", value: @customer.phone_number
+                    =f.submit 'add customer'
 
+%script{:src => "/assets/js/jquery-ui.custom.min.js"}
+%script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript
   jQuery(function($) {
     $('#group_form_box').hide();
     $('.update_name_button').on('click', function(){
       $('#group_form_box').slideDown();
     });
+  });
+:javascript
+  jQuery(function($) {
+    $.mask.definitions['~']='[+-]';
+    $('.input-mask-phone').mask('(999) 999-9999');
   });
