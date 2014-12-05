@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   resources :group_notifications, only: [:create]
   resources :memberships, only: [:create, :destroy]
 
-  get '/view_notifications', to: "notifications#view", as: "view_notifications"
 
   post '/twilio_callback', to: 'twilio_callback#status'
 

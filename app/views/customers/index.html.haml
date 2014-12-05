@@ -1,29 +1,11 @@
-=render 'shared/page_header', title: "View Customers"
-=render 'shared/back_button'
+=render 'shared/page_header', title: "Customers"
 %hr
 .row
   .col-sm-12
 = render 'customer_form', title: 'Add a customer', button_label: 'Add'
 .space-6
 %hr
-%form.form-inline
-  Filter By:
-  %input.input-medium{:placeholder => "Customer Name", :type => "text"}/
-  %input.input-medium{:placeholder => "Phone Number", :type => "text"}/
-  %label.inline
-    %input.ace{:name => "form-field-radio", :type => "radio"}/
-    %span.lbl has been sent notifications
-  %label.inline
-    %input.ace{:name => "form-field-radio", :type => "radio"}/
-    %span.lbl has not been sent notifications
-  %label.inline
-    %input.ace{:name => "form-field-radio", :type => "radio"}/
-    %span.lbl all
-  %button.btn.btn-info.btn-sm{:type => "button"}
-    %i.ace-icon.fa.bigger-110
-    Go
-
-%hr
+=render 'shared/page_header', title: "Your Customers"
 
 %table#sample-table-1.table.table-striped.table-bordered.table-hover
   %thead

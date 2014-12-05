@@ -1,6 +1,5 @@
 =render 'shared/page_header', title: "Groups"
-=render 'shared/back_button'
-%hr
+
 .row
   .col-sm-12
     =render 'group_form', button_label: "Add Group", title: "Create a new group", ajax_option: false
@@ -10,7 +9,7 @@
       .widget-header
         %h4.widget-title
           %i.ace-icon.fa.fa-list-alt
-          Your customer groups
+          Your groups
       .widget-body
         .widget-main
           - if @groups.any?
