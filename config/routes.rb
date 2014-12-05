@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :groups 
   resources :group_notifications, only: [:create]
   resources :memberships, only: [:create, :destroy]
-  resources :sms, only: [:create]
+  resources :sms, only: [:index]
 
   post '/twilio_callback', to: 'twilio_callback#status'
 
