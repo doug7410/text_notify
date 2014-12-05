@@ -6,8 +6,6 @@ class SmsController < ApplicationController
       r.Message "Hey Monkey. Thanks for the message!"
     end
     twiml.text
-
-    render nothing: true
   end
 
 end 
