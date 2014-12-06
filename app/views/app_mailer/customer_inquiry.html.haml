@@ -1,0 +1,11 @@
+!!!5
+%html(lang="en-US")
+  %body
+    %p You have a new inquiry from TextNoitify
+    %p="Customer Name - #{@params[:name]}" 
+    %p="Phone Number - #{@params[:phone_number]}"
+    %p="Contact by phone? - #{(@params[:contact_by_phone])? 'yes' : 'no'}"
+    %p Message:
+    %p=@params[:message]
+
+

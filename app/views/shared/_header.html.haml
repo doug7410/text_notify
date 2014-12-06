@@ -29,6 +29,10 @@
             =link_to groups_path do
               %i.ace-icon.fa.fa-group
               Groups
+          %li
+            =link_to new_inquiry_path do
+              %i.ace-icon.fa.fa-envelope
+              Contact Us    
     .navbar-buttons.navbar-header.pull-right{:role => "navigation"}
       - if business_owner_signed_in?
         %ul.nav.ace-nav

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :groups 
   resources :group_notifications, only: [:create]
   resources :memberships, only: [:create, :destroy]
+  resources :inquiries, only: [:create, :new]
 
   post '/sms', to: 'sms#text'
 
