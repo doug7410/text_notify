@@ -11,9 +11,9 @@
           = bootstrap_form_for @inquiry do |f|
             %fieldset
               %div
-                =f.text_field :name, label: "Name *", value: @inquiry.name
+                =f.text_field :name, label: "Name *"
                 =f.text_field :email, label: "Email Address *"
-                =f.text_field :phone_number
+                =f.text_field :phone_number, class: "input-mask-phone"
                 =f.check_box :contact_by_phone, label: "Would you like to be contact you by phone?"
                 =f.text_area :message, label: "Message *"
               %p (* required field)    
@@ -21,3 +21,10 @@
               %button.btn.btn-sm.btn-success{:type => "submit"}
                 Send
                 %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
+%script{:src => "/assets/js/jquery-ui.custom.min.js"}
+%script{:src => "/assets/js/jquery.maskedinput.min.js"}
+:javascript
+  jQuery(function($) {
+    $.mask.definitions['~']='[+-]';
+    $('.input-mask-phone').mask('(999) 999-9999');
+  });    
