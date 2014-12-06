@@ -1,0 +1,23 @@
+=render 'shared/page_header', title: "Contact Us"
+.row
+  .col-sm-6.col-sm-offset-3
+    .widget-box
+      .widget-header
+        %h4.widget-title
+          %span.fa.fa-envelope
+            Contact Form
+      .widget-body
+        .widget-main.no-padding
+          = bootstrap_form_for @inquiry do |f|
+            %fieldset
+              %div
+                =f.text_field :name, label: "Name *", value: @inquiry.name
+                =f.text_field :email, label: "Email Address *"
+                =f.text_field :phone_number
+                =f.check_box :contact_by_phone, label: "Would you like to be contact you by phone?"
+                =f.text_area :message, label: "Message *"
+              %p (* required field)    
+            .form-actions.center
+              %button.btn.btn-sm.btn-success{:type => "submit"}
+                Send
+                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110

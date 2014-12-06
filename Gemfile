@@ -20,6 +20,7 @@ gem 'slim'
 gem 'sidekiq'
 gem 'unicorn'
 gem 'paratrooper'
+gem 'active_attr'
 
 group :development do
   gem 'spring'
