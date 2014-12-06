@@ -6,6 +6,7 @@ class InquiriesController < ApplicationController
 
   def create 
     @inquiry = Inquiry.new(params[:inquiry])
+    @inquiry.phone_number = Customer.format_phone_number(@inquiry.phone_number)
     if @inquiry.valid?
       AppMailer.customer_inquiry(params).deliver
       flash[:success] = "Thanks for the email. We'll get back to you shortly!"
