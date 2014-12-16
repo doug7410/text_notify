@@ -1,17 +1,22 @@
 .row
-  .col-sm-4.col-sm-offset-4.purple-circle
-    .text-center.big-logo
-      =image_tag '/assets/images/PijonTxt_Logo_KO.png'
-    .centered-form
-      = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-        = devise_error_messages!
-        =f.text_field :full_name, autofocus: true, :placeholder => "Company Name", hide_label: true
-        = f.email_field :email, class: 'form-control', :placeholder => "email address", hide_label: true
-        = f.password_field :password, autocomplete: "off", :placeholder => "*******", hide_label: true
-        = f.password_field :password_confirmation, autocomplete: "off", :placeholder => '*******', hide_label: true
-        %button.btn.btn-sm.pull-right.main-btn{:type => "submit"}
-          Create Account
+  .col-sm-4.centerize
+    .purple-circle
+      .text-center.big-logo
+        =image_tag '/assets/images/PijonTxt_Logo_KO.png'
+      .centered-form
+        = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          =f.text_field :full_name, autofocus: true, :placeholder => "Company Name", hide_label: true
+          = f.email_field :email, class: 'form-control', :placeholder => "email address", hide_label: true
+          = f.password_field :password, autocomplete: "off", :placeholder => "*******", hide_label: true
+          = f.password_field :password_confirmation, autocomplete: "off", :placeholder => '*******', hide_label: true
+          %button.btn.btn-sm.pull-right.main-btn{:type => "submit"}
+            Create Account
         .clearfix
-        .text-right
+        .space-8
+        .pull-left
           What is PijonTxt?
           =link_to 'Learn More', '#'
+        .pull-right
+          =link_to 'Sign In', root_path 
+        .clearfix

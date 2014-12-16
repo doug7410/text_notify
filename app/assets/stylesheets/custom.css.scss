@@ -1,11 +1,6 @@
 @import "bootstrap";
 
-/*links*/
 
-a:link, a:visited {
-    color: #E04E29;
-    text-decoration: underline;
-}
 
 /*footer styles*/
 .footer {
@@ -35,18 +30,6 @@ input[type=text], input[type=email], input[type=password] {
   border-radius: 0;
   border-width: 2px;
   font-weight: bold;
-}
-
-
-/*layout*/
-.page-content-area{
-    padding-top: 15px;
-}
-.purple-circle {
-  background-color: #7C91C4;
-  height: 600px;
-  width: 600px;
-  border-radius: 50%;
 }
 
 /*flash*/

@@ -15,7 +15,7 @@
   %body
     =render 'shared/header' if business_owner_signed_in?
     #main-container.main-container
-      .page-content-area
+      .page-content-area.container-fluid
         .row
           .col-sm-12
             =render "shared/messages" if business_owner_signed_in?
