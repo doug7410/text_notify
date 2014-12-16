@@ -1,11 +1,49 @@
 @import "bootstrap";
 
-.user-info{
-  max-width: 250px !important;
+/*links*/
+
+a:link, a:visited {
+    color: #E04E29;
+    text-decoration: underline;
 }
-.centerized{
-  margin: 0 auto !important; //fix this later
+
+/*footer styles*/
+.footer {
+    height: 216px;
+    background-image: url('/assets/images/CityScaper_Footer.png');
 }
+
+.footer-content {
+    padding-top: 105px;
+    color: #FFF;
+}
+
+/*forms*/
+.centered-form {
+  width: 331px;
+  margin-left: 92px;
+  padding: 22px 0 15px;
+}
+
+input[type=text], input[type=email], input[type=password] {
+    border-radius: 0;
+}
+
+.main-btn {
+  //@include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include button-variant(#FFFFFF, #E04E29, #E87A5D);
+  font-size: 14px;
+  border-radius: 0;
+  border-width: 2px;
+  font-weight: bold;
+}
+
+
+/*layout*/
+.big-logo{
+    margin-top:20px; 
+}
+
 /*flash*/
 .alert-error {
     background-color: #f2dede;
@@ -35,21 +73,6 @@
     text-align: left;
  }
 
- .skin-1{
-    background-image: url("/assets/img/ZLSw0SXxThSrkXRIiCdT_DSC_0345.jpg") !important;
-    background-size: cover !important;
-    background-attachment: fixed !important;
- }
-
- .user-info{
-    line-height: 16px !important;
- }
- .infobox{
-    width: 320px !important;
- }
- .dash-btn{
-    width: 100%  !important;
- }
 
  .new_group .field_with_errors{
     display: inline;

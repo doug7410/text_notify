@@ -13,16 +13,13 @@
       <script src="/assets/js/html5shiv.min.js"></script>
       <script src="/assets/js/respond.min.js"></script>
   %body
-    =render 'shared/header'
-    #main-container.main-container.container
-      .main-content
-        .page-content
-          .page-content-area
-            .row
-              .col-xs-12
-                =render "shared/messages"
-                = yield
-      =render 'shared/footer'
-      %a#btn-scroll-up.btn-scroll-up.btn.btn-sm.btn-inverse{:href => "#"}
-        %i.ace-icon.fa.fa-angle-double-up.icon-only.bigger-110
+    =render 'shared/header' if business_owner_signed_in?
+    #main-container.main-container
+      .page-content-area
+        .row
+          .col-sm-12
+            =render "shared/messages" if business_owner_signed_in?
+            = yield
+        =render 'shared/footer'
+      
     
