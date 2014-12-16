@@ -3,8 +3,17 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   devise_for :business_owners, controllers: { registrations: 'business_owners/registrations' }
 
-  
-  root to: "pages#front"
+
+  devise_scope :business_owner do
+    authenticated  do
+      root to: 'pages#dashboard'
+    end
+
+    unauthenticated do
+      root to: 'devise/sessions#new', as: 'unauthenticated_root'
+    end
+  end  
+
   get '/dashboard', to: "pages#dashboard", as: "dashboard"
 
   resources :customers
