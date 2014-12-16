@@ -21,8 +21,7 @@ a:link, a:visited {
 /*forms*/
 .centered-form {
   width: 331px;
-  margin-left: 92px;
-  padding: 22px 0 15px;
+  margin: 22px auto 15px;
 }
 
 input[type=text], input[type=email], input[type=password] {
@@ -40,8 +39,14 @@ input[type=text], input[type=email], input[type=password] {
 
 
 /*layout*/
-.big-logo{
-    margin-top:20px; 
+.page-content-area{
+    padding-top: 15px;
+}
+.purple-circle {
+  background-color: #7C91C4;
+  height: 600px;
+  width: 600px;
+  border-radius: 50%;
 }
 
 /*flash*/
