@@ -1,6 +1,16 @@
 @import "bootstrap";
+$dark-text: #58595B;
+$orange: #CE4826;
+$dark-orange: darken($orange, 3%);
+$orange-link: #E04E29;
+$light-orange-border: lighten($orange-link, 20%);
+$white: #FFFFFF;
+$blue-txt: #768ABA;
+$purple: #7C91C4;
 
-
+body{
+  font-family: 'Montserrat', sans-serif;
+}
 
 /*footer styles*/
 .footer {
@@ -10,7 +20,7 @@
 
 .footer-content {
     padding-top: 105px;
-    color: #FFF;
+    color: $white;
 }
 
 /*forms*/
@@ -25,7 +35,16 @@ input[type=text], input[type=email], input[type=password] {
 
 .main-btn {
   //@include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-  @include button-variant(#FFFFFF, #E04E29, #E87A5D);
+  @include button-variant($white, $orange-link, $light-orange-border);
+  font-size: 14px;
+  border-radius: 0;
+  border-width: 2px;
+  font-weight: bold;
+}
+
+.alt-btn {
+  //@include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include button-variant($blue-txt, $white, $dark-orange);
   font-size: 14px;
   border-radius: 0;
   border-width: 2px;

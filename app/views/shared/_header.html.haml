@@ -1,63 +1,28 @@
-#navbar.navbar.navbar-default.navbar-fixed-top
-  #navbar-container.navbar-container.container
-    %button#menu-toggler.navbar-toggle.menu-toggler.pull-left{:type => "button"}
-      %span.sr-only Toggle sidebar
-      %span.icon-bar
-      %span.icon-bar
-      %span.icon-bar
-    .navbar-header.pull-left
-      =link_to root_path, class: "navbar-brand" do
-        %small
-          %i.fa.fa-bullhorn
-          Text Notify
-    - if business_owner_signed_in?
-      %nav.navbar-menu.collapse.navbar-collapse.pull-left{:role => "navigation"}
-        %ul.nav.navbar-nav
-          %li
-            =link_to dashboard_path do
-              %i.ace-icon.fa.fa-tachometer
-              Dashboard
-          %li
-            =link_to notifications_path do
-              %i.ace-icon.fa.fa-comment
-              Notifications
-          %li
-            =link_to customers_path do
-              %i.ace-icon.fa.fa-user
-              Customers
-          %li
-            =link_to groups_path do
-              %i.ace-icon.fa.fa-group
-              Groups
-          %li
-            =link_to new_inquiry_path do
-              %i.ace-icon.fa.fa-envelope
-              Contact Us    
-    .navbar-buttons.navbar-header.pull-right{:role => "navigation"}
-      - if business_owner_signed_in?
-        %ul.nav.ace-nav
-          %li.light-blue
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-              %span.user-info
-                %small Welcome,
-                =current_business_owner.email
-              %i.ace-icon.fa.fa-caret-down
-            %ul.user-menu.dropdown-menu-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-close
-              %li
-                %a{:href => "#"}
-                  %i.ace-icon.fa.fa-cog
-                  Settings
-              %li
-                = link_to edit_business_owner_registration_path do
-                  %i.ace-icon.fa.fa-user
-                  Profile
-              %li.divider
-              %li
-                = link_to destroy_business_owner_session_path, method: :delete do
-                  %i.ace-icon.fa.fa-power-off
-                  Logout
-      - else
-        %p.navbar-text
-          = link_to "Sign up", new_business_owner_registration_path, :class => 'navbar-link'
-          |
-          \#{link_to "Login", new_business_owner_session_path, :class => 'navbar-link'}
+.navbar.row
+  .navbar-container.col-sm-5.centerize.text-center
+    =link_to root_path, class: 'logo' do
+      =image_tag('/assets/images/PijonTxt_FullBirdLogo.png')
+    %ul.main-nav
+      %li
+        =link_to 'pijon dashboard', dashboard_path, class: active_link?(nil,'dashboard') 
+      %span.nav-spacer              
+      %li
+        =link_to 'send text', notifications_path, class: active_link?('notifications') 
+      %span.nav-spacer              
+      %li
+        =link_to 'customers', customers_path, class: active_link?('customers') 
+      %span.nav-spacer              
+      %li
+        =link_to 'groups', groups_path, class: active_link?('groups')
+    %ul.sub-nav
+      %li
+        =link_to 'Your Account', edit_business_owner_registration_path, class: active_link?('business_owners/registrations')
+      %span.nav-spacer              
+      %li
+        =link_to 'About PijonTxt', '/about', class: active_link?(nil,'about')
+      %span.nav-spacer              
+      %li
+        =link_to 'contact us', new_inquiry_path, class: active_link?('inquiries')
+      %span.nav-spacer              
+      %li
+        =link_to 'Logout', destroy_business_owner_session_path, method: :delete  
