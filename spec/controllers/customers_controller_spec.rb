@@ -4,13 +4,6 @@ include Warden::Test::Helpers
 describe CustomersController do
   let!(:bob_business_owner) { Fabricate(:business_owner)}
   before { sign_in bob_business_owner}
-  
-  describe "GET new" do
-    it "sets the new @customer" do
-      get :new
-      expect(assigns(:customer)).to be_instance_of(Customer)
-    end
-  end
 
   describe "GET index" do
     it "sets the @customers that belong to the signed in business_owner" do

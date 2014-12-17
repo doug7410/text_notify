@@ -1,38 +1,35 @@
-.row
-  .col-sm-7.centerize
-    =render 'shared/page_header', title: "Customer - #{@customer.name}"
+=render 'shared/page_header', title: "Customer - #{@customer.name}"
 
-    = render 'customers/customer_form', title: 'Edit Customer', button_label: 'Update'
-    %hr
-    =link_to customers_path do
-      %button.btn.btn-xs.btn-primary
-        %i.ace-icon.fa.fa-arrow-left.icon-on-left
-        Back to customers list
+= render 'customers/customer_form', title: 'Edit Customer', button_label: 'Update'
+%hr
+=link_to customers_path do
+  %button.btn.btn-xs.btn-primary
+    Back to customers list
 
-    .space-6    
-    %table#sample-table-1.table.table-striped.table-bordered.table-hover
-      %thead
-        %tr
-          %th
-            Sent on
-            %i.ace-icon.fa.fa-calendar.bigger-110
-          %th
-            Picked up on 
-            %i.ace-icon.fa.fa-calendar.bigger-110
-          %th Customer
-          %th Phone Number
-          %th Message
-          %th
-      %tbody
-        - @customer.notifications.each do |notification|
-          %tr
-            %td= notification.created_at
-            %td 
-            %td= notification.customer.decorate.name
-            %td= notification.customer.decorate.display_phone_number
-            %td= notification.message 
-            %td
-              %button.btn.btn-danger.btn-xs Mark Picked Up
+.space-6    
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th
+        Sent on
+        %i.ace-icon.fa.fa-calendar.bigger-110
+      %th
+        Picked up on 
+        %i.ace-icon.fa.fa-calendar.bigger-110
+      %th Customer
+      %th Phone Number
+      %th Message
+      %th
+  %tbody
+    - @customer.notifications.each do |notification|
+      %tr
+        %td= notification.created_at
+        %td 
+        %td= notification.customer.decorate.name
+        %td= notification.customer.decorate.display_phone_number
+        %td= notification.message 
+        %td
+          %button.btn.btn-danger.btn-xs Mark Picked Up
 
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
