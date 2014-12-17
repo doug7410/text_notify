@@ -1,83 +1,43 @@
-=render 'shared/page_header', title: "Dashboard"
-
 .row
-  .col-xs-5
+  .col-sm-7
     %h3.lead 
-      Your Business Profile 
+      Your Business Profile
       %small=link_to "Edit your profile", edit_business_owner_registration_path
-    .profile-user-info.profile-user-info-striped
-      .profile-info-row
-        .profile-info-name Full Name
-        .profile-info-value
-          %span#username.editable= current_business_owner.full_name
-      .profile-info-row
-        .profile-info-name Email 
-        .profile-info-value
-          %span#city.editable= current_business_owner.email
-      .profile-info-row
-        .profile-info-name Company Name 
-        .profile-info-value
-          %span#age.editable Some Cool Company <TODO>
+    %table.table.table-striped.table-bordered.table-hover
+      %tr
+        %td Full Name
+        %td= current_business_owner.full_name
+      %tr
+        %td Email
+        %td= current_business_owner.email
+      %tr
+        %td Company Name 
+        %td 
+          Some Cool Company <TODO>
           %br 
           %small (this will appear in the text you send to customers)
-      .profile-info-row
-        .profile-info-name Joined
-        .profile-info-value
-          %span#signup.editable= current_business_owner.created_at
-      .profile-info-row
-        .profile-info-name Membership
-        .profile-info-value
-          %span#login.editable Gold <TODO>
-
-  .col-xs-7
+      %tr
+        %td Joined
+        %td= current_business_owner.created_at
+      %tr
+        %td Membership
+        %td Beta 
+  .col-sm-5
     %h3.lead Your Text Notify Stats  
-    .infobox-container
-      .infobox.infobox-green
-        .infobox-icon
-          %i.ace-icon.fa.fa-user
-        .infobox-data
-          %span.infobox-data-number= @customers.count
-          .infobox-content 
-            customers
-      .infobox.infobox-blue
-        .infobox-icon
-          %i.ace-icon.fa.fa-group   
-        .infobox-data
-          %span.infobox-data-number=current_business_owner.groups.count
-          .infobox-content 
-            customer groups
-      .infobox.infobox-pink
-        .infobox-icon
-          %i.ace-icon.fa.fa-send
-        .infobox-data
-          %span.infobox-data-number= @delivered_notifications.count
-          .infobox-content 
-            deliverd notifications 
-      .infobox.infobox-orange2
-        .infobox-icon
-          %i.ace-icon.fa.fa-send-o
-        .infobox-data
-          %span.infobox-data-number= current_business_owner.group_notifications.count
-          .infobox-content 
-            group notifications
-      .infobox.infobox-red
-        .infobox-icon
-          %i.ace-icon.fa.fa-send-o
-        .infobox-data
-          %span.infobox-data-number= @failed_notifications.count
-          .infobox-content 
-            failed deliveries 
-%hr
-.row
-  .col-sm-4
-    =link_to notifications_path, class: "btn btn-app dash-btn btn-success" do
-      %i.ace-icon.fa.fa-send.bigger-230
-      New Notification
-  .col-sm-4
-    =link_to customers_path, class: "btn btn-app dash-btn" do
-      %i.ace-icon.fa.fa-user.bigger-230
-      Add Customer
-  .col-sm-4
-    =link_to groups_path, class: "btn btn-app dash-btn btn-purple" do
-      %i.ace-icon.fa.fa-group.bigger-230
-      Add Group    
+    %table.table.table-striped.table-bordered.table-hover
+      %tr
+        %td customers
+        %td=@customers.count
+      %tr
+        %td customer groups  
+        %td=current_business_owner.groups.count
+      %tr    
+        %td deliverd notifications
+        %td= @delivered_notifications.count
+      %tr     
+        %td group notifications
+        %td= current_business_owner.group_notifications.count
+      %tr    
+        %td failed deliveries
+        %td= @failed_notifications.count
+           

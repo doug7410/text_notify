@@ -8,10 +8,6 @@ class CustomersController < ApplicationController
     @customer = Customer.new
   end
 
-  def new
-    @customer = Customer.new
-  end
-
   def create
     @customer = Customer.new(customer_params.merge({business_owner: current_business_owner ,phone_number: Customer.format_phone_number(customer_params[:phone_number])}))
     @customers = Customer.all.where("business_owner_id = ?", current_business_owner.id).decorate

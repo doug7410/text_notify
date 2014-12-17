@@ -1,91 +1,67 @@
+=link_to groups_path do
+  %button.btn.btn-xs.btn-primary
+    Back to groups list    
 .row
-  .col-sm-7.centerize
-    =link_to groups_path do
-      %button.btn.btn-xs.btn-primary
-        %i.ace-icon.fa.fa-arrow-left.icon-on-left
-        Back to groups list    
-    %hr
-    .row
-      .col-sm-12
-      %h2.text-success
-        = "#{@group.name.capitalize} Group"
-        %small
-          = link_to "change name", "#", class: "update_name_button"    
-      = render 'group_form', button_label: "Update", title: "Update group name", ajax_option: true  
-      %hr
-    .col-sm-6
-      .widget-box.widget-color-blue
-        .widget-header
-          %h4.widget-title
-            %i.ace-icon.fa.fa-list-alt
-            = "Customers in the #{@group.name.capitalize} group"
-        .widget-body
-          .widget-main
-            - if @members.any?
-              %table.table.table-striped.table-bordered.table-hover
-                %thead
-                  %tr
-                    %th Name
-                    %th Phone Number
-                    %th 
-                %tbody
-                  -@members.each do |member|
-                    %tr
-                      %td= link_to "#{member.customer.decorate.name}", member.customer
-                      %td= "#{member.customer.phone_number}"
-                      %td
-                        =link_to membership_path(member.id), method: 'delete', id: "member_#{member.customer.id}" do
-                          %button.btn.btn-danger.btn-xs
-                            %i.ace-icon.glyphicon.glyphicon-remove.align-top.bigger-125
-                            Remove 
-            -else
-              .alert.alert-warning
-                %strong You don't have any customers in this group yet. 
-                Add some from the customer list.        
-    .col-sm-6
-      .widget-box.widget-color-blue
-        .widget-header
-          %h4.widget-title
-            %i.ace-icon.fa.fa-user
-            = "Add customers to the #{@group.name} group."
-        .widget-body
-          .widget-main
-            - if @customers_not_in_group.any?
-              %table.table.table-striped.table-bordered.table-hover
-                %thead
-                  %tr
-                    %th Name
-                    %th Phone Number
-                    %th 
-                %tbody
-                  -@customers_not_in_group.each do |customer|
-                    %tr
-                      %td= link_to "#{customer.decorate.name}", customer
-                      %td= "#{customer.phone_number}"
-                      %td
-                        =link_to memberships_path(group: @group.id, customer: customer.id), method: 'post' do
-                          %button.btn.btn-primary.btn-xs
-                            %i.ace-icon.fa.fa-pencil.align-top.bigger-125
-                            Add to Group 
-            -else
-              .widget-box
-                .widget-header
-                  %h4.widget-title
-                    %i.ace-icon.fa.fa-user
-                    Create a new customer
-                .widget-body
-                  .widget-main
-                    =bootstrap_form_for @group do |f|
-                      - if @customer.errors.any?
-                        .alert.alert-danger
-                          %ul
-                            - @customer.errors.full_messages.each do |msg|
-                              %li= msg
-                      =f.fields_for :customer do |c|
-                        =c.text_field :first_name, value: @customer.first_name
-                        =c.text_field :last_name, value: @customer.last_name
-                        =c.text_field :phone_number, class: "input-mask-phone", value: @customer.phone_number
-                      =f.submit 'add customer'
+  .col-sm-12
+  %h2
+    = "#{@group.name.capitalize} Group"
+    %small
+      = link_to "change name", "#", class: "update_name_button"    
+  = render 'group_form', button_label: "Update", title: "Update group name", ajax_option: true  
+.row
+  .col-sm-6
+    %h4= "Customers in the #{@group.name.capitalize} group"
+    - if @members.any?
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th Name
+            %th Phone Number
+            %th 
+        %tbody
+          -@members.each do |member|
+            %tr
+              %td= link_to "#{member.customer.decorate.name}", member.customer
+              %td= "#{member.customer.phone_number}"
+              %td
+                =link_to membership_path(member.id), method: 'delete', id: "member_#{member.customer.id}" do
+                  %button.btn.btn-danger.btn-xs
+                    Remove 
+    -else
+      .alert.alert-warning
+        %strong You don't have any customers in this group yet. 
+        Add some from the customer list.        
+  .col-sm-6
+    %h4= "Add customers to the #{@group.name} group."
+    - if @customers_not_in_group.any?
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th Name
+            %th Phone Number
+            %th 
+        %tbody
+          -@customers_not_in_group.each do |customer|
+            %tr
+              %td= link_to "#{customer.decorate.name}", customer
+              %td= "#{customer.phone_number}"
+              %td
+                =link_to memberships_path(group: @group.id, customer: customer.id), method: 'post' do
+                  %button.btn.btn-primary.btn-xs
+                    Add to Group 
+    -else
+      %h4 Create a new customer
+      =bootstrap_form_for @group do |f|
+        - if @customer.errors.any?
+          .alert.alert-danger
+            %ul
+              - @customer.errors.full_messages.each do |msg|
+                %li= msg
+        =f.fields_for :customer do |c|
+          =c.text_field :first_name, value: @customer.first_name
+          =c.text_field :last_name, value: @customer.last_name
+          =c.text_field :phone_number, class: "input-mask-phone", value: @customer.phone_number
+        =f.submit 'add customer'
 
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}

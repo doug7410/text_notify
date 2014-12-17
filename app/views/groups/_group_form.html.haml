@@ -1,18 +1,7 @@
-#group_form_box.widget-box
-  .widget-header
-    %h4.widget-title
-      %i.ace-icon.fa.fa-list-alt
-      =title
-  .widget-body
-    #group-form.widget-main
-      =bootstrap_form_for @group, layout: :inline, inline_errors: false, remote: ajax_option do |f|
-        %fieldset
-          = f.alert_message "Please fix the errors below." unless ajax_option
-          %div
-            .input-group
-              %span.input-group-addon
-                %i.ace-icon.fa.fa-group
-              =f.text_field :name, hide_label: true, placeholder: "Group Name"
-              %button.btn.btn-sm.btn-success{:type => "submit"}
-                =button_label
-                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
+#group_form_box
+  %h4
+    =title
+  =bootstrap_form_for @group, layout: :inline, remote: ajax_option do |f|
+    =f.text_field :name, hide_label: true, placeholder: "Group Name"
+    %button.btn.btn-sm.btn-success{:type => "submit"}
+      =button_label

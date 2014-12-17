@@ -1,39 +1,37 @@
-.row
-  .col-sm-7.centerize
-    =render 'group_form', button_label: "Add Group", title: "Create a new group", ajax_option: false
-    .space-6
-    %hr
-    .widget-box.widget-color-blue
-      .widget-header
-        %h4.widget-title
-          %i.ace-icon.fa.fa-list-alt
-          Your groups
-      .widget-body
-        .widget-main
-          - if @groups.any?
-            %table#sample-table-1.table.table-striped.table-bordered.table-hover
-              %thead
-                %tr
-                  %th Name
-                  %th Customers
-                  %th Notifications
-                  %th 
-              %tbody
-                -@groups.each do |group|
-                  %tr
-                    %td= link_to "#{group.name}", group
-                    %td= group.customers.count
-                    %td= group.notifications.count
-                    %td
-                      =link_to group do
-                        %button.btn.btn-primary.btn-xs
-                          %i.ace-icon.fa.fa-pencil.align-top.bigger-125
-                          Add or Remove Customers
-                      = link_to group, method: "delete" do
-                        %button.btn.btn-danger.btn-xs
-                          %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
-                          Delete
-          -else
-            .alert.alert-warning
-              %strong You don't have any groups yet. 
-              Use the form above to ad a new one.
+=render 'group_form', button_label: "Add Group", title: "Create a new group", ajax_option: false
+.space-6
+%hr
+.widget-box.widget-color-blue
+  .widget-header
+    %h4.widget-title
+      %i.ace-icon.fa.fa-list-alt
+      Your groups
+  .widget-body
+    .widget-main
+      - if @groups.any?
+        %table#sample-table-1.table.table-striped.table-bordered.table-hover
+          %thead
+            %tr
+              %th Name
+              %th Customers
+              %th Notifications
+              %th 
+          %tbody
+            -@groups.each do |group|
+              %tr
+                %td= link_to "#{group.name}", group
+                %td= group.customers.count
+                %td= group.notifications.count
+                %td
+                  =link_to group do
+                    %button.btn.btn-primary.btn-xs
+                      %i.ace-icon.fa.fa-pencil.align-top.bigger-125
+                      Add or Remove Customers
+                  = link_to group, method: "delete" do
+                    %button.btn.btn-danger.btn-xs
+                      %i.ace-icon.fa.fa-trash-o.align-top.bigger-125
+                      Delete
+      -else
+        .alert.alert-warning
+          %strong You don't have any groups yet. 
+          Use the form above to ad a new one.

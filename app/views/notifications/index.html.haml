@@ -1,10 +1,9 @@
-#notifications.row
-  .col-sm-7.centerize
-    .row
-      .col-sm-6
-        =render 'shared/notification_form'
-      .col-sm-6
-        =render 'shared/group_notification_form'
+#notifications
+  .row
+    .col-sm-6
+      =render 'shared/notification_form'
+    .col-sm-6
+      =render 'shared/group_notification_form'
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript
