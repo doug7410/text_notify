@@ -66,10 +66,10 @@
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript
-  jQuery(function($) {
+  $(document).ready(function(){
     $('#group_form_box').hide();
     $('.update_name_button').on('click', function(){
-      $('#group_form_box').slideDown();
+      $('#group_form_box').toggle('blind');
     });
   });
 :javascript

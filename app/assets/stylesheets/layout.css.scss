@@ -1,7 +1,13 @@
 /*layout*/
-.page-content-area{
-    padding-top: 15px;
+body{
+  background-color: $purple;
 }
+.page-content-area {
+  padding-top: 15px;
+  min-height: 500px;
+  background-color: #ffffff;
+}
+
 .purple-circle {
   background-color: $purple;
 }
