@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate_business_owner!, :update_notification_statuses!, :set_up_notification_page
+  before_action :authenticate_business_owner!, :set_up_notification_page
   before_action :set_up_create_action, only: [:create]
     
   def index
@@ -21,7 +21,13 @@ class NotificationsController < ApplicationController
       end
     elsif sending_to_an_existing_customer
       if @notification.valid?
-        handle_sending_text_message(notification: @notification)
+        respond_to do |format|
+          format.js do
+            handle_sending_text_message(notification: @notification)
+            flash[:success] = "A txt has been sent!"
+            render :index
+          end
+        end
       else
         render :index 
       end
@@ -53,8 +59,6 @@ private
       end
 
       options[:notification].save_with_status(result)
-      flash[:success] = "A text to #{options[:notification].customer.decorate.name} has been sent!"
-      redirect_to notifications_path
     else
       options[:notification].errors[:base] << result.error_message
       render :index 

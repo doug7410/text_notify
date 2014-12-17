@@ -56,9 +56,9 @@ describe NotificationsController do
         post :create, notification: {customer_id: alice.id, message: "Hello Alice!", business_owner_id: bob_business_owner.id}, customer: {first_name: "", last_name: "", phone_number: ""}
       end
       
-      it "[redirects to the notifications index path]", :vcr do
-        valid_post_create_request
-        expect(response).to redirect_to notifications_path
+      it "[renders the javascript index template]", :vcr do
+        xhr :post, :create, notification: {customer_id: alice.id, message: "Hello Alice!", business_owner_id: bob_business_owner.id}, customer: {first_name: "", last_name: "", phone_number: ""}
+        expect(response).to render_template :index
       end
       
       it "[saves the notification with the correct customer and message]", :vcr do
@@ -71,10 +71,7 @@ describe NotificationsController do
         expect(Notification.first.business_owner).to eq(bob_business_owner)
       end
 
-      it "[sets the flash success message]", :vcr do
-        valid_post_create_request
-        expect(flash[:success]).to be_present
-      end
+      
       
       it "[saves the sid from twillio for the notification]", :vcr do
         valid_post_create_request
@@ -101,11 +98,6 @@ describe NotificationsController do
         valid_post_create_request
         expect(Notification.first.customer.first_name).to eq("Douglas")
         expect(Notification.first.message).to eq("Hello Alice!")
-      end
-      
-      it "[sets the flash success message]", :vcr do
-        valid_post_create_request
-        expect(flash[:success]).to be_present
       end
       
       it "[saves the sid from twillio for the notification]", :vcr do

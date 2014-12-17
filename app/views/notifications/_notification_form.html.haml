@@ -3,7 +3,7 @@
     =image_tag('/assets/images/BirdTxt_Icons-Individual.jpg')
     %h4 send individual txt
   .notification-container  
-    = form_for @notification do |f|
+    = form_for @notification, remote: true do |f|
       .darker-box
         - if @notification.errors.any? or @customer.errors.any?
           .alert.alert-danger
