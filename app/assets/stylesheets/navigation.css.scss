@@ -1,0 +1,47 @@
+.navbar{
+  padding: 10px 0 0 0;
+  margin-bottom: 0;  
+}
+
+
+.navbar li{
+  display: inline;
+
+  a:link, a:visited{
+    color: $dark-text;
+    text-decoration: none;
+  }
+}
+
+.main-nav {
+  font-size: 18px;
+  margin-top: 10px;
+  a:link.active, a:visited.active{
+    color: $orange-link;
+    font-weight: bold; 
+  }
+  
+  .nav-spacer{
+    padding: 9px;
+  }
+}
+
+.sub-nav {
+  font-size: 12px;
+  margin-top: 10px;
+  a:link.active, a:visited.active{
+    color: $orange-link;
+    font-weight: bold; 
+  }
+  
+  .nav-spacer {
+    background-color: $dark-text;
+    display: inline-block;
+    height: 12px;
+    margin: 0 6px;
+    position: relative;
+    top: 2px;
+    width: 1px;
+  }
+}
+

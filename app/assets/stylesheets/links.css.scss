@@ -1,0 +1,12 @@
+/*links*/
+
+a:link, a:visited {
+    color: $orange-link;
+    text-decoration: underline;
+}
+.purple-circle, .white{
+  a:link, a:visited{
+    color: $white;
+  }
+}
+

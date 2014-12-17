@@ -1,0 +1,87 @@
+@import "bootstrap";
+$dark-text: #58595B;
+$orange: #CE4826;
+$dark-orange: darken($orange, 3%);
+$orange-link: #E04E29;
+$light-orange-border: lighten($orange-link, 20%);
+$white: #FFFFFF;
+$blue-txt: #768ABA;
+$purple: #7C91C4;
+$light-purple: #BDC8E1;
+
+body{
+  font-family: 'Montserrat', sans-serif;
+}
+
+/*footer styles*/
+.footer {
+    height: 216px;
+    background-image: url('/assets/images/CityScaper_Footer.png');
+}
+
+.footer-content {
+    padding-top: 105px;
+    color: $white;
+}
+
+/*forms*/
+.centered-form {
+  width: 331px;
+  margin: 22px auto 15px;
+}
+
+input[type=text], input[type=email], input[type=password] {
+    border-radius: 0;
+}
+
+.main-btn {
+  //@include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include button-variant($white, $orange-link, $light-orange-border);
+  font-size: 14px;
+  border-radius: 0;
+  border-width: 2px;
+  font-weight: bold;
+}
+
+.alt-btn {
+  //@include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include button-variant($blue-txt, $white, $dark-orange);
+  font-size: 14px;
+  border-radius: 0;
+  border-width: 2px;
+  font-weight: bold;
+}
+
+/*flash*/
+.alert-error {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-alert {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+ }
+
+.alert-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }
+
+.alert-notice {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #468847;
+    text-align: left;
+ }
+
+
+ .new_group .field_with_errors{
+    display: inline;
+ }

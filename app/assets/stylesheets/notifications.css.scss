@@ -1,0 +1,60 @@
+#notifications{
+  color: $white;
+  h4{
+    margin: 0;
+  }
+
+  input{
+    margin: 3px 0;
+    border: solid 1px #000000;
+  }
+
+
+  textarea{
+    margin: 5px 0;
+  }
+
+  .header-box{
+    background-color: $purple;
+    text-align: center;
+    padding: 10px 10px 0 ;
+  }
+
+  .darker-box{
+    background-color: $purple;
+    padding: 10px 25px;
+  }
+
+  .lighter-box{
+    text-align: center;
+    background-color: $light-purple;
+    padding: 15px 25px;
+    margin: 2px 0;
+  }
+
+  .form-actions{
+    text-align: center;
+    color: #000000; 
+    position: relative;
+    top: 26px;
+    font-size: 14px;
+    
+    small{
+      margin: 0 20px;
+      position: relative;
+      top: 8px;
+    }
+  }
+}
+
+
+#group-notification {
+    span{
+      left: 92px;
+      position: relative;
+      top: -16px;
+    }
+    .form-actions{
+      text-align: right;
+    }
+}

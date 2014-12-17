@@ -1,44 +1,22 @@
-=render 'shared/page_header', title: "Create a new account"
-
 .row
-  .col-sm-8.centerized
-    .widget-box
-      .widget-body
-        .widget-main.no-padding
-          = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-            = devise_error_messages!
-            %fieldset
-              %div
-                =f.label :full_name, "Name"
-                .input-group
-                  %span.input-group-addon
-                    %i.ace-icon.fa.fa-user 
-                  =f.text_field :full_name, class: "form-control", autofocus: true, :placeholder => "John Snow"
-              %hr
-              %div
-                = f.label :email
-                .input-group
-                  %span.input-group-addon
-                    %i.ace-icon.fa.fa-envelope-o 
-                  = f.email_field :email, class: 'form-control', :placeholder => "you@example.com"
-              %hr
-              %div
-                = f.label :password
-                - if @validatable
-                  %em
-                  (#{@minimum_password_length} characters minimum)
-                .input-group
-                  %span.input-group-addon
-                    %i.ace-icon.fa.fa-key
-                  = f.password_field :password, autocomplete: "off", class: 'form-control', :placeholder => "password"
-              %hr
-              %div
-                = f.label :password_confirmation
-                .input-group
-                  %span.input-group-addon
-                    %i.ace-icon.fa.fa-key
-                  = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', :placeholder => "password"
-            .form-actions.center
-              %button.btn.btn-sm.btn-success{:type => "submit"}
-                Create Account
-                %i.ace-icon.fa.fa-arrow-right.icon-on-right.bigger-110
+  .col-sm-4.centerize
+    .purple-circle
+      .text-center.big-logo
+        =image_tag '/assets/images/PijonTxt_Logo_KO.png'
+      .centered-form
+        = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          =f.text_field :full_name, autofocus: true, :placeholder => "Company Name", hide_label: true
+          = f.email_field :email, class: 'form-control', :placeholder => "email address", hide_label: true
+          = f.password_field :password, autocomplete: "off", :placeholder => "*******", hide_label: true
+          = f.password_field :password_confirmation, autocomplete: "off", :placeholder => '*******', hide_label: true
+          %button.btn.btn-sm.pull-right.main-btn{:type => "submit"}
+            Create Account
+        .clearfix
+        .space-8
+        .pull-left
+          What is PijonTxt?
+          =link_to 'Learn More', '/about'
+        .pull-right
+          =link_to 'Sign In', root_path 
+        .clearfix

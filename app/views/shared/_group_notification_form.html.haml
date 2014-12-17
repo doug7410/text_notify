@@ -1,31 +1,15 @@
-.widget-box.widget-color-blue
-  .widget-header
-    %h4.widget-title
-      %i.ace-icon.fa.fa-comments
-      Send a Group Text
-  .widget-body
-    .widget-main.no-padding 
-      = bootstrap_form_for @group_notification, inline_errors: false do |f|
-        %fieldset
-          = f.alert_message "Please fix the errors below."
-          %div
-            = f.label :group_id, "Choose an existing group"
-            .input-group
-              %span.input-group-addon
-                %i.ace-icon.fa.fa-user
-              = f.select :group_id, options_for_select([["Choose a group from this list", nil]].concat( @groups.all.map {|g| [g.name + ' (' + g.customers.count.to_s + ' customers)', g.id]})), hide_label: true
-          %hr
-          %h4 
-            or 
-            =link_to "create a new group here", groups_path
-          %hr
-          %div
-            =f.label :group_message, "Group Message"
-            .input-group
-              %span.input-group-addon
-                %i.ace-icon.fa.fa-comment
-              =f.text_area :group_message, class: "form-control", :placeholder => "Type your message here. You can use up to 50 characters", hide_label: true
-        .form-actions.center
-          %button.btn.btn-sm.btn-success{:type => "submit"}
-            Send Group Notification
-            %i.ace-icon.fa.fa-send.icon-on-right.bigger-110
+#group-notification  
+  .header-box
+    =image_tag('/assets/images/BirdTxt_Icons_Group.jpg')
+    %h4 send group txt
+  = bootstrap_form_for @group_notification, inline_errors: false do |f|
+    .darker-box
+      = f.alert_message "Please fix the errors below."
+      = f.select :group_id, options_for_select([["Choose a group from this list", nil]].concat( @groups.all.map {|g| [g.name + ' (' + g.customers.count.to_s + ' customers)', g.id]})), hide_label: true
+      %span.white 
+        or 
+        =link_to "create a new group here", groups_path
+      =f.text_area :group_message, class: "form-control", :placeholder => "Type your message here. You can use up to 50 characters", hide_label: true
+      .form-actions
+        %button.btn.btn-sm.main-btn{:type => "submit"}
+          send it!

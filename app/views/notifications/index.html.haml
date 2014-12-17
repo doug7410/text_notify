@@ -1,34 +1,10 @@
-=render 'shared/page_header', title: "Notifications"
-%hr
-.row
-  .col-sm-6
-    =render 'shared/notification_form'
-  .col-sm-6
-    =render 'shared/group_notification_form'
-%hr        
-=render 'shared/page_header', title: "Sent Notifications"
-
-
-%table#sample-table-1.table.table-striped.table-bordered.table-hover
-  %thead
-    %tr
-      %th
-        Sent on
-        %i.ace-icon.fa.fa-calendar.bigger-110
-      %th Customer
-      %th Message
-      %th Status
-  %tbody
-    -@notifications.each do |notification|
-      %tr
-        %td
-          = notification.decorate.created_at
-        %td
-          = link_to notification.customer.decorate.name + ' - ' + notification.customer.phone_number, customer_path(notification.customer)
-        %td= notification.message
-        %td 
-          = notification.status
-          = notification.error_code? ? "(error code - #{notification.error_code})" : "" 
+#notifications.row
+  .col-sm-7.centerize
+    .row
+      .col-sm-6
+        =render 'shared/notification_form'
+      .col-sm-6
+        =render 'shared/group_notification_form'
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript
