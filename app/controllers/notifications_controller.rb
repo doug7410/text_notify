@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_business_owner!, :set_up_notification_page
   before_action :set_up_create_action, only: [:create]
-    
+
   def index
     @notification = Notification.new
     @customer = Customer.new
@@ -15,21 +15,20 @@ class NotificationsController < ApplicationController
     elsif a_new_customer_is_being_added 
       if @customer.valid?
         send_text_if_notification_and_customer_valid!
+        flash[:success] = "A txt has been sent!"
+        @notification = Notification.new
       else
         @notification.errors.clear
-        render :index
       end
     elsif sending_to_an_existing_customer
-      if @notification.valid?
-        respond_to do |format|
-          format.js do
+      respond_to do |format|
+        format.js do
+          if @notification.valid?
             handle_sending_text_message(notification: @notification)
             flash[:success] = "A txt has been sent!"
-            render :index
+            @notification = Notification.new
           end
         end
-      else
-        render :index 
       end
     else
       flash[:error] = "There was a problem. The notification could not be sent."
@@ -46,7 +45,7 @@ private
       handle_sending_text_message(notification: @notification, customer: @customer)
     else
       @notification.valid?
-      render :index
+      nil
     end
   end
 

@@ -10,6 +10,7 @@
         %th Has Been Sent Notifications?
         %th 
     %tbody
+      -binding.pry
       -@customers.each do |customer|
         %tr
           %td= customer.name
