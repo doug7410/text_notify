@@ -50,20 +50,20 @@ describe NotificationsController do
   describe "POST create" do
 
     context "[with valid input and sending the notification to an existing customer]" do
-      let(:alice) { Fabricate(:customer, phone_number: '9546381523', business_owner: bob_business_owner) }
+      let!(:alice) { Fabricate(:customer, phone_number: '9546381523', business_owner: bob_business_owner) }
 
       let(:valid_post_create_request) do
-        xhr :post, :create, notification: {customer_id: alice.id, message: "Hello Alice!", business_owner_id: bob_business_owner.id}, customer: {first_name: "", last_name: "", phone_number: ""}
+        xhr :post, :create, notification: {message: "Hello Alice!", business_owner_id: bob_business_owner.id}, customer: {phone_number: alice.phone_number}
       end
-      
+
       it "[renders the javascript create template]", :vcr do
-        xhr :post, :create, notification: {customer_id: alice.id, message: "Hello Alice!", business_owner_id: bob_business_owner.id}, customer: {first_name: "", last_name: "", phone_number: ""}
+        valid_post_create_request
         expect(response).to render_template :create
       end
 
-      it "[sets the @notification]", :vcr do
+      it "[sets a new @notification]", :vcr do
         valid_post_create_request
-        expect(assigns(:notification)).to be_instance_of(Notification)
+        expect(assigns(:notification)).to be_new_record
       end
       
       it "[saves the notification with the correct customer and message]", :vcr do

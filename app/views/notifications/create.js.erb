@@ -1,6 +1,10 @@
 $("#individual-notification").html("<%= escape_javascript(render partial: 'notification_form' ) %>");
+  
 
-<% if @notification.valid? %>
+<% if @notification.errors.empty? %>
   $(".notification-alert").html("<%= flash[:success] %>");
   $('.notification-alert').effect("highlight", {}, 1500);
 <% end %>
+
+<% @notification.errors.clear %>
+<% @customer.errors.clear %>

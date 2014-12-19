@@ -10,20 +10,6 @@
 %script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript
-  $(document).ready(function(){
-    $('#individual-notification .notification-container').hide();
-
-    $('#individual-notification .header-box').on('click', function(){
-      $('#individual-notification .notification-container').slideToggle();
-    });
-
-    $('#group-notification .notification-container').hide();
-
-    $('#group-notification .header-box').on('click', function(){
-      $('#group-notification .notification-container').slideToggle();
-    });
-  });
-:javascript
   jQuery(function($) {
     $.mask.definitions['~']='[+-]';
     $('.input-mask-phone').mask('(999) 999-9999');
