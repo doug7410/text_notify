@@ -1,3 +1,37 @@
+// tabs
+#tabs ul{
+  margin: 0;
+  padding: 0;
+
+  li{
+    display: table-cell;
+  }
+
+    .ui-state-default{
+      a:link, a:visited{
+        display: inline-block;
+        background-color: $light-purple;
+        color: $white;
+        text-decoration: none;
+        padding: 8px 32px;
+        font-size: 16px;
+      }  
+    }
+
+    .ui-tabs-active{
+      a:link, a:visited{
+        display: inline-block;
+        background-color: $purple;
+        color: $white;
+        text-decoration: none;
+        padding: 8px 32px;
+        font-size: 16px;
+      }  
+    }
+}
+
+
+
 #notifications{
   color: $white;
   h4{
