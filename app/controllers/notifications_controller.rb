@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate_business_owner!, :update_notification_statuses!, :set_up_notification_page
+  before_action :authenticate_business_owner!, :set_up_notification_page
   before_action :set_up_create_action, only: [:create]
-    
+
   def index
     @notification = Notification.new
     @customer = Customer.new
@@ -9,90 +9,59 @@ class NotificationsController < ApplicationController
   end
 
   def create
-    if the_customer_is_missing
-      @notification.errors[:base] << "Please choose a customer or add a new one."
-      render :index
-    elsif a_new_customer_is_being_added 
-      if @customer.valid?
-        send_text_if_notification_and_customer_valid!
-      else
-        @notification.errors.clear
-        render :index
+    @customers.where(business_owner_id: current_business_owner.id).all
+
+    @customer = Customer.find_or_create_by(phone_number: customer_params[:phone_number], business_owner_id: customer_params[:business_owner_id])
+    @customer.update(full_name: customer_params[:full_name])
+    @notification = Notification.new(notification_params.merge(business_owner_id: current_business_owner.id))
+    @notification.customer = @customer
+
+    respond_to do |format|
+      format.js do
+        if @customer.valid?
+          if @notification.valid?            
+            handle_sending_text_message(@notification)
+            if @notification.errors[:base].empty?
+              flash[:success] = "A txt has been sent!"
+              @notification = Notification.new
+              @customer = Customer.new
+              render :create
+            else
+              @customer.destroy
+              @customer = Customer.new(full_name: customer_params[:full_name], business_owner_id: current_business_owner.id)
+            end
+          end
+        else
+          @notification.errors.clear
+          render :create
+        end
       end
-    elsif sending_to_an_existing_customer
-      if @notification.valid?
-        handle_sending_text_message(notification: @notification)
-      else
-        render :index 
-      end
-    else
-      flash[:error] = "There was a problem. The notification could not be sent."
-      render :index
     end
   end
 
   
 private
-  
-  def send_text_if_notification_and_customer_valid!
-    @notification.customer = @customer
-    if @notification.message.present?
-      handle_sending_text_message(notification: @notification, customer: @customer)
-    else
-      @notification.valid?
-      render :index
-    end
-  end
 
-  def handle_sending_text_message(options={})
-    result = options[:notification].send_text
+  def handle_sending_text_message(notification)
+    result = notification.send_text
     if result.successful? 
-      if options[:customer]
-        options[:customer].save 
-        options[:notification].customer = options[:customer]
-      end
-
-      options[:notification].save_with_status(result)
-      flash[:success] = "A text to #{options[:notification].customer.decorate.name} has been sent!"
-      redirect_to notifications_path
+      notification.save_with_status(result)
     else
-      options[:notification].errors[:base] << result.error_message
-      render :index 
+      notification.errors[:base] << result.error_message
     end
   end
-
-  def sending_to_an_existing_customer
-    !!notification_params[:customer_id]
-  end
-  
-  def a_new_customer_is_being_added
-    notification_params[:customer_id].empty? && new_customer_form_not_empty?
-  end
-  
-  def the_customer_is_missing
-    notification_params[:customer_id].empty? && !new_customer_form_not_empty?
-  end
-  
-  def new_customer_form_not_empty?
-    customer = customer_params[:first_name]
-    customer += customer_params[:last_name]
-    customer += customer_params[:phone_number]
-    !customer.empty?
-  end
-
 
 
   def notification_params 
-    params.require(:notification).permit(:customer_id, :message)
+    params.require(:notification).permit(:order_number, :message)
   end
 
   def customer_params 
-    params.require(:customer).permit(:first_name, :last_name, :phone_number)
+    customer_params = params.require(:customer).permit(:full_name, :phone_number)
+    customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number]), business_owner_id: current_business_owner.id})
   end
 
   def set_up_create_action
-    @notification = Notification.new(notification_params.merge(business_owner_id: current_business_owner.id))
-    @customer = Customer.new(customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number]), business_owner_id: current_business_owner.id}))
     @group_notification = GroupNotification.new
   end
 

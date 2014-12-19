@@ -1,31 +1,29 @@
-#individual-notification  
-  .header-box
-    =image_tag('/assets/images/BirdTxt_Icons-Individual.jpg')
-    %h4 send individual txt
-  .notification-container  
-    = form_for @notification do |f|
-      .darker-box
-        - if @notification.errors.any? or @customer.errors.any?
-          .alert.alert-danger
-            %ul
-              - @notification.errors.full_messages.each do |msg|
-                %li= msg
-              - @customer.errors.full_messages.each do |msg|
-                %li= msg      
-        = f.select :customer_id, options_for_select([["Choose a customer from this list", nil]].concat( @customers.all.decorate.map {|c| [c.name + " - " +  c.display_phone_number, c.id]}), @notification.customer_id), {}, { :class => 'form-control' }
-      .lighter-box
-        %h4 or add a new cusomer
-        =fields_for @customer do |c|
-          .input-group
-            =c.text_field :first_name, class: "form-control", placeholder: 'first name'
-            =c.text_field :last_name, class: "form-control", placeholder: 'last name'
-            =c.text_field :phone_number ,class: "form-control input-mask-phone", placeholder: '(555)555-5555'
-      .darker-box
-        =text_field_tag :order_number, nil, class: "form-control", html: {placeholder: 'order# (optional)'}      
-        =f.text_area :message, class: "form-control", :placeholder => "Type your message here. You can use up to 50 characters", hide_label: true
-        .form-actions.centerize
-          =link_to '#' do
-            %button.btn.btn-sm.main-btn send later
-          %small or
-          %button.btn.btn-sm.main-btn{:type => "submit"}
-            send now
+.header-box
+  =image_tag('/assets/images/BirdTxt_Icons-Individual.jpg')
+  %h4 send individual txt
+.notification-container  
+  = form_for @notification, remote: true do |f|
+    .darker-box
+      - if @notification.errors.any? or @customer.errors.any?
+        .alert.alert-danger
+          %ul
+            - @notification.errors.full_messages.each do |msg|
+              %li= msg
+            - @customer.errors.full_messages.each do |msg|
+              %li= msg   
+      = select_tag :customer_search, options_for_select([["Choose a customer from this list", nil]].concat( @customers.map {|c| [c.full_name + " - " +  c.phone_number, c.id]}), @notification.customer_id), { :class => 'form-control' }
+    .lighter-box
+      %h4 or add a new cusomer
+      =fields_for @customer do |c|
+        .input-group
+          =c.text_field :full_name, class: "form-control", placeholder: 'Customer Name'
+          =c.text_field :phone_number ,class: "form-control input-mask-phone", placeholder: '(555)555-5555'
+    .darker-box
+      =f.text_field :order_number, class: "form-control",placeholder: 'order# (optional)'    
+      =f.text_area :message, class: "form-control", :placeholder => "Type your message here. You can use up to 50 characters", hide_label: true
+      .form-actions.centerize
+        =link_to '#' do
+          %button.btn.btn-sm.main-btn send later
+        %small or
+        %button.btn.btn-sm.main-btn{:type => "submit"}
+          send now

@@ -12,8 +12,8 @@
     %tbody
       -@customers.each do |customer|
         %tr
-          %td= customer.name
-          %td= customer.display_phone_number
+          %td= customer.full_name
+          %td= customer.phone_number
           %td
             - if customer.notifications.any? 
               Yes
@@ -24,7 +24,7 @@
             =link_to customer_path(customer), id: "edit_#{customer.id}" do
               %button.btn.main-btn.btn-sm
                 Edit
-            =link_to customer_path(customer), data: { :confirm => "Are you sure you want to delete #{customer.name}?" }, :method => :delete, id: "delete_#{customer.id}" do
+            =link_to customer_path(customer), data: { :confirm => "Are you sure you want to delete #{customer.full_name}?" }, :method => :delete, id: "delete_#{customer.id}" do
               %button.btn.alt-btn.btn-sm
                 Delete
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}

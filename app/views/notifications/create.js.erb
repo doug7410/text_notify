@@ -1,0 +1,13 @@
+$("#individual-notification").html("<%= escape_javascript(render partial: 'notification_form' ) %>");
+  
+
+<% if @notification.errors.empty? %>
+  $(".notification-alert").html("<%= flash[:success] %>");
+  $('.notification-alert').effect("highlight", {}, 1500);
+<% end %>
+
+$.mask.definitions['~']='[+-]';
+$('.input-mask-phone').mask('(999) 999-9999');
+
+<% @notification.errors.clear %>
+<% @customer.errors.clear %>

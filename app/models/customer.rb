@@ -5,8 +5,8 @@ class Customer < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships
 
-  validates_presence_of :first_name, :last_name, :phone_number
-  validates :phone_number, uniqueness: { scope: :business_owner }
+  validates_presence_of :phone_number
+  validates :phone_number, uniqueness: { scope: :business_owner_id }
   validates :phone_number, length: { is: 10 }
   validates :phone_number, numericality: { only_integer: true }
 

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   post '/twilio_callback', to: 'twilio_callback#status'
 
-  get '/:action', controller: 'pages'
   
   mount Sidekiq::Web, at: '/sidekiq'
+  get '/:action', controller: 'pages'
 end

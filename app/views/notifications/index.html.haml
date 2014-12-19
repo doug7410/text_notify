@@ -1,28 +1,27 @@
 #notifications
   .row
     .col-sm-6
-      =render 'notification_form'
+      #tabs
+        .notification-alert
+        %ul
+          %li= link_to 'individual', "#tabs-1"
+          %li= link_to 'group', "#tabs-2"
+        #tabs-1
+          #individual-notification  
+            =render 'notification_form'
+        #tabs-2
+          #group-notification
+            =render 'group_notification_form', object: @group_notification
     .col-sm-6
-      =render 'group_notification_form'
-
-%script{:src => "/assets/js/jquery-ui.custom.min.js"}
+      queue
+%script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript
   $(document).ready(function(){
-    $('#individual-notification .notification-container').hide();
-
-    $('#individual-notification .header-box').on('click', function(){
-      $('#individual-notification .notification-container').slideToggle();
-    });
-
-    $('#group-notification .notification-container').hide();
-
-    $('#group-notification .header-box').on('click', function(){
-      $('#group-notification .notification-container').slideToggle();
-    });
+    $( "#tabs" ).tabs();  
   });
 :javascript
-  jQuery(function($) {
+  $(document).ready(function(){
     $.mask.definitions['~']='[+-]';
     $('.input-mask-phone').mask('(999) 999-9999');
   });
