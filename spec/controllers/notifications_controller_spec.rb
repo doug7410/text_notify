@@ -44,6 +44,14 @@ describe NotificationsController do
       get :index
       expect(assigns(:groups)).to eq([group1])
     end 
+
+    it "[sets @queue_items to all of the current_business_owner's queue items]" do
+      tom = Fabricate(:customer, business_owner: bob_business_owner)
+      notification = Fabricate(:notification, customer: tom, business_owner: bob_business_owner)
+      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      get :index
+      expect(assigns(:queue_items)).to eq([queue_item])
+    end
   end
 
 
@@ -202,6 +210,28 @@ describe NotificationsController do
         expect(assigns(:notifications)).to eq([notification2, notification1])
       end
 
+    end
+
+    context "[when adding to the queue]" do
+      let!(:alice) { Fabricate(:customer, phone_number: '9546381523', business_owner: bob_business_owner) }
+      let(:add_to_queue_request) do
+        xhr :post, :create, notification: {message: "Thanks for the order!", business_owner_id: bob_business_owner.id}, customer: {phone_number: alice.phone_number}, commit: "send later"
+      end
+
+      it "[creates a new queue item]" do
+        add_to_queue_request
+        expect(QueueItem.count).to eq(1)
+      end
+
+      it "[associated the new notification with the queue item]" do
+        add_to_queue_request
+        expect(QueueItem.first.notification).to eq(Notification.first)
+      end
+      
+      it "[associated the business_owner with the queue item]" do
+        add_to_queue_request
+        expect(QueueItem.first.business_owner).to eq(bob_business_owner)
+      end
     end
   end
 

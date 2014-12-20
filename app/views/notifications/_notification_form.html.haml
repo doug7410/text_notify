@@ -22,8 +22,8 @@
       =f.text_field :order_number, class: "form-control",placeholder: 'order# (optional)'    
       =f.text_area :message, class: "form-control", :placeholder => "Type your message here. You can use up to 50 characters", hide_label: true
       .form-actions.centerize
-        =link_to '#' do
-          %button.btn.btn-sm.main-btn send later
+        =f.submit 'send later', class: 'btn btn-sm main-btn'
+          
         %small or
         %button.btn.btn-sm.main-btn{:type => "submit"}
           send now

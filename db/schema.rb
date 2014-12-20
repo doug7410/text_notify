@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219135455) do
+ActiveRecord::Schema.define(version: 20141220002914) do
 
   create_table "business_owners", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -93,6 +93,14 @@ ActiveRecord::Schema.define(version: 20141219135455) do
     t.string   "error_code"
     t.integer  "business_owner_id"
     t.string   "order_number"
+  end
+
+  create_table "queue_items", force: true do |t|
+    t.integer  "notification_id"
+    t.integer  "business_owner_id"
+    t.boolean  "sent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -6,6 +6,7 @@ class NotificationsController < ApplicationController
     @notification = Notification.new
     @customer = Customer.new
     @group_notification = GroupNotification.new
+    @queue_items = QueueItem.where(business_owner_id: current_business_owner.id)
   end
 
   def create
@@ -23,6 +24,9 @@ class NotificationsController < ApplicationController
             handle_sending_text_message(@notification)
             if @notification.errors[:base].empty?
               flash[:success] = "A txt has been sent!"
+              
+              handle_queue_items
+
               @notification = Notification.new
               @customer = Customer.new
               render :create
@@ -41,6 +45,12 @@ class NotificationsController < ApplicationController
 
   
 private
+
+  def handle_queue_items
+    if params[:commit] == 'send later'
+      QueueItem.create(notification_id: @notification.id, business_owner_id: current_business_owner.id)
+    end
+  end
 
   def handle_sending_text_message(notification)
     result = notification.send_text
