@@ -2,12 +2,17 @@ $("#individual-notification").html("<%= escape_javascript(render partial: 'notif
   
 
 <% if @notification.errors.empty? %>
-  $(".notification-alert").html("<%= flash[:success] %>");
+  $(".notification-alert").html("<%= @success_message %>");
   $('.notification-alert').effect("highlight", {}, 1500);
+<% end %>
+
+<% if params[:commit] == 'send later' %>
+  $('#txt-queue').html("<%= escape_javascript(render partial: 'txt_queue' ) %>")
 <% end %>
 
 $.mask.definitions['~']='[+-]';
 $('.input-mask-phone').mask('(999) 999-9999');
 
+$(".queue-alert").html("");
 <% @notification.errors.clear %>
 <% @customer.errors.clear %>

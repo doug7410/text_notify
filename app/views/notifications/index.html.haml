@@ -12,24 +12,10 @@
         #tabs-2
           #group-notification
             =render 'group_notification_form', object: @group_notification
-    #txt-queue.col-sm-6
-      .header
-        %h4
-          txt queue
-      %table.table.table-striped.table-hover
-        %tr
-          %th Date
-          %th Name
-          %th Order #
-          %th
-        -@queue_items.each do |item|
-          %tr
-            %td= item.created_at 
-            %td= item.notification.customer.full_name  
-            %td= item.notification.order_number   
-            %td
-              =link_to send_queue_item_path(id: item.id), method: 'post' do
-                %button.btn.btn-sm.main-btn send  
+    .col-sm-6
+      .queue-alert
+      #txt-queue
+        =render 'txt_queue'
             
 %script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}

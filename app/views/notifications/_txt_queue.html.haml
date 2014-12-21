@@ -1,0 +1,23 @@
+.header
+  %h4
+    txt queue
+-if @queue_items.any?    
+  %table.table.table-striped.table-hover
+    %tr
+      %th Date
+      %th Name
+      %th Order #
+      %th
+    -@queue_items.each do |item|
+      %tr
+        %td= item.created_at 
+        %td= item.notification.customer.full_name  
+        %td= item.notification.order_number   
+        %td
+          =link_to send_queue_item_path(id: item.id), method: 'post', remote: true do
+            %button.btn.btn-sm.main-btn send  
+-else
+  .space-6
+  .alert.alert-warning
+    %strong
+      the txt queue is empty right now            

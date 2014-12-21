@@ -10,7 +10,6 @@ class NotificationsController < ApplicationController
   end
 
   def create
-    binding.pry
     @customers.where(business_owner_id: current_business_owner.id).all
 
     @customer = Customer.find_or_create_by(phone_number: customer_params[:phone_number], business_owner_id: customer_params[:business_owner_id])
@@ -24,7 +23,7 @@ class NotificationsController < ApplicationController
           if @notification.valid?            
             handle_sending_text_message(@notification)
             if @notification.errors[:base].empty?
-              flash[:success] = "A txt has been sent!"
+              @success_message = "A txt has been sent!"
               
               handle_queue_items
 
@@ -45,13 +44,25 @@ class NotificationsController < ApplicationController
   end
 
   def send_queue_item
-    respond_to do |format|
-      format.js do
-        render :queue_items
+    if queue_item = QueueItem.find_by(id: params[:id])
+      notification = Notification.create(business_owner_id: current_business_owner.id, customer: queue_item.notification.customer, order_number:queue_item.notification.order_number, message: "default message" )
+      handle_sending_text_message(notification)
+      queue_item.destroy  
+      respond_to do |format|
+        format.js do
+          @success_message = "the queue item has been sent"
+          @queue_items = QueueItem.where(business_owner_id: current_business_owner.id)
+          render :queue_items
+        end
       end
+    else
+      respond_to do |format|
+        format.js do
+          @error_message = "the queue item doesn't exist"
+          render :queue_items
+        end
+      end  
     end
-
-    # customer = Customer.find(params[:customer_id])
   end 
 
   
@@ -60,6 +71,7 @@ private
   def handle_queue_items
     if params[:commit] == 'send later'
       QueueItem.create(notification_id: @notification.id, business_owner_id: current_business_owner.id)
+    @queue_items = QueueItem.where(business_owner_id: current_business_owner.id)
     end
   end
 

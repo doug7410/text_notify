@@ -218,19 +218,24 @@ describe NotificationsController do
         xhr :post, :create, notification: {message: "Thanks for the order!", business_owner_id: bob_business_owner.id}, customer: {phone_number: alice.phone_number}, commit: "send later"
       end
 
-      it "[creates a new queue item]" do
+      it "[creates a new queue item]", :vcr do
         add_to_queue_request
         expect(QueueItem.count).to eq(1)
       end
 
-      it "[associated the new notification with the queue item]" do
+      it "[associated the new notification with the queue item]", :vcr do
         add_to_queue_request
         expect(QueueItem.first.notification).to eq(Notification.first)
       end
       
-      it "[associated the business_owner with the queue item]" do
+      it "[associated the business_owner with the queue item]", :vcr do
         add_to_queue_request
         expect(QueueItem.first.business_owner).to eq(bob_business_owner)
+      end
+
+      it "[sets the @queue_items]", :vcr do
+        add_to_queue_request
+        expect(assigns(:queue_items).count).to eq(1)
       end
     end
   end
@@ -238,28 +243,61 @@ describe NotificationsController do
   describe "POST send_queue_item" do
     let!(:alice) { Fabricate(:customer, phone_number: '9546381523', business_owner: bob_business_owner) }
     
-    it "renders the javacript queue_item template" do
+    it "[renders the javacript queue_item template]", :vcr do
       notification = Fabricate(:notification, customer: alice, business_owner: bob_business_owner)
       queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
       xhr :post, :send_queue_item, id: queue_item.id
       expect(response).to render_template :queue_items, format: :js 
     end 
     
-    it "creates a new notification associated with the customer" do
+    it "[creates a new notification associated with the customer]", :vcr do
       notification = Fabricate(:notification, customer: alice, business_owner: bob_business_owner)
       queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
       xhr :post, :send_queue_item, id: queue_item.id
       expect(alice.notifications.count).to eq(2) 
     end
+
+    it "[sets the order number for the new notification from the queue item]", :vcr do
+      notification = Fabricate(:notification, customer: alice, order_number: '12345',business_owner: bob_business_owner)
+      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      xhr :post, :send_queue_item, id: queue_item.id
+      expect(Notification.last.order_number).to eq(Notification.first.order_number)
+    end
+
+    it "[sends the new notification]", :vcr do
+      notification = Fabricate(:notification, customer: alice, order_number: '12345',business_owner: bob_business_owner)
+      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      xhr :post, :send_queue_item, id: queue_item.id
+      expect(Notification.first.sid).not_to be_nil
+    end
+
+    it "[deletes the queue item]", :vcr do
+      notification = Fabricate(:notification, customer: alice, order_number: '12345',business_owner: bob_business_owner)
+      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      xhr :post, :send_queue_item, id: queue_item.id
+      expect(QueueItem.count).to eq(0)
+    end
+
+    it "[sets the @success_message]", :vcr do
+      notification = Fabricate(:notification, customer: alice, order_number: '12345',business_owner: bob_business_owner)
+      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      xhr :post, :send_queue_item, id: queue_item.id
+      expect(assigns(:success_message)).to be_present
+    end
+
+    it "[sets the @error_message if the queue item doesn't exist]" do
+      xhr :post, :send_queue_item, id: 1
+      expect(assigns(:error_message)).to be_present
+    end
+
+    it "[sets the @queue_items]", :vcr do
+      notification = Fabricate(:notification, customer: alice, order_number: '12345',business_owner: bob_business_owner)
+      notification2 = Fabricate(:notification, customer: alice, order_number: '12345',business_owner: bob_business_owner)
+      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      queue_item2 = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      xhr :post, :send_queue_item, id: queue_item.id
+      expect(assigns(:queue_items).count).to eq(1)
+    end
+
   end
-
-  describe "GET view" do
-    
-  end  
-
- 
-
-
-
- 
 end

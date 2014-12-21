@@ -6,7 +6,7 @@
   $("#group-notification").html("<%= escape_javascript(render partial: 'notifications/group_notification_form', locals: {object: @group_notification} ) %>");
   $(".notification-alert").html("");
 <% end %>
+
+$(".queue-alert").html("");
 <% @group_notification.errors.clear %>
 
-
-<% #binding.pry %>
