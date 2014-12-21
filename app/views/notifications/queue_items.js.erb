@@ -1,0 +1,11 @@
+<% if @success_message %>
+  $(".queue-alert").html("<%= @success_message %>");
+  $('.queue-alert').effect("highlight", {}, 1500);
+  $(".notification-alert").html("");
+<% else %>
+  $(".queue-alert").html("<%= @error_message %>");
+  $('.queue-alert').effect("highlight", {}, 1500);
+  $(".notification-alert").html("");
+<% end %>
+
+$('#txt-queue').html("<%= escape_javascript(render partial: 'txt_queue' ) %>")

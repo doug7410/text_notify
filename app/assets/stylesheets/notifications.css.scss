@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
 
-  li{
+  .ui-state-default{
     display: table-cell;
   }
 
@@ -28,6 +28,19 @@
         font-size: 16px;
       }  
     }
+}
+
+// queue
+#txt-queue{
+
+  .header{
+    background-color: $orange;
+    padding: 20px;
+    text-align: center;
+  }
+  .table{
+    color: #000;
+  }
 }
 
 
@@ -93,7 +106,7 @@
     }
 }
 
-.notification-alert {
+.notification-alert, .queue-alert {
     color: $orange;
     font-size: 16px;
     font-weight: bold;

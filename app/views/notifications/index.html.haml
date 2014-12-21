@@ -13,7 +13,10 @@
           #group-notification
             =render 'group_notification_form', object: @group_notification
     .col-sm-6
-      queue
+      .queue-alert
+      #txt-queue
+        =render 'txt_queue'
+            
 %script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript
