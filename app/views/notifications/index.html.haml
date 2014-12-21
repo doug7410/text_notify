@@ -26,9 +26,9 @@
           %tr
             %td= item.created_at 
             %td= item.notification.customer.full_name  
-            %td 12345  
+            %td= item.notification.order_number   
             %td
-              =link_to '#' do
+              =link_to send_queue_item_path(id: item.id), method: 'post' do
                 %button.btn.btn-sm.main-btn send  
             
 %script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"}

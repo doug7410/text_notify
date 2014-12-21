@@ -10,6 +10,7 @@ class NotificationsController < ApplicationController
   end
 
   def create
+    binding.pry
     @customers.where(business_owner_id: current_business_owner.id).all
 
     @customer = Customer.find_or_create_by(phone_number: customer_params[:phone_number], business_owner_id: customer_params[:business_owner_id])
@@ -42,6 +43,16 @@ class NotificationsController < ApplicationController
       end
     end
   end
+
+  def send_queue_item
+    respond_to do |format|
+      format.js do
+        render :queue_items
+      end
+    end
+
+    # customer = Customer.find(params[:customer_id])
+  end 
 
   
 private

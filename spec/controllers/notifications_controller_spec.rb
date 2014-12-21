@@ -235,6 +235,24 @@ describe NotificationsController do
     end
   end
 
+  describe "POST send_queue_item" do
+    let!(:alice) { Fabricate(:customer, phone_number: '9546381523', business_owner: bob_business_owner) }
+    
+    it "renders the javacript queue_item template" do
+      notification = Fabricate(:notification, customer: alice, business_owner: bob_business_owner)
+      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      xhr :post, :send_queue_item, id: queue_item.id
+      expect(response).to render_template :queue_items, format: :js 
+    end 
+    
+    it "creates a new notification associated with the customer" do
+      notification = Fabricate(:notification, customer: alice, business_owner: bob_business_owner)
+      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      xhr :post, :send_queue_item, id: queue_item.id
+      expect(alice.notifications.count).to eq(2) 
+    end
+  end
+
   describe "GET view" do
     
   end  

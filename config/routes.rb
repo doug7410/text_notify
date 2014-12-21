@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   resources :memberships, only: [:create, :destroy]
   resources :inquiries, only: [:create, :new]
 
+  post '/send_queue_item', to: 'notifications#send_queue_item'
+
   post '/sms', to: 'sms#text'
 
   post '/twilio_callback', to: 'twilio_callback#status'
