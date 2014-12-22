@@ -3,10 +3,15 @@ class NotificationsController < ApplicationController
   before_action :set_up_create_action, only: [:create]
 
   def index
-    @notification = Notification.new
-    @customer = Customer.new
-    @group_notification = GroupNotification.new
-    @queue_items = QueueItem.where(business_owner_id: current_business_owner.id)
+    if current_business_owner.account_setting
+      @notification = Notification.new
+      @customer = Customer.new
+      @group_notification = GroupNotification.new
+      @queue_items = QueueItem.where(business_owner_id: current_business_owner.id)
+    else
+      flash[:warning] = "Before you can send any txt messages you need to set up your default messages"
+      redirect_to account_settings_path
+    end
   end
 
   def create
@@ -16,6 +21,14 @@ class NotificationsController < ApplicationController
     @customer.update(full_name: customer_params[:full_name])
     @notification = Notification.new(notification_params.merge(business_owner_id: current_business_owner.id))
     @notification.customer = @customer
+
+    if @notification.message.blank?
+      if params[:commit] == 'send later'
+        @notification.message = current_business_owner.default_add_to_queue_message
+      else
+        @notification.message = current_business_owner.default_send_now_message
+      end
+    end
 
     respond_to do |format|
       format.js do
@@ -45,7 +58,7 @@ class NotificationsController < ApplicationController
 
   def send_queue_item
     if queue_item = QueueItem.find_by(id: params[:id])
-      notification = Notification.create(business_owner_id: current_business_owner.id, customer: queue_item.notification.customer, order_number:queue_item.notification.order_number, message: "default message" )
+      notification = Notification.create(business_owner_id: current_business_owner.id, customer: queue_item.notification.customer, order_number:queue_item.notification.order_number, message: current_business_owner.default_send_from_queue_message )
       handle_sending_text_message(notification)
       queue_item.destroy  
       respond_to do |format|

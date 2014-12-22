@@ -17,6 +17,9 @@
     %ul.sub-nav
       %li
         =link_to 'Your Account', edit_business_owner_registration_path, class: active_link?('business_owners/registrations')
+      %span.nav-spacer
+      %li
+        =link_to 'Settings', account_settings_path, class: active_link?('account_settings')
       %span.nav-spacer              
       %li
         =link_to 'About PijonTxt', '/about', class: active_link?(nil,'about')

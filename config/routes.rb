@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :group_notifications, only: [:create]
   resources :memberships, only: [:create, :destroy]
   resources :inquiries, only: [:create, :new]
+  resources :account_settings, exept: [:destroy]
 
   post '/send_queue_item', to: 'notifications#send_queue_item'
 

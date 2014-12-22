@@ -2,55 +2,79 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe NotificationsController do
-  let!(:bob_business_owner) { Fabricate(:business_owner) }
+  let!(:bob_business_owner) { Fabricate(:business_owner, full_name: "Bob's Burgers") }
   before { sign_in bob_business_owner }
   
   describe "GET index" do
-    it "[sets the new @notification]" do
-      get :index
-      expect(assigns(:notification)).to be_instance_of(Notification)
+    context "[the signed in business owner has not set up the default messages]" do
+      it "[redirects to the settings page if the default messages are not set]" do
+        get :index
+        expect(response).to redirect_to account_settings_path
+      end
+      
+      it "[it sets the flash warning if the default messages are not set]" do
+        get :index
+        expect(flash[:warning]).to be_present
+      end
     end
 
-    it "[sets @customers to the signed in business_owner's customers]" do
-      tom = Fabricate(:customer, business_owner: bob_business_owner)
-      mike = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '1234567897')
-      get :index 
-      expect(assigns(:customers)).to eq([tom, mike])
-    end
+    context "[the signed in business owner has set up the default messages]" do
 
-    it "[sest a new @customer]" do
-      get :index
-      expect(assigns(:customer)).to be_instance_of(Customer)
-    end
+      before do      
+        Fabricate(:account_setting, business_owner_id: bob_business_owner.id)
+      end
 
-    it "[sets @notifications to all of the current_business_owner's notifications ordered DESC by created on date]" do
-      tom = Fabricate(:customer, business_owner: bob_business_owner)
-      notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, business_owner: bob_business_owner)
-      notification2 = Fabricate(:notification, customer: tom,  business_owner: bob_business_owner)
-      notification3 = Fabricate(:notification, customer: tom,  business_owner: Fabricate(:business_owner))
-      get :index 
-      expect(assigns(:notifications)).to eq([notification2, notification1])
-    end 
+      it "renders the index templte" do
+        get :index
+        expect(response).to render_template :index
+      end
 
-    it "[sets a new @group_notification]" do
-      get :index
-      expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
-    end
+      it "[sets the new @notification]" do
+        get :index
+        expect(assigns(:notification)).to be_instance_of(Notification)
+      end
+
+      it "[sets @customers to the signed in business_owner's customers]" do
+        tom = Fabricate(:customer, business_owner: bob_business_owner)
+        mike = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '1234567897')
+        get :index 
+        expect(assigns(:customers)).to eq([tom, mike])
+      end
+
+      it "[sest a new @customer]" do
+        get :index
+        expect(assigns(:customer)).to be_instance_of(Customer)
+      end
+
+      it "[sets @notifications to all of the current_business_owner's notifications ordered DESC by created on date]" do
+        tom = Fabricate(:customer, business_owner: bob_business_owner)
+        notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, business_owner: bob_business_owner)
+        notification2 = Fabricate(:notification, customer: tom,  business_owner: bob_business_owner)
+        notification3 = Fabricate(:notification, customer: tom,  business_owner: Fabricate(:business_owner))
+        get :index 
+        expect(assigns(:notifications)).to eq([notification2, notification1])
+      end 
+
+      it "[sets a new @group_notification]" do
+        get :index
+        expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
+      end
 
 
-    it "[sets @groups to all the groups for the signed in business_owner]" do
-      group1 = Fabricate(:group, business_owner: bob_business_owner)
-      group2 = Fabricate(:group)
-      get :index
-      expect(assigns(:groups)).to eq([group1])
-    end 
+      it "[sets @groups to all the groups for the signed in business_owner]" do
+        group1 = Fabricate(:group, business_owner: bob_business_owner)
+        group2 = Fabricate(:group)
+        get :index
+        expect(assigns(:groups)).to eq([group1])
+      end 
 
-    it "[sets @queue_items to all of the current_business_owner's queue items]" do
-      tom = Fabricate(:customer, business_owner: bob_business_owner)
-      notification = Fabricate(:notification, customer: tom, business_owner: bob_business_owner)
-      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
-      get :index
-      expect(assigns(:queue_items)).to eq([queue_item])
+      it "[sets @queue_items to all of the current_business_owner's queue items]" do
+        tom = Fabricate(:customer, business_owner: bob_business_owner)
+        notification = Fabricate(:notification, customer: tom, business_owner: bob_business_owner)
+        queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+        get :index
+        expect(assigns(:queue_items)).to eq([queue_item])
+      end
     end
   end
 
@@ -87,6 +111,12 @@ describe NotificationsController do
       it "[saves the sid from twillio for the notification]", :vcr do
         valid_post_create_request
         expect(Notification.last.sid).not_to be_nil
+      end
+
+      it "[sends with the default 'send now' message if the message is left blank]", :vcr do
+        Fabricate(:account_setting, business_owner: bob_business_owner)
+        xhr :post, :create, notification: {message: "", business_owner_id: bob_business_owner.id}, customer: {phone_number: alice.phone_number}
+        expect(Notification.first.message_with_subject).to eq(bob_business_owner.default_message_subject + ' - ' + bob_business_owner.default_send_now_message)
       end
     end
 
@@ -237,6 +267,12 @@ describe NotificationsController do
         add_to_queue_request
         expect(assigns(:queue_items).count).to eq(1)
       end
+
+       it "[sends with the default 'add to queue' message if the message is left blank]", :vcr do
+        Fabricate(:account_setting, business_owner: bob_business_owner)
+        xhr :post, :create, notification: {message: "", business_owner_id: bob_business_owner.id}, customer: {phone_number: alice.phone_number}, commit: "send later"
+        expect(Notification.first.message).to eq(bob_business_owner.default_add_to_queue_message)
+      end
     end
   end
 
@@ -298,6 +334,15 @@ describe NotificationsController do
       xhr :post, :send_queue_item, id: queue_item.id
       expect(assigns(:queue_items).count).to eq(1)
     end
+
+    it "[sends with the default 'send from queue' message ]", :vcr do
+      Fabricate(:account_setting, business_owner: bob_business_owner)
+      notification = Fabricate(:notification, customer: alice, order_number: '12345',business_owner: bob_business_owner)
+      queue_item = Fabricate(:queue_item, notification: notification, business_owner: bob_business_owner)
+      xhr :post, :send_queue_item, id: queue_item.id
+      expect(assigns(:success_message)).to be_present
+        expect(Notification.first.message).to eq(bob_business_owner.default_send_from_queue_message)
+      end
 
   end
 end

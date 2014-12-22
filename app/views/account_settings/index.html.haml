@@ -1,0 +1,7 @@
+=bootstrap_form_for @account_settings do |f|
+  =f.text_field :default_message_subject
+  =f.text_field :default_send_now_message
+  =f.text_field :default_add_to_queue_message
+  =f.text_field :default_send_from_queue_message
+  =f.submit 'save'
+  

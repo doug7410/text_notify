@@ -13,8 +13,12 @@ class Notification < ActiveRecord::Base
   def send_text
       TwilioWrapper.send_message({
         :to => customer.phone_number,
-        :body => message
+        :body => message_with_subject
       })
+  end
+
+  def message_with_subject
+    business_owner.default_message_subject + ' - ' + message
   end
 
   def save_with_status(result)
