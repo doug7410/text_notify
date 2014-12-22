@@ -10,6 +10,5 @@ class Group < ActiveRecord::Base
 
 
   validates_presence_of :name, :business_owner_id
-  validates :name, uniqueness: { scope: :business_owner }
-
+  validates_uniqueness_of :name
 end

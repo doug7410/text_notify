@@ -13,6 +13,10 @@ class GroupsController < ApplicationController
       flash[:success] = "The \"#{@group.name}\" group has been created."
       redirect_to groups_path
     else
+      if  @group.errors[:name].include?("has already been taken")
+        flash[:error] = "Sorry the group name 'miami' has been taken, please try a different name."
+      end
+
       @groups = Group.where("business_owner_id = ?", current_business_owner.id)
       render :index
     end

@@ -37,9 +37,21 @@ describe GroupsController do
         expect(response).to redirect_to(groups_path)
       end
 
-      it "sets the flash success message" do
+      it "[sets the flash success message]" do
         post :create, group: {name: "walk in customers"}
         expect(flash[:success]).not_to be_nil
+      end
+
+      it "[does not create the group if it allrady exist with another business owner]" do
+        miami = Fabricate(:group, name: 'miami', business_owner: Fabricate(:business_owner))
+        post :create, group: {name: "miami"}
+        expect(Group.count).to eq(1)
+      end
+
+      it "[sets the correct flash error if the the group name has been taken]" do
+        miami = Fabricate(:group, name: 'miami', business_owner: Fabricate(:business_owner))
+        post :create, group: {name: "miami"}
+        expect(flash[:error]).to eq("Sorry the group name 'miami' has been taken, please try a different name.")
       end
     end 
 
