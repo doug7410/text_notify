@@ -12,7 +12,6 @@ class SmsOperatorController < ApplicationController
     response = Twilio::TwiML::Response.new do |r|
       r.Message(message)
     end
-    binding.pry
     render_twiml response
   end
 end
