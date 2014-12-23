@@ -33,9 +33,10 @@ describe SmsOperatorController do
       expect(response.body).to match /LUNCH/im
     end
 
-    it "[creates the customer if they don't exist]" do
+    it "[creates the customer if they don't exist and the group does exixt]" do
+      lunch_group = Fabricate(:group, name: 'LUNCH', business_owner: bob_business_owner)
       post :sms_handler, params
-      expect(Customer.first.phone_number).to eq('9546381523')
+      expect(bob_business_owner.customers.first.phone_number).to eq('9546381523')
     end
 
     it "[finds the customer if they do exist]" do
