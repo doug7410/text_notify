@@ -7,7 +7,18 @@ class SmsOperatorController < ApplicationController
  
   def sms_handler
 
-    message = "Hey bro! Thanks for signing up! You said - #{params[:Body]} "
+    group = SmsHandlerService.find_group(params[:Body])
+    
+    customer = Customer.find_or_create_by(phone_number: params[:From][2..11])
+
+    membership = Membership.new(group: group, customer: customer, current_business_owner: current_business_owner)
+    membership.save
+
+    if group
+      message = "Thanks' for subscribing to #{group.name} txt list with #{group.business_owner.full_name}!"
+    else
+      message = "Oops, it looks like you tried to joing a txt list that doesn't exist. Please make sure you type in the keyword in all UPPERCASE letters and try again."
+    end
 
     response = Twilio::TwiML::Response.new do |r|
       r.Message(message)
@@ -16,24 +27,3 @@ class SmsOperatorController < ApplicationController
   end
 end
 
-
-# Parameters: {
-#   "ToCountry"=>"US", 
-#   "ToState"=>"", 
-#   "SmsMessageSid"=>"SM741c7ef69ee6ffd44c25c5e76f61d38d", 
-#   "NumMedia"=>"0", 
-#   "ToCity"=>"", 
-#   "FromZip"=>"33316", 
-#   "SmsSid"=>"SM741c7ef69ee6ffd44c25c5e76f61d38d", 
-#   "FromState"=>"FL", 
-#   "SmsStatus"=>"received", 
-#   "FromCity"=>"FT LAUDERDALE", 
-#   "Body"=>"People ", 
-#   "FromCountry"=>"US", 
-#   "To"=>"+18554965033", 
-#   "ToZip"=>"", 
-#   "MessageSid"=>"SM741c7ef69ee6ffd44c25c5e76f61d38d", 
-#   "AccountSid"=>"ACb62e32327e8ec258781341a039e65c46", 
-#   "From"=>"+19546381523", 
-#   "ApiVersion"=>"2010-04-01"
-# }
