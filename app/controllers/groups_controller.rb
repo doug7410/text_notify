@@ -45,7 +45,7 @@ class GroupsController < ApplicationController
         end
           
         if  @group.errors[:name].include?("has already been taken")
-          flash[:error] = "Sorry the group name 'miami' has been taken, please try a different name."
+          @error_message = "Sorry the group name '" + @group.name + "' has been taken, please try a different name."
         end
 
         render :show

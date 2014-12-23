@@ -1,11 +1,11 @@
-$(document).ready(function(){
-
-  <% if @group.errors.any? %>
-    $("#ajax-alert-box").remove();
-    $(".alert-success").remove();
-    $("#group-form").prepend('<%= escape_javascript(render( "shared/ajax_errors", object: @group)).html_safe %>');
-  <% else %>
-    window.location.href = '/groups/' + <%= @group.id %>
-  <% end %>
-
-});
+<%if @error_message %>
+$("#ajax-alert-box").remove();
+  $(".alert-success").remove();
+  $("#group_form_box").prepend('<div id="ajax-alert-box" class="alert alert-error"><%=  @error_message %></div>');
+<% elsif @group.errors.any? %>
+  $("#ajax-alert-box").remove();
+  $(".alert-success").remove();
+  $("#group_form_box").prepend('<%= escape_javascript(render( "shared/ajax_errors", object: @group)).html_safe %>');
+<% else %>
+  window.location.href = '/groups/' + <%= @group.id %>
+<% end %>

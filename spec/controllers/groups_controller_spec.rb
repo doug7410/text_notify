@@ -130,11 +130,11 @@ describe GroupsController do
         expect(flash[:success]).not_to be_nil
       end
 
-      it "[sets the correct flash error if the the group name has been taken]" do
+      it "[sets the @error_message if the the group name has been taken]" do
         group = Fabricate(:group, name: "some group", business_owner: bob_business_owner)
         miami = Fabricate(:group, name: 'miami', business_owner: Fabricate(:business_owner))
         xhr :patch, :update, id: group.id,  group: {name: "miami"}
-        expect(flash[:error]).to eq("Sorry the group name 'miami' has been taken, please try a different name.")
+        expect(assigns(:error_message)).to eq("Sorry the group name 'miami' has been taken, please try a different name.")
       end
     end
 
