@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   post '/send_queue_item', to: 'notifications#send_queue_item'
 
-  post '/sms', to: 'sms#text'
+  post '/sms_operator', to: 'sms_operator#sms_handler'
 
   post '/twilio_callback', to: 'twilio_callback#status'
 
