@@ -44,6 +44,10 @@ class GroupsController < ApplicationController
           flash[:success] = "Group name has been updated."
         end
           
+        if  @group.errors[:name].include?("has already been taken")
+          flash[:error] = "Sorry the group name 'miami' has been taken, please try a different name."
+        end
+
         render :show
       end
     end
