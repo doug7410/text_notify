@@ -1,10 +1,8 @@
 %h4
   =title
 = bootstrap_form_for @customer, layout: :inline, inline_errors: false do |f|
-  =f.hidden_field :business_owner_id, value: current_business_owner.id
   = f.alert_message "Please fix the errors below."
-  =f.text_field :first_name, class: "form-control", :placeholder => "Enter First Name", hide_label: true
-  =f.text_field :last_name, class: "form-control", :placeholder => "Enter Last Name", hide_label: true    
+  =f.text_field :full_name, class: "form-control", :placeholder => "Customer Name", hide_label: true
   =f.text_field :phone_number, class: "form-control input-mask-phone", :placeholder => "(555)555-5555", hide_label: true
   %button.btn.btn-sm.main-btn{:type => "submit"}
     =button_label
