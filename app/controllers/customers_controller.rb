@@ -29,19 +29,6 @@ class CustomersController < ApplicationController
     render :show
   end
 
-  def destroy
-    @customers = Customer.where(business_owner_id: current_business_owner.id).decorate
-    customer = Customer.find_by_id(params[:id])
-    if customer and customer.business_owner == current_business_owner 
-      customer = Customer.find(params[:id])
-      customer.destroy
-      flash[:danger] = "#{customer.decorate.name} has been deleted."
-    else
-      flash[:warning] = "That customer does not exist."
-    end
-    @customer = Customer.new
-    render :index
-  end
 
   private 
 
