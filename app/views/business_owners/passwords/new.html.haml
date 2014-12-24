@@ -1,26 +1,22 @@
-=render 'shared/page_header', title: "Retrieve Password"
 .row
-  .col-sm-10.col-sm-offset-1
-    .login-container
-      .position-relative
-        #forgot-box.forgot-box.widget-box
-          .widget-body
-            .widget-main
-              %h4.header.text-primary.bigger
-                %i.ace-icon.fa.fa-key
-                Retrieve Password
-              .space-6
-              %p
-                Enter your email and to receive instructions
-              = bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, inline_errors: false ) do |f|
-                %fieldset
-                  = f.alert_message ""
-                  %label.block.clearfix
-                    %span.block.input-icon.input-icon-right
-                      = f.email_field :email, autofocus: true, class: "form-control", :placeholder => "Email", hide_label: true
-                      %i.ace-icon.fa.fa-envelope
-                  .clearfix
-                    %button.width-35.pull-right.btn.btn-sm.btn-danger{:type => "submit"}
-                      %i.ace-icon.fa.fa-lightbulb-o
-                      %span.bigger-110 Send Me!
+  .col-sm-8.centerize
+    .purple-circle
+      .text-center.big-logo
+        =image_tag '/assets/images/PijonTxt_Logo_KO.png'
+      .centered-form
+        =render 'shared/page_header', title: "Retrieve Password"
+        %p
+          Enter your email and to receive instructions
+        = bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, inline_errors: false ) do |f|
+          = f.alert_message ""
+          = f.email_field :email, autofocus: true, class: "form-control", :placeholder => "Email", hide_label: true
+          =f.submit 'Send Me!', class: 'btn main-btn'    
+        .clearfix
+        .space-8
+        .pull-left
+          What is PijonTxt?
+          =link_to 'Learn More', '/about'
+        .pull-right
+          =link_to 'Sign In', root_path 
+        .clearfix
 
