@@ -16,13 +16,13 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: "pages#dashboard", as: "dashboard"
 
-  resources :customers
+  resources :customers, except: [:destroy]
   resources :notifications, only: [:index, :create]
   resources :groups 
   resources :group_notifications, only: [:create]
   resources :memberships, only: [:create, :destroy]
   resources :inquiries, only: [:create, :new]
-  resources :account_settings, exept: [:destroy]
+  resources :account_settings, except: [:destroy]
   resources :logs, only: [:index]
 
   post '/send_queue_item', to: 'notifications#send_queue_item'
