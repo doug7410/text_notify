@@ -11,4 +11,17 @@ class Group < ActiveRecord::Base
 
   validates_presence_of :name, :business_owner_id
   validates_uniqueness_of :name
+  validates :name, length: {
+    maximum: 1,
+    tokenizer: lambda { |str| str.split(/\s+/) },
+    too_long: "Please choose a name that is only %{count} word."
+  }
+
+  before_save :capitalize_name
+
+  private 
+
+  def capitalize_name
+    self.name = self.name.upcase
+  end
 end

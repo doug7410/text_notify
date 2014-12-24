@@ -4,7 +4,7 @@
 .row
   .col-sm-12
   %h2
-    = "#{@group.name.capitalize} Group"
+    = "#{@group.name} Group"
     %small
       = link_to "change name", "#", class: "update_name_button"    
   = render 'group_form', button_label: "Update", title: "Update group name", ajax_option: true  
