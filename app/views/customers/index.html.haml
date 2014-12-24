@@ -2,31 +2,35 @@
   = render 'customer_form', title: 'Add a customer', button_label: 'Add'
   .space-6
   =render 'shared/page_header', title: "Your Customers"
-  %table#sample-table-1.table.table-striped.table-bordered.table-hover
-    %thead
-      %tr
-        %th Customer Name
-        %th Phone Number
-        %th Has Been Sent Notifications?
-        %th 
-    %tbody
-      -@customers.each do |customer|
+  - if @customers.any?
+    %table#sample-table-1.table.table-striped.table-bordered.table-hover
+      %thead
         %tr
-          %td= customer.full_name
-          %td= customer.phone_number
-          %td
-            - if customer.notifications.any? 
-              Yes
-              =link_to "View Notifications", customer
-            -else
-              no                  
-          %td
-            =link_to customer_path(customer), id: "edit_#{customer.id}" do
-              %button.btn.main-btn.btn-sm
-                Edit
-            =link_to customer_path(customer), data: { :confirm => "Are you sure you want to delete #{customer.full_name}?" }, :method => :delete, id: "delete_#{customer.id}" do
-              %button.btn.alt-btn.btn-sm
-                Delete
+          %th Customer Name
+          %th Phone Number
+          %th Has Been Sent Notifications?
+          %th 
+      %tbody
+        -@customers.each do |customer|
+          %tr
+            %td= customer.full_name
+            %td= customer.phone_number
+            %td
+              - if customer.notifications.any? 
+                Yes
+                =link_to "View Notifications", customer
+              -else
+                no                  
+            %td
+              =link_to customer_path(customer), id: "edit_#{customer.id}" do
+                %button.btn.main-btn.btn-sm
+                  Edit
+              =link_to customer_path(customer), data: { :confirm => "Are you sure you want to delete #{customer.full_name}?" }, :method => :delete, id: "delete_#{customer.id}" do
+                %button.btn.alt-btn.btn-sm
+                  Delete
+  -else
+    .alert.alert-warning
+      You don't have any customers. Go get some!              
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript

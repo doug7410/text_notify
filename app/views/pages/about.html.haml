@@ -1,5 +1,5 @@
 .row
-  .col-sm-4.centerize.text-center
+  .col-sm-8.centerize.text-center
     .orange-circle
       .big-logo
         =image_tag '/assets/images/PijonTxt_Logo_KO.png'
@@ -14,13 +14,14 @@
         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      =link_to new_business_owner_registration_path do
-        %button.btn.btn-sm.alt-btn
-          create an account
-      .space-6    
-      =link_to root_path do
-        %button.btn.btn-sm.alt-btn
-          sign in      
+      -if !business_owner_signed_in?  
+        =link_to new_business_owner_registration_path do
+          %button.btn.btn-sm.alt-btn
+            create an account
+        .space-6    
+        =link_to root_path do
+          %button.btn.btn-sm.alt-btn
+            sign in      
 
 
       

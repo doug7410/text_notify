@@ -30,7 +30,7 @@ class CustomersController < ApplicationController
   end
 
   def destroy
-    @customers = Customer.all.decorate
+    @customers = Customer.where(business_owner_id: current_business_owner.id).decorate
     customer = Customer.find_by_id(params[:id])
     if customer and customer.business_owner == current_business_owner 
       customer = Customer.find(params[:id])
