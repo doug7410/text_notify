@@ -50,18 +50,17 @@
                   %button.btn.btn-primary.btn-xs
                     Add to Group 
     -else
-      %h4 Create a new customer
-      =bootstrap_form_for @group do |f|
-        - if @customer.errors.any?
-          .alert.alert-danger
-            %ul
-              - @customer.errors.full_messages.each do |msg|
-                %li= msg
-        =f.fields_for :customer do |c|
-          =c.text_field :first_name, value: @customer.first_name
-          =c.text_field :last_name, value: @customer.last_name
-          =c.text_field :phone_number, class: "input-mask-phone", value: @customer.phone_number
-        =f.submit 'add customer'
+      .well
+        =bootstrap_form_for @group do |f|
+          - if @customer.errors.any?
+            .alert.alert-danger
+              %ul
+                - @customer.errors.full_messages.each do |msg|
+                  %li= msg
+          =f.fields_for :customer do |c|
+            =c.text_field :full_name, value: @customer.full_name, placeholder: 'Name (optional)', hide_label: true
+            =c.text_field :phone_number, class: "input-mask-phone", value: @customer.phone_number, placeholder: 'Phone Number', hide_label: true
+          =f.submit 'add customer', class: 'btn main-btn'
 
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
