@@ -50,7 +50,7 @@ class CustomersController < ApplicationController
   end
 
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :phone_number, :business_owner_id)
+    params.require(:customer).permit(:full_name, :phone_number)
   end 
 
   
