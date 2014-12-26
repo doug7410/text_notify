@@ -8,21 +8,11 @@ class TwilioWrapper
   end
 
   def self.send_message(options={})
-    
-    if Rails.env.production?
-      app_url = "http://www.pijontxt.com/twilio_callback"
-    elsif Rails.env.staging?
-      app_url = "http://www.text-notify-staging.herokuapp.com/twilio_callback"
-    else
-      app_url = nil
-    end
-
     begin
       response = @client.account.messages.create({
         :from => '+18554965033',  
         :to => options[:to], 
-        :body => options[:body],
-        :status_callback => app_url
+        :body => options[:body]
       })
 
       message = @client.account.messages.get(response.sid)
