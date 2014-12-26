@@ -3,8 +3,6 @@ class NotificationsController < ApplicationController
   before_action :set_up_create_action, only: [:create]
 
   def index
-      binding.pry
-    
     if current_business_owner.account_setting
       @notification = Notification.new
       @customer = Customer.new
