@@ -10,9 +10,9 @@ class TwilioWrapper
   def self.send_message(options={})
     
     if Rails.env.production?
-      app_url = "http://www.pijontxt.com"
+      app_url = "http://www.pijontxt.com/twilio_callback"
     elsif Rails.env.staging?
-      app_url = "http://www.text-notify-staging.herokuapp.com"
+      app_url = "http://www.text-notify-staging.herokuapp.com/twilio_callback"
     else
       app_url = nil
     end
