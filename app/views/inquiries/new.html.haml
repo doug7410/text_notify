@@ -1,3 +1,21 @@
+-if !business_owner_signed_in?
+  .row
+    .col-sm-4.centerize
+      .text-center.big-logo
+        =image_tag '/assets/images/PijonTxt_Logo_Color.png'
+  .row.navbar
+    .navbar-container.col-sm-5.centerize.text-center
+      %ul.main-nav
+        %li
+          =link_to 'sign in', root_path
+        %span.nav-spacer
+        %li
+          =link_to 'sign up', new_business_owner_registration_path
+        %span.nav-spacer              
+        %li
+          =link_to 'about PigonTxt', '/about'
+  .space-6
+        
 .row
   .col-sm-5.centerize
     %h4 Contact Us

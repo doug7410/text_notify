@@ -11,7 +11,7 @@ class BusinessOwner < ActiveRecord::Base
   delegate :default_add_to_queue_message, to: :account_setting
   delegate :default_send_from_queue_message, to: :account_setting
 
-  validates :full_name, presence: true
+  validates :company_name, presence: true
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

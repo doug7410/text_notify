@@ -6,7 +6,7 @@
       .centered-form
         = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
           = devise_error_messages!
-          =f.text_field :full_name, autofocus: true, :placeholder => "Company Name", hide_label: true
+          =f.text_field :company_name, autofocus: true, :placeholder => "Company Name", hide_label: true
           = f.email_field :email, class: 'form-control', :placeholder => "email address", hide_label: true
           = f.password_field :password, autocomplete: "off", :placeholder => "*******", hide_label: true
           = f.password_field :password_confirmation, autocomplete: "off", :placeholder => '*******', hide_label: true
