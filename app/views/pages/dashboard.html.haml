@@ -5,17 +5,11 @@
       %small=link_to "Edit your profile", edit_business_owner_registration_path
     %table.table.table-striped.table-bordered.table-hover
       %tr
-        %td Full Name
-        %td= current_business_owner.full_name
+        %td Company Name
+        %td= current_business_owner.company_name
       %tr
         %td Email
         %td= current_business_owner.email
-      %tr
-        %td Company Name 
-        %td 
-          Some Cool Company <TODO>
-          %br 
-          %small (this will appear in the text you send to customers)
       %tr
         %td Joined
         %td= current_business_owner.created_at

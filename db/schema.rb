@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222180532) do
+ActiveRecord::Schema.define(version: 20141226143352) do
 
   create_table "account_settings", force: true do |t|
     t.string  "default_add_to_queue_message"
     t.string  "default_send_now_message"
     t.string  "default_send_from_queue_message"
     t.integer "business_owner_id"
+    t.string  "message_prefix"
     t.string  "default_message_subject"
   end
 
@@ -34,11 +35,29 @@ ActiveRecord::Schema.define(version: 20141222180532) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "full_name"
+    t.string   "company_name"
   end
 
   add_index "business_owners", ["email"], name: "index_business_owners_on_email", unique: true
   add_index "business_owners", ["reset_password_token"], name: "index_business_owners_on_reset_password_token", unique: true
+
+  create_table "business_owsers", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "business_owsers", ["email"], name: "index_business_owsers_on_email", unique: true
+  add_index "business_owsers", ["reset_password_token"], name: "index_business_owsers_on_reset_password_token", unique: true
 
   create_table "customers", force: true do |t|
     t.string   "first_name"
