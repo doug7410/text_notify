@@ -16,7 +16,7 @@
       .queue-alert
       #txt-queue
         =render 'txt_queue'
-            
+
 %script{:src => "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript
@@ -28,3 +28,21 @@
     $.mask.definitions['~']='[+-]';
     $('.input-mask-phone').mask('(999) 999-9999');
   });
+:javascript
+  $("#customer").keyup(function(){
+    if( $("#customer").val() == ""){
+      $("#phone").val("")
+    }
+  });
+    
+  $("#customer").focus(function() {
+    var ac_config = { 
+      source: $('#customer').data('autocomplete-source'), 
+      select: function(event, ui){ 
+        $("#phone").val(ui.item.phone); 
+        }, 
+        minLength:1 
+      };
+
+    $("#customer").autocomplete(ac_config);
+  });  

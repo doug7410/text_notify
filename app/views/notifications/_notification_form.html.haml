@@ -16,8 +16,8 @@
       %h4 lookup or add a new cusomer
       =fields_for @customer do |c|
         .input-group
-          =c.text_field :full_name, class: "form-control", placeholder: 'Customer Name'
-          =c.text_field :phone_number ,class: "form-control input-mask-phone", placeholder: '(555)555-5555'
+          =c.text_field :full_name, id: 'customer', class: "form-control", placeholder: 'Customer Name', data: {autocomplete_source: customers_path}
+          =c.text_field :phone_number, id: 'phone' ,class: "form-control input-mask-phone", placeholder: '(555)555-5555'
     .darker-box
       =f.text_field :order_number, class: "form-control",placeholder: 'order# (optional)'    
       =f.text_area :message, class: "form-control", :placeholder => "Type your message here. If you do not enter a message, your default message for 'send now' or 'send later' will be used", rows: 4, hide_label: true
