@@ -37,17 +37,9 @@
     text-decoration: none;
 }
 
-.ui-state-hover, .ui-state-active {
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #0088cc;
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    background-image: none;
+.ui-state-focus{
+    background-color: #CCC;
+    border-top: solid 1px #555555;
+    border-bottom: solid 1px #555555;
 }
 
-.ui-state-focus{
-    background-color: #EAEAEA;
-    color: #000000;
-}

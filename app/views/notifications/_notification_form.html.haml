@@ -16,7 +16,7 @@
       %h4 lookup or add a new cusomer
       =fields_for @customer do |c|
         .input-group
-          =c.text_field :full_name, id: 'customer', class: "form-control", placeholder: 'Customer Name'
+          =c.text_field :full_name, id: 'customer', class: "form-control", placeholder: 'Customer Name', data: {autocomplete_source: customers_path}
           =c.text_field :phone_number, id: 'phone' ,class: "form-control input-mask-phone", placeholder: '(555)555-5555'
     .darker-box
       =f.text_field :order_number, class: "form-control",placeholder: 'order# (optional)'    
