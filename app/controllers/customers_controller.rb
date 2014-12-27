@@ -40,7 +40,7 @@ class CustomersController < ApplicationController
   private 
 
   def autosearch_customers
-    autosearch_query = "full_name LIKE ? OR phone_number LIKE ?", "%#{params[:term]}%", "%#{params[:term]}%"
+    autosearch_query = "lower(full_name) LIKE ? OR phone_number LIKE ?", "%#{params[:term].downcase}%", "%#{params[:term]}%"
     Customer.order(:full_name).where(business_owner_id: current_business_owner.id).where(autosearch_query)
   end
 
