@@ -6,6 +6,13 @@ class CustomersController < ApplicationController
   def index
     @customers = Customer.all.where("business_owner_id = ?", current_business_owner.id).decorate
     @customer = Customer.new
+
+    respond_to do |format|
+      format.html
+      format.js do 
+        render json: autosearch_customers.map { |c| {phone: c.phone_number, label: "#{c.full_name} - #{c.phone_number}", value: c.full_name}}
+      end      
+    end
   end
 
   def create
@@ -31,6 +38,11 @@ class CustomersController < ApplicationController
 
 
   private 
+
+  def autosearch_customers
+    autosearch_query = "lower(full_name) LIKE ? OR phone_number LIKE ?", "%#{params[:term].downcase}%", "%#{params[:term]}%"
+    Customer.order(:full_name).where(business_owner_id: current_business_owner.id).where(autosearch_query)
+  end
 
   def find_customer
     @customer = Customer.find(params[:id]).decorate

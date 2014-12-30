@@ -13,6 +13,21 @@ $("#individual-notification").html("<%= escape_javascript(render partial: 'notif
 $.mask.definitions['~']='[+-]';
 $('.input-mask-phone').mask('(999) 999-9999');
 
+
+
+$("#customer").focus(function() {
+  
+  var ac_config = { 
+    source: $('#customer').data('autocomplete-source'), 
+    select: function(event, ui){ 
+      $("#phone").val(ui.item.phone); 
+      }, 
+      minLength:1 
+    };
+
+  $("#customer").autocomplete(ac_config);
+});  
+
 $(".queue-alert").html("");
 <% @notification.errors.clear %>
 <% @customer.errors.clear %>
