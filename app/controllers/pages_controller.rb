@@ -8,23 +8,8 @@ class PagesController < ApplicationController
   end 
 
   def dashboard
-    @customers = current_business_owner.customers.all
-    @notifications = all_notifications(@customers)
-    @delivered_notifications = current_business_owner.notifications.delivered.all
-    @failed_notifications = current_business_owner.notifications.failed.all 
+    @customers_count = current_business_owner.customers.all.count
+    @delivered_notifications_count = current_business_owner.notifications.delivered.all.count
+    @failed_notifications_count = current_business_owner.notifications.failed.all.count 
   end
-
-private
-
-  def all_notifications(customers)
-    notifications = []
-      
-    customers.each do |customer|
-      customer.notifications.each do |notification|
-        notifications << notification
-      end
-    end
-    notifications
-  end
-
 end

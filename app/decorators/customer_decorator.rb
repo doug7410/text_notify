@@ -6,7 +6,10 @@ class CustomerDecorator < Draper::Decorator
   end
 
   def name
-    object.full_name
+    if object.full_name
+      object.full_name
+    else
+      'generic customer'
   end
 
 end

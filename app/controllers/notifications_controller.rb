@@ -38,7 +38,7 @@ class NotificationsController < ApplicationController
             if @notification.errors[:base].empty?
               @success_message = "A txt has been sent!"
               
-              handle_queue_items
+              handle_queue_items 
 
               @notification = Notification.new
               @customer = Customer.new
@@ -110,6 +110,4 @@ private
   def set_up_create_action
     @group_notification = GroupNotification.new
   end
-
-
 end

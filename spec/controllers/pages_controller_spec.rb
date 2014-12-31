@@ -14,32 +14,32 @@ describe PagesController do
 
   describe "GET dashboard" do
 
-    it "sets the @customers for the signed in business_owner" do
+    it "sets the @customers_count for the signed in business_owner" do
       doug = Fabricate(:customer, business_owner: bob_business_owner)
       tom = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '5556667777')
       get :dashboard
-      expect(assigns(:customers)).to eq([doug, tom])
+      expect(assigns(:customers_count)).to eq(2)
     end
 
-    it "sets all the @delivered_notifications for the signed in business_owner" do
+    it "sets all the @delivered_notifications_count for the signed in business_owner" do
       doug = Fabricate(:customer, business_owner: bob_business_owner) 
       notification1 = Fabricate(:notification, customer: doug, status: "delivered", business_owner: bob_business_owner)
       notification2 = Fabricate(:notification, customer: doug, status: "delivered")
       notification2 = Fabricate(:notification, customer: doug)
 
       get :dashboard
-      expect(assigns(:delivered_notifications)).to eq([notification1])
+      expect(assigns(:delivered_notifications_count)).to eq(1)
 
     end
     
-    it "sets all the @failed_notifications for the signed in business_owner" do
+    it "sets all the @failed_notifications_count for the signed in business_owner" do
       doug = Fabricate(:customer, business_owner: bob_business_owner) 
       notification1 = Fabricate(:notification, customer: doug, status: "delivered", business_owner: bob_business_owner)
       notification2 = Fabricate(:notification, customer: doug, status: "failed", business_owner: bob_business_owner)
       notification3 = Fabricate(:notification, customer: doug)
 
       get :dashboard
-      expect(assigns(:failed_notifications)).to eq([notification2])
+      expect(assigns(:failed_notifications_count)).to eq(1)
 
     end  
   end

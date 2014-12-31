@@ -21,17 +21,17 @@
     %table.table.table-striped.table-bordered.table-hover
       %tr
         %td customers
-        %td=@customers.count
+        %td=@customers_count
       %tr
         %td customer groups  
         %td=current_business_owner.groups.count
       %tr    
         %td deliverd notifications
-        %td= @delivered_notifications.count
+        %td= @delivered_notifications_count
       %tr     
         %td group notifications
         %td= current_business_owner.group_notifications.count
       %tr    
         %td failed deliveries
-        %td= @failed_notifications.count
+        %td= @failed_notifications_count
            
