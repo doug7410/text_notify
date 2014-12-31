@@ -2,11 +2,17 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe NotificationsController do
-  let!(:bob_business_owner) { Fabricate(:business_owner, full_name: "Bob's Burgers") }
+  let!(:bob_business_owner) { Fabricate(:business_owner, company_name: "Bob's Burgers") }
+  let!(:bob_settings) {Fabricate(:account_setting, business_owner_id: bob_business_owner.id)}
   before { sign_in bob_business_owner }
   
   describe "GET index" do
     context "[the signed in business owner has not set up the default messages]" do
+
+      before do
+        bob_business_owner.account_setting.destroy
+      end
+      
       it "[redirects to the settings page if the default messages are not set]" do
         get :index
         expect(response).to redirect_to account_settings_path
@@ -20,10 +26,6 @@ describe NotificationsController do
 
     context "[the signed in business owner has set up the default messages]" do
 
-      before do      
-        Fabricate(:account_setting, business_owner_id: bob_business_owner.id)
-      end
-
       it "renders the index templte" do
         get :index
         expect(response).to render_template :index
@@ -34,26 +36,11 @@ describe NotificationsController do
         expect(assigns(:notification)).to be_instance_of(Notification)
       end
 
-      it "[sets @customers to the signed in business_owner's customers]" do
-        tom = Fabricate(:customer, business_owner: bob_business_owner)
-        mike = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '1234567897')
-        get :index 
-        expect(assigns(:customers)).to eq([tom, mike])
-      end
-
       it "[sest a new @customer]" do
         get :index
         expect(assigns(:customer)).to be_instance_of(Customer)
       end
 
-      it "[sets @notifications to all of the current_business_owner's notifications ordered DESC by created on date]" do
-        tom = Fabricate(:customer, business_owner: bob_business_owner)
-        notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, business_owner: bob_business_owner)
-        notification2 = Fabricate(:notification, customer: tom,  business_owner: bob_business_owner)
-        notification3 = Fabricate(:notification, customer: tom,  business_owner: Fabricate(:business_owner))
-        get :index 
-        expect(assigns(:notifications)).to eq([notification2, notification1])
-      end 
 
       it "[sets a new @group_notification]" do
         get :index
@@ -81,12 +68,13 @@ describe NotificationsController do
 
   describe "POST create" do
 
-    context "[with valid input and sending the notification to an existing customer]" do
+    context "[with valid input and clicking the 'send now' button and an existing customer]" do
       let!(:alice) { Fabricate(:customer, phone_number: '9546381523', business_owner: bob_business_owner) }
 
       let(:valid_post_create_request) do
         xhr :post, :create, notification: {message: "Hello Alice!", business_owner_id: bob_business_owner.id}, customer: {phone_number: alice.phone_number}
       end
+
 
       it "[renders the javascript create template]", :vcr do
         valid_post_create_request
@@ -114,31 +102,12 @@ describe NotificationsController do
       end
 
       it "[sends with the default 'send now' message if the message is left blank]", :vcr do
-        Fabricate(:account_setting, business_owner: bob_business_owner)
         xhr :post, :create, notification: {message: "", business_owner_id: bob_business_owner.id}, customer: {phone_number: alice.phone_number}
         expect(Notification.first.message_with_subject).to eq(bob_business_owner.default_message_subject + ' - ' + bob_business_owner.default_send_now_message)
       end
     end
 
-    context "[with invalid input and an existing customer]" do
-
-      it "[sets the @customers for the current business_owner]" do
-        alice_business_owner = Fabricate(:business_owner)
-        tom = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '9546381523')
-        frank = Fabricate(:customer, business_owner: bob_business_owner, phone_number: '1234567891')
-        amy = Fabricate(:customer, business_owner: alice_business_owner, phone_number: '1234567892')
-        xhr :post, :create, notification: {customer_id: tom.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
-        expect(assigns(:customers)).to eq([tom, frank])
-      end
-
-      it "[sets @notifications to all of the current_business_owner's notifications ordered DESC by created on date]" do
-        tom = Fabricate(:customer, business_owner: bob_business_owner)
-        notification1 = Fabricate(:notification, customer: tom,  created_at: 1.days.ago, business_owner: bob_business_owner)
-        notification2 = Fabricate(:notification, customer: tom,  business_owner: bob_business_owner)
-        notification3 = Fabricate(:notification, customer: tom,  business_owner: Fabricate(:business_owner))
-        xhr :post, :create, notification: {customer_id: tom.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
-        expect(assigns(:notifications)).to eq([notification2, notification1])
-      end
+    context "[with invalid input and clicking 'send now' and an existing customer]" do
 
       it "[sets a new @group_notification]" do
         xhr :post, :create, notification: {customer_id: "", message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}

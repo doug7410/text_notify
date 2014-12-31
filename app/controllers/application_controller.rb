@@ -9,13 +9,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:reset_password) { |u| u.permit(:full_name, :email, :password, :password_confirmation) }
-  end
-
-  def set_up_notification_page
-    @customers = Customer.where("business_owner_id = ?", current_business_owner.id)
-    @notifications = Notification.where("business_owner_id = ?", current_business_owner.id)
-    @groups = Group.where("business_owner_id = ?", current_business_owner.id)
+    devise_parameter_sanitizer.for(:reset_password) { |u| u.permit(:company_name, :email, :password, :password_confirmation) }
   end
 
   def update_notification_statuses!

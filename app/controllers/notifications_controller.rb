@@ -1,22 +1,20 @@
 class NotificationsController < ApplicationController
-  before_action :authenticate_business_owner!, :set_up_notification_page
-  before_action :set_up_create_action, only: [:create]
+  before_action :authenticate_business_owner!
 
   def index
-    if current_business_owner.account_setting
+    if default_messages_are_set
       @notification = Notification.new
       @customer = Customer.new
       @group_notification = GroupNotification.new
       @queue_items = QueueItem.where(business_owner_id: current_business_owner.id)
+      @groups = Group.where("business_owner_id = ?", current_business_owner.id)
     else
-      flash[:warning] = "Before you can send any txt messages you need to set up your default messages"
+      flash[:warning] = 'Before you can send any txt messages you need to set up your default messages'
       redirect_to account_settings_path
     end
   end
 
   def create
-    @customers.where(business_owner_id: current_business_owner.id).all
-
     @customer = Customer.find_or_create_by(phone_number: customer_params[:phone_number], business_owner_id: customer_params[:business_owner_id])
     @customer.update(full_name: customer_params[:full_name])
     @notification = Notification.new(notification_params.merge(business_owner_id: current_business_owner.id))
@@ -79,7 +77,11 @@ class NotificationsController < ApplicationController
   end 
 
   
-private
+  private
+  
+  def default_messages_are_set
+    !!current_business_owner.account_setting
+  end
 
   def handle_queue_items
     if params[:commit] == 'send later'
@@ -107,7 +109,5 @@ private
     customer_params.merge({phone_number: Customer.format_phone_number(customer_params[:phone_number]), business_owner_id: current_business_owner.id})
   end
 
-  def set_up_create_action
-    @group_notification = GroupNotification.new
-  end
+  
 end
