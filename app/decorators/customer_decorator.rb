@@ -10,6 +10,7 @@ class CustomerDecorator < Draper::Decorator
       object.full_name
     else
       'generic customer'
+    end
   end
 
 end
