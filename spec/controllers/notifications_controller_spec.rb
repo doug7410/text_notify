@@ -109,19 +109,6 @@ describe NotificationsController do
 
     context "[with invalid input and clicking 'send now' and an existing customer]" do
 
-      it "[sets a new @group_notification]" do
-        xhr :post, :create, notification: {customer_id: "", message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
-        expect(assigns(:group_notification)).to be_instance_of(GroupNotification)
-      end
-
-      it "[sets @groups to all the groups for the signed in business_owner]" do
-        bob = Fabricate(:customer, business_owner: bob_business_owner)
-        group1 = Fabricate(:group, business_owner: bob_business_owner)
-        group2 = Fabricate(:group)
-        xhr :post, :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
-        expect(assigns(:groups)).to eq([group1])
-      end 
-
       it "[sets the @notification]" do
         bob = Fabricate(:customer)
         xhr :post, :create, notification: {customer_id: bob.id, message: ""}, customer: {first_name: "", last_name: "", phone_number: ""}
