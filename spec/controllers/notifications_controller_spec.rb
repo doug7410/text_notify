@@ -108,7 +108,7 @@ describe NotificationsController do
               message: 'Hello Alice!',
               business_owner_id: bob_business_owner.id
             },
-            customer: { phone_number: alice.phone_number }
+            customer: { full_name: '', phone_number: alice.phone_number }
       end
 
       it '[renders the javascript create template]', :vcr do
@@ -134,6 +134,11 @@ describe NotificationsController do
       it '[saves the sid from twillio for the notification]', :vcr do
         valid_post_create_request
         expect(Notification.last.sid).not_to be_nil
+      end
+
+      it '[does not erase the customer name if it is left blank]' do
+        valid_post_create_request
+        expect(Customer.first.full_name).to be_present
       end
 
       it '[sends with the default "send now" message left blank]', :vcr do
@@ -312,7 +317,7 @@ describe NotificationsController do
       expect(assigns(:queue_items)).to eq([queue_item2])
     end
 
-    it '[sets the @success_message]' do
+    it '[sets the @success_message]', :vcr do
       xhr :post, :send_queue_item, id: queue_item.id
       expect(assigns(:success_message)).to be_present
     end
