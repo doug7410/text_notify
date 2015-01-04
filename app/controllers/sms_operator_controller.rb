@@ -1,13 +1,12 @@
 class SmsOperatorController < ApplicationController
   include Webhookable
- 
-  after_filter :set_header
- 
-  skip_before_action :verify_authenticity_token
- 
-  def sms_handler
 
-    group = SmsHandlerService.find_group(params[:Body])
+  after_filter :set_header
+
+  skip_before_action :verify_authenticity_token
+
+  def sms_handler
+    group = find_group_by_keyword(params[:Body])
 
     if group
       customer = Customer.find_or_create_by(phone_number: params[:From][2..11], business_owner_id: group.business_owner.id)
@@ -23,6 +22,13 @@ class SmsOperatorController < ApplicationController
       r.Message(message)
     end
     render_twiml response
+  end
+
+  private
+
+  def find_group_by_keyword(string)
+    keyword = string.scan(/(?<!\S)[A-Z]+(?!\S)/)[0]
+    Group.where('lower(name) = ?', keyword.downcase).first
   end
 end
 
