@@ -1,10 +1,9 @@
 class CustomersController < ApplicationController
   before_filter :authenticate_business_owner!
   before_filter :find_customer, only: [:show, :update]
-
+  before_filter :get_current_business_owner_customers, only: [:index]
 
   def index
-    @customers = Customer.all.where("business_owner_id = ?", current_business_owner.id).decorate
     @customer = Customer.new
 
     respond_to do |format|
@@ -36,8 +35,12 @@ class CustomersController < ApplicationController
     render :show
   end
 
+  private
 
-  private 
+  def get_current_business_owner_customers
+    customers = Customer.all.where(business_owner_id: current_business_owner.id)
+    @customers = customers.decorate
+  end
 
   def autosearch_customers
     autosearch_query = "lower(full_name) LIKE ? OR phone_number LIKE ?", "%#{params[:term].downcase}%", "%#{params[:term]}%"
