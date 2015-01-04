@@ -19,13 +19,13 @@ class Notification < ActiveRecord::Base
 
   def message_with_subject
     business_owner.default_message_subject + ' - ' + message
-  end
+  end 
 
-  def save_with_status(result)
+  def save_with_status(result)  
     if result.successful?
       self.sid = result.response.sid
       self.save
-    else
+    else 
       self.status = 'failed'  
       self.save
     end

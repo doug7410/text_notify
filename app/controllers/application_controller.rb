@@ -4,21 +4,23 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :trigger_errors
-  
+  helper_method :formated_phone_number
+
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:reset_password) { |u| u.permit(:full_name, :email, :password, :password_confirmation) }
-  end
-
-  def set_up_notification_page
-    @customers = Customer.where("business_owner_id = ?", current_business_owner.id)
-    @notifications = Notification.where("business_owner_id = ?", current_business_owner.id)
-    @groups = Group.where("business_owner_id = ?", current_business_owner.id)
+    devise_parameter_sanitizer.for(:reset_password) do |u|
+      u.permit(:company_name, :email, :password, :password_confirmation)
+    end
   end
 
   def update_notification_statuses!
-    Notification.where(business_owner_id: current_business_owner.id).each { |n| n.update_status! }
+    Notification.where(business_owner_id: current_business_owner.id).each do |n|
+      n.update_status!
+    end
+  end
+
+  def formated_phone_number(phone_number)
+    Customer.format_phone_number(phone_number)
   end
 end
