@@ -78,18 +78,47 @@ describe NotificationsController do
 
   describe 'POST create' do
     context "[the customer's phone number is invalid]" do
-      before do
+      let(:post_create_request_with_invalid_phone) do
         xhr :post, :create,
             notification: { customer_id: '', message: '' },
-            customer:     { full_name: '', last_name: '', phone_number: '' }
+            customer: {
+              full_name: 'Frank Sinatra',
+              phone_number: '5555555555' }
       end
 
-      it '[renders the javascript create template]' do
+      let(:post_create_request_with_missing_phone) do
+        xhr :post, :create,
+            notification: { customer_id: '', message: '' },
+            customer:     { full_name: '', phone_number: '' }
+      end
+
+      it '[renders the javascript create template when clicking "send now"]' do
+        post_create_request_with_missing_phone
+        expect(response).to render_template :create, format: :js
+      end
+
+      it '[renders the javascript create template when adding to queue]' do
+        xhr :post, :create,
+            notification: { customer_id: '', message: '' },
+            customer:     { full_name: '', phone_number: '' },
+            commit: 'send later'
         expect(response).to render_template :create, format: :js
       end
 
       it '[sets the @notification]' do
+        post_create_request_with_missing_phone
         expect(assigns(:notification)).to be_instance_of(Notification)
+      end
+
+      it '[deletes the customer]' do
+        post_create_request_with_invalid_phone
+        expect(Customer.count).to eq(0)
+      end
+
+      it '[sets a new @customer form the params for the business owner]' do
+        post_create_request_with_invalid_phone
+        expect(assigns(:customer).full_name).to eq('Frank Sinatra')
+        expect(assigns(:customer).business_owner).to eq(bob_business_owner)
       end
     end
 
@@ -136,9 +165,21 @@ describe NotificationsController do
         expect(Notification.last.sid).not_to be_nil
       end
 
-      it '[does not erase the customer name if it is left blank]' do
+      it '[does not erase the customer name if it is left blank]', :vcr do
         valid_post_create_request
         expect(Customer.first.full_name).to be_present
+      end
+
+      it '[updates the customer name if a new one is provided]', :vcr do
+        xhr :post, :create,
+            notification: {
+              message: '',
+              business_owner_id: bob_business_owner.id
+            },
+            customer: {
+              full_name: 'John Doe', phone_number: alice.phone_number
+            }
+        expect(alice.reload.full_name).to eq('John Doe')
       end
 
       it '[sends with the default "send now" message left blank]', :vcr do
@@ -234,6 +275,22 @@ describe NotificationsController do
         add_to_queue_request
         expect(Customer.first.full_name).to eq('Doug S')
       end
+    end
+
+    it '[sets @queue_items to all of current_business_owner queue items]' do
+      tom = Fabricate(:customer, business_owner: bob_business_owner)
+      notification = Fabricate(
+        :notification,
+        customer: tom,
+        business_owner: bob_business_owner
+        )
+      queue_item = Fabricate(
+        :queue_item,
+        notification: notification,
+        business_owner: bob_business_owner
+        )
+      get :index
+      expect(assigns(:queue_items)).to eq([queue_item])
     end
   end
 
