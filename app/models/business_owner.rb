@@ -1,5 +1,5 @@
 class BusinessOwner < ActiveRecord::Base
-  has_many :customers
+  has_many :customers, -> { order 'full_name ASC' }
   has_many :notifications
   has_many :group_notifications
   has_many :groups
@@ -12,7 +12,6 @@ class BusinessOwner < ActiveRecord::Base
   delegate :default_send_from_queue_message, to: :account_setting
 
   validates :company_name, presence: true
-  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 end
