@@ -1,5 +1,5 @@
 .orange-circle{
-  background-color: $orange;
+  background-color: $purple;
   color: $white;
   padding: 15px;
   @include border-radius(15px);
@@ -13,6 +13,7 @@
   strong{
     display: block;
     font-size: 18px;
+    margin-top: 20px;
   }
   h2{
     font-size: 20px;
