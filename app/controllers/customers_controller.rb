@@ -24,7 +24,7 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)
 
     if @customer.save
-      flash[:success] = "#{@customer.first_name} #{@customer.last_name} has been successfully added."
+      flash[:success] = "#{@customer.full_name} - #{@customer.phone_number} has been added."
       redirect_to :customers
     else
       render :index
