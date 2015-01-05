@@ -8,10 +8,14 @@ body{
   background-color: #ffffff;
 }
 
-.purple-circle {
-  background-color: $purple;
+.registration-box {
+  background-color: $orange;
   padding: 15px;
+  color: $white;
   @include border-radius(15px);
+  a:link, a:visited{
+    color: $white
+  }
 }
 
 .centerize{

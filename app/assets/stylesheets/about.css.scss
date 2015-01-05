@@ -1,14 +1,20 @@
-.orange-circle{
+.about-box{
   background-color: $purple;
   color: $white;
-  padding: 15px;
+  padding: 15px 30px;
   @include border-radius(15px);
   font-weight: normal;
+  
+  hr{
+    color: #DC5631;
+  }
+
+  a:link, a:visited{
+    color: $white;
+  }
 }
 
-.orange-circle hr{
-  color: #DC5631;
-}
+
 .faq{
   strong{
     display: block;

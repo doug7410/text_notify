@@ -1,19 +1,37 @@
 .row
   .col-sm-8.centerize
-    .orange-circle
+    .about-box
       .big-logo.text-center
         =image_tag '/assets/images/PijonTxt_Logo_KO.png'
       %hr
       %p
         Welcome to PijonTxt.com… The work of a brother/sister design duo who saw a need for an easier way for businesses to communicate with their most important asset… the customer.
       %p
-        Food Trucks, Bars & Nightclubs, Education / Non-Profits / Community Groups, Event Marketers, Religious Groups, Restaurants, Retail, Real Estate, Small Businesses. 
+        Businesses who can benifit the PijonTxt services are - Food Trucks, Bars & Nightclubs, Education / Non-Profits / Community Groups, Event Marketers, Religious Groups, Restaurants, Retail, Real Estate, Small Businesses, and many more! 
+      
+      %h3
+        Here's are 2 example use cases of how it works.
+      %strong
+        The food truck/restaurant example
       %p
-        Here's an example use case of how it works.
+        Let's say there's a food truck called "Jimmy's Taco Shack". When Jimmy takes a customer's order he simply enters their name, cell number, and an optional (but suggested) order number into PijonTxt. The customer will be sent a text that says something like "Thanks for your order, we'll text you when it's ready." 
       %p
-        With this simple browser-based txt service, a food truck (let's call them Jimmy's Taco Shack for example) can simply enter their customer's name, cell number, and an optional (but suggested) order number to have them placed in a queue to send a txt to when their order is ready. But that's not all… this information is saved in a customer database, and for the Monday Night Food Truck Rally (for example) Jimmy can save these customers as a group, and send a message to everyone on that list at once when they have arrived at the park.
+        The customer will be placed in a queue, and when their order is ready to go, Jimmy clicks a button, sending them another txt letting them know their order is ready. 
       %p
-        So you say… "Food trucks are cool… but I own something more to the likes of a laundry mat." No problem! This service can be utilized for basically any type of business. Give us a try, and don't hesitate to shoot us any query that comes to your mind. We are PijonTxt.com… and we are here to help. You can call me (Doug, lead developer ) directly at 954-638-1523 with any questions.
+        But that's not all… the customer is saved in the database and Jimmy can add them to a group. The next time Jimmy's truck rolls into town, say for the Monday Night Food Truck Rally, Jimmy can send all the customers in the group a message letting them know his truck has arived at the park.
+      
+      %strong Retail store example
+      %p  
+        Let's say there's a clothing store called "Jenny's Sweater Shop". Jenny can put up a sign in the window saying "text SWEATER to 855-496-5033 to recive advanced notice of special sales". Customers see the sign and text "SWEATER" to the number and join the list. Now Jenny can can collect customers in her PijonTxt account and send them all a promotional message when ever she wants. 
+      %p
+        Exapmle promotional message: "From Jenny's Sweater Shop: Come in to the store 1/30/2015 and get half off of everythig. Visit www.jennysweaters.com for more details".
+      %p 
+        Now Jenny has some new customer connections, and a way to contact them with a marketing message, and even directed them to her web site! 
+
+      %p
+        This service can be utilized for basically any type of business. Give us a try, and don't hesitate to shoot us any query that comes to your mind. We are PijonTxt.com… and we are here to help. You can call me (Doug, lead developer ) directly at 954-638-1523  or shoot me an email from the 
+        =link_to 'contact page', new_inquiry_path 
+        with any questions.
       %hr
       .faq
         %h3 Frequently Asked Questions
@@ -50,15 +68,16 @@
         %p
           %strong Will it work on my phone  or tablet?
           Yes! PijonTxt.com will work great on any device!
-
       -if !business_owner_signed_in?  
-        =link_to new_business_owner_registration_path do
-          %button.btn.btn-sm.alt-btn
-            create an account
-        .space-6    
-        =link_to root_path do
-          %button.btn.btn-sm.alt-btn
-            sign in      
+        .text-center
+          %hr
+          =link_to new_business_owner_registration_path do
+            %button.btn.btn-sm.alt-btn
+              create an account
+          %b OR     
+          =link_to root_path do
+            %button.btn.btn-sm.alt-btn
+              sign in      
 
 
       
