@@ -13,11 +13,11 @@ class GroupsController < ApplicationController
       flash[:success] = "The \"#{@group.name}\" group has been created."
       redirect_to groups_path
     else
-      if  @group.errors[:name].include?("has already been taken")
-        flash[:error] = "Sorry the group name 'miami' has been taken, please try a different name."
+      if  @group.errors[:name].include?('has already been taken')
+        flash[:error] = "Sorry the group name \"#{group_params[:name]}\" has been taken, please try a different name."
       end
 
-      @groups = Group.where("business_owner_id = ?", current_business_owner.id)
+      @groups = Group.where(business_owner_id: current_business_owner.id)
       render :index
     end
   end
@@ -40,7 +40,7 @@ class GroupsController < ApplicationController
       end
 
       format.js do
-        if @group.update(params.require(:group).permit(:name))
+        if @group.update(group_params)
           flash[:success] = "Group name has been updated."
         end
           
@@ -65,9 +65,14 @@ class GroupsController < ApplicationController
     end
   end
 
-private 
+  private
+
   def group_params
-    params.require(:group).permit(:name).merge(business_owner_id: current_business_owner.id)
+    group_hash = params.require(:group).permit(:name)
+    {
+      name: group_hash[:name],
+      business_owner_id: current_business_owner.id
+    }
   end
 
   def customer_params

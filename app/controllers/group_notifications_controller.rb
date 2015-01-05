@@ -1,5 +1,5 @@
 class GroupNotificationsController < ApplicationController
-  before_filter :authenticate_business_owner!, :update_notification_statuses!, :set_up_notification_page
+  before_filter :authenticate_business_owner!
 
 
   def create
