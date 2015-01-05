@@ -2,62 +2,69 @@ require 'spec_helper'
 include Warden::Test::Helpers
 
 describe GroupNotificationsController   do
-  let!(:bob_business_owner) { Fabricate(:business_owner)}
-  before { sign_in bob_business_owner}
-  
-  describe "POST create" do
-    context "[with valid input]" do
-      it "[redirects to the notifications index page]", :vcr do
-        group = Fabricate(:group)
-        post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
-        expect(response).to redirect_to notifications_path
+  let!(:bob_business_owner) { Fabricate(:business_owner) }
+  let(:tom) { Fabricate(:customer, business_owner: bob_business_owner) }
+  let(:jane) do
+    Fabricate(
+      :customer,
+      phone_number: '3053452021',
+      business_owner: bob_business_owner
+    )
+  end
+  let(:group) { Fabricate(:group, business_owner: bob_business_owner) }
+
+  before do
+    Fabricate(:account_setting, business_owner: bob_business_owner)
+  end
+
+  before { sign_in bob_business_owner }
+
+  describe 'POST create' do
+    context '[with valid input]' do
+      it '[creates a new group_notification]', :vcr do
+        Fabricate(:membership, customer: tom, group: group)
+        group_notification_params = { group_id: group.id, group_message: 'hi' }
+        xhr :post, :create, group_notification: group_notification_params
+        expect(bob_business_owner.group_notifications.count).to eq(1)
       end
 
-      it "[creates a new group_notification]", :vcr do
-        tom = Fabricate(:customer, business_owner: bob_business_owner)
-        doug = Fabricate(:customer, phone_number: '3053452021', business_owner: bob_business_owner)
-        group = Fabricate(:group, business_owner: bob_business_owner)
-        group.customers << [tom, doug]
-        post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
-        expect(bob_business_owner.group_notifications.count).to eq(1)
-
-      end 
-
-      it "[creates a notifications for each customer associated with the group]", :vcr do
-        tom = Fabricate(:customer, business_owner: bob_business_owner)
-        doug = Fabricate(:customer, phone_number: '3053452021', business_owner: bob_business_owner)
-        group = Fabricate(:group, business_owner: bob_business_owner)
-        group.customers << [tom, doug]
-        post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
-        group_notification = bob_business_owner.groups.first.group_notifications.first
+      it '[creates a notifications for each member of the group]', :vcr do
+        Fabricate(:membership, customer: tom, group: group)
+        Fabricate(:membership, customer: jane, group: group)
+        group_notification_params = { group_id: group.id, group_message: 'hi' }
+        xhr :post, :create, group_notification: group_notification_params
+        group_notification = bob_business_owner.group_notifications.first
         expect(group_notification.notifications.count).to eq(2)
-      end  
+      end
 
-      it "[sets the flash success message]", :vcr do
-        tom = Fabricate(:customer, business_owner: bob_business_owner)
-        group = Fabricate(:group, business_owner: bob_business_owner)
-        group.customers << [tom]
-        post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
+      it '[sets the flash success message]', :vcr do
+        Fabricate(:membership, customer: tom, group: group)
+        group_notification_params = { group_id: group.id, group_message: 'hi' }
+        xhr :post, :create, group_notification: group_notification_params
         expect(flash[:success]).to be_present
       end
     end
 
-    context "[with valid input and failed phone numbers]" do
-      it "[sends the texts to the valid numbers]", :vcr do
-        tom = Fabricate(:customer, business_owner: bob_business_owner)
-        doug = Fabricate(:customer, phone_number: '5555555555', business_owner: bob_business_owner)
-        group = Fabricate(:group, business_owner: bob_business_owner)
-        group.customers << [tom, doug]
-        post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
-        group_notification = bob_business_owner.groups.first. group_notifications.first
-        expect(group_notification.notifications.last.status).not_to eq('failed')
+    context '[with valid input and failed phone numbers]' do
+      it '[sends the texts to the valid numbers]', :vcr do
+        doug = Fabricate(
+                :customer,
+                phone_number: '5555555555',
+                business_owner: bob_business_owner
+              )
+        Fabricate(:membership, customer: tom, group: group)
+        Fabricate(:membership, customer: doug, group: group)
+        group_notification_params = { group_id: group.id, group_message: 'hi' }
+        xhr :post, :create, group_notification: group_notification_params
+        group_notification = bob_business_owner.group_notifications.first
+        expect(group_notification.notifications.last.status).to eq('failed')
       end
 
       it "[sets the status of the failed phone numbers to 'failed']", :vcr do
         doug = Fabricate(:customer, phone_number: '5555555555', business_owner: bob_business_owner)
         group = Fabricate(:group, business_owner: bob_business_owner)
         group.customers << [doug]
-        post :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
+        xhr :post, :create, group_notification: {group_id: group.id, group_message: "hello everybody"}
         expect(Notification.first.status).to eq('failed')
       end
     end
