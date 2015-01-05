@@ -1,6 +1,8 @@
 .orange-circle{
   background-color: $orange;
   color: $white;
+  padding: 15px;
+  @include border-radius(15px);
 }
 
 .orange-circle hr{

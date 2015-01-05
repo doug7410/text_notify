@@ -9,8 +9,15 @@ $blue-txt: #768ABA;
 $purple: #7C91C4;
 $light-purple: #BDC8E1;
 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+}
+
 body{
   font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
 }
 
 /*footer styles*/
