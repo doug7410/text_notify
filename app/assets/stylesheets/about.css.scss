@@ -1,8 +1,21 @@
 .orange-circle{
   background-color: $orange;
   color: $white;
+  padding: 15px;
+  @include border-radius(15px);
+  font-weight: normal;
 }
 
 .orange-circle hr{
   color: #DC5631;
+}
+.faq{
+  strong{
+    display: block;
+    font-size: 18px;
+  }
+  h2{
+    font-size: 20px;
+    text-align: center;
+  } 
 }

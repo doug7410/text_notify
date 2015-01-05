@@ -10,6 +10,8 @@ body{
 
 .purple-circle {
   background-color: $purple;
+  padding: 15px;
+  @include border-radius(15px);
 }
 
 .centerize{
