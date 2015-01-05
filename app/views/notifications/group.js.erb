@@ -1,8 +1,11 @@
+<% #binding.pry %>
 <% if @group_notification.valid? %>
+<% #binding.pry %>
   $("#group-notification").html("<%= escape_javascript(render partial: 'notifications/group_notification_form', locals: {object: GroupNotification.new} ) %>");
   $(".notification-alert").html("<%= flash[:success] %>");
   $('.notification-alert').effect("highlight", {}, 1500);
 <% else %>
+<% #binding.pry %>
   $("#group-notification").html("<%= escape_javascript(render partial: 'notifications/group_notification_form', locals: {object: @group_notification} ) %>");
   $(".notification-alert").html("");
 <% end %>
