@@ -82,6 +82,7 @@ class GroupsController < ApplicationController
   def set_up_customers_and_group
     @group = Group.find(params[:id])
     @members = Membership.where(group: @group)
-    @customers_not_in_group = current_business_owner.customers.all - @group.customers
+    id = current_business_owner.id
+    @customers_not_in_group = Customer.where(business_owner_id: id) - @group.customers
   end 
 end

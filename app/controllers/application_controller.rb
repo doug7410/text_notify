@@ -15,7 +15,8 @@ class ApplicationController < ActionController::Base
   end
 
   def update_notification_statuses!
-    Notification.where(business_owner_id: current_business_owner.id).each do |n|
+    return false unless current_business_owner.notifications.any?
+    current_business_owner.notifications.each do |n|
       n.update_status!
     end
   end

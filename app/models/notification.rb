@@ -9,7 +9,8 @@ class Notification < ActiveRecord::Base
   
   validates_presence_of :customer_id, :business_owner, :message
 
-
+  self.per_page = 10
+  
   def send_text
       TwilioWrapper.send_message({
         :to => customer.phone_number,
