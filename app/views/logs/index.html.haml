@@ -2,7 +2,8 @@
   %h4 You txt message log
   -if @notifications.any?
     .col-sm-12
-      ="total txt count(#{@notifications.count})"
+      .page_info
+        = page_entries_info @notifications
     .col-sm-12
       %table#sample-table-1.table.table-striped.table-bordered.table-hover
         %thead
@@ -26,6 +27,7 @@
               %td 
                 = notification.status
                 = notification.error_code? ? "(error code - #{notification.error_code})" : "" 
+      = will_paginate @notifications, renderer: BootstrapPagination::Rails         
   -else
     .alert.alert-warning
       You haven't sent any txt yet.              

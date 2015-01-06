@@ -3,6 +3,8 @@
   .space-6
   =render 'shared/page_header', title: "Your Customers"
   - if @customers.any?
+    .page_info
+      = page_entries_info @customers
     %table#sample-table-1.table.table-striped.table-bordered.table-hover
       %thead
         %tr
@@ -25,6 +27,7 @@
               =link_to customer_path(customer), id: "edit_#{customer.id}" do
                 %button.btn.main-btn.btn-sm
                   Edit
+    = will_paginate @customers, renderer: BootstrapPagination::Rails              
   -else
     .alert.alert-warning
       You don't have any customers. Go get some!              

@@ -43,7 +43,9 @@ class CustomersController < ApplicationController
   private
 
   def current_business_owner_customers
-    @customers = current_business_owner.customers.all.decorate
+    id = current_business_owner.id
+    customers = Customer.where(business_owner_id: id)
+    @customers =customers.paginate(page: params[:page])
   end
 
   def autosearch_customers
