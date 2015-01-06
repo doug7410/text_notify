@@ -24,6 +24,7 @@ gem 'unicorn'
 gem 'paratrooper'
 gem 'active_attr'
 gem 'will_paginate-bootstrap'
+gem 'smarter_csv'
 
 group :development do
   gem 'spring'

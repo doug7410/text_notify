@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: "pages#dashboard", as: "dashboard"
 
-  resources :customers, except: [:destroy]
+  resources :customers, except: [:destroy] do
+    collection { post :import }
+  end
   resources :notifications, only: [:index, :create]
   resources :groups 
   resources :group_notifications, only: [:create]

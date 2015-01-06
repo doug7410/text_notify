@@ -272,6 +272,7 @@ GEM
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
+    smarter_csv (1.0.19)
     spring (1.2.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -366,6 +367,7 @@ DEPENDENCIES
   sidekiq
   sinatra (>= 1.3.0)
   slim
+  smarter_csv
   spring
   spring-commands-rspec
   sqlite3
