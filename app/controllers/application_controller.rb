@@ -24,4 +24,11 @@ class ApplicationController < ActionController::Base
   def formated_phone_number(phone_number)
     Customer.format_phone_number(phone_number)
   end
+
+  def ensure_admin
+    if !current_business_owner.admin? 
+      flash[:warning] = "That page is only accessible by admistrators."
+      redirect_to root_path
+    end
+  end 
 end
