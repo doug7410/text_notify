@@ -1,3 +1,4 @@
+
 .row.navbar
   .navbar-container.col-sm-5.centerize.text-center
     =link_to root_path, class: 'logo' do
@@ -14,6 +15,11 @@
       %span.nav-spacer              
       %li
         =link_to 'groups', groups_path, class: active_link?('groups')
+      -if current_business_owner.admin?
+        %span.nav-spacer              
+        %li
+          =link_to 'business owners', admin_business_owners_path, class: active_link?('groups')  
+
     %ul.sub-nav
       %li
         =link_to 'Your Account', edit_business_owner_registration_path, class: active_link?('business_owners/registrations')
