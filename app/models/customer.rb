@@ -25,7 +25,7 @@ class Customer < ActiveRecord::Base
   end
 
   def self.format_phone_number(number)
-    number.gsub(/\D/, '')
+    number.to_s.gsub(/\D/, '')
   end
 
   # private
