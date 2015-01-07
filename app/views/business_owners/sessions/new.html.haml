@@ -1,7 +1,7 @@
 .row
   .col-sm-4.centerize
     .text-center.big-logo
-      =image_tag '/assets/images/PijonTxt_Logo_Color.png'
+      =image_tag '/assets/images/PijonTxt_Logo_Color.png', class: 'img-responsive'
     .centered-form
       =render "shared/devise_messages"
       = bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|

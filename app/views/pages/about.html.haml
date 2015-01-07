@@ -1,10 +1,10 @@
 .row
   .col-sm-8.centerize
-    .about-box
+    .purple-box
       -if !business_owner_signed_in?  
         .big-logo.text-center
           = link_to root_path do 
-            =image_tag '/assets/images/PijonTxt_Logo_KO.png'
+            =image_tag '/assets/images/PijonTxt_Logo_KO.png', class: 'img-responsive'
         %hr
       %h1
         Welcome to PijonTxt!
@@ -55,7 +55,7 @@
               sign in     
       %hr
       .faq
-        %h3 Frequently Asked Questions
+        %h1 Frequently Asked Questions
 
         %p
           %strong What is PijonTxt
