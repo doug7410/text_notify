@@ -1,18 +1,13 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_business_owner!
   before_action :set_queue_items_for_current_business_owner
+  before_action :check_that_account_settings_are_completed, only: [:index]
 
   def index
-    if default_messages_are_set?
       @notification = Notification.new
       @customer = Customer.new
       @group_notification = GroupNotification.new
       @groups = set_groups_for_current_business_owner
-    else
-      flash[:warning] = 'Before you can send any txt messages
-                         you need to set up your default messages'
-      redirect_to account_settings_path
-    end
   end
 
   def create
@@ -94,10 +89,6 @@ class NotificationsController < ApplicationController
 
   def set_groups_for_current_business_owner
     Group.where(business_owner_id: current_business_owner.id)
-  end
-
-  def default_messages_are_set?
-    return true if current_business_owner.account_setting.present?
   end
 
   def handle_adding_queue_items

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107182327) do
+ActiveRecord::Schema.define(version: 20150108183608) do
 
   create_table "account_settings", force: true do |t|
     t.string  "default_add_to_queue_message"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20150107182327) do
     t.integer "business_owner_id"
     t.string  "message_prefix"
     t.string  "default_message_subject"
+    t.string  "timezone"
   end
 
   create_table "business_owners", force: true do |t|

@@ -12,7 +12,7 @@
         %td= current_business_owner.email
       %tr
         %td Joined
-        %td= current_business_owner.created_at
+        %td= format_datetime(current_business_owner.created_at)
       %tr
         %td Membership
         %td Beta 

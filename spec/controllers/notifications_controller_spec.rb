@@ -15,7 +15,7 @@ describe NotificationsController do
   before { sign_in bob_business_owner }
 
   describe 'GET index' do
-    context '[the signed in business owner has not set default messages]' do
+    context '[the signed in business owner has not set default settings]' do
       before do
         bob_business_owner.account_setting.destroy
       end

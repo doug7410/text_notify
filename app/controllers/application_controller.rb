@@ -30,5 +30,12 @@ class ApplicationController < ActionController::Base
       flash[:warning] = "That page is only accessible by admistrators."
       redirect_to root_path
     end
+  end
+
+  def check_that_account_settings_are_completed
+    if !current_business_owner.account_setting.present?
+      flash[:warning] = 'Before you can send any txt messages you need to set up your default messages and time zone'
+      redirect_to account_settings_path
+    end
   end 
 end
