@@ -10,7 +10,7 @@
       %th
     -@queue_items.each do |item|
       %tr
-        %td= item.created_at 
+        %td= format_datetime(item.created_at) 
         %td= item.notification.customer.full_name  
         %td= item.notification.order_number   
         %td

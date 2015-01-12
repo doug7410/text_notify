@@ -38,7 +38,5 @@ class AccountSettingsController < ApplicationController
 
   def account_settings_params
     params.require(:account_setting).permit([:default_send_now_message, :default_add_to_queue_message, :default_send_from_queue_message, :default_message_subject, :timezone ]).merge(business_owner_id: current_business_owner.id)
-
-
   end
 end
