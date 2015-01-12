@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   
   before_filter :authenticate_business_owner!, only: [:dashboard]
+  before_action :check_that_account_settings_are_completed, only: [:dashboard]
   
 
   def front
