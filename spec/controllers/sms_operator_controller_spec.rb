@@ -115,10 +115,7 @@ describe SmsOperatorController do
         expect(Customer.count).to eq(0)
       end
       
-      it '[sends a text letting the customer know they have unsubscribed]' do
-        post :sms_handler, unsubscribe_params
-        expect(response.body).to match('You have unsubscribed.')
-      end
+      
     end
   end
 end

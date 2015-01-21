@@ -16,9 +16,7 @@ class SmsOperatorController < ApplicationController
       membership.save
       message = "Thanks' for subscribing to #{group.name} txt list with #{group.business_owner.company_name}!"
     elsif unsubscibe_customer?(params[:Body])
-      customer = Customer.where(phone_number: phone_number)
-      customer.each  { |subscription| subscription.destroy }
-      message = 'You have unsubscribed.'
+      CustomerUnsubscribe.new(phone_number)
     else
       message = "Oops, it looks like you tried to joing a txt list that doesn't exist. Please make sure you type in the keyword in all UPPERCASE letters and try again."
     end
@@ -39,7 +37,5 @@ class SmsOperatorController < ApplicationController
   def unsubscibe_customer?(string)
     string.downcase =~ /stop/
   end
-
-
 end
 
