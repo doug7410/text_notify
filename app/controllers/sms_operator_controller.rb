@@ -33,7 +33,7 @@ class SmsOperatorController < ApplicationController
 
   def find_group_by_keyword(string)
     keyword = string.scan(/(?<!\S)[A-Z]+(?!\S)/)[0]
-    Group.where('lower(name) = ?', keyword.downcase).first
+    Group.where('lower(name) = ?', keyword.downcase).first if keyword
   end
 
   def unsubscibe_customer?(string)
