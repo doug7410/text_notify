@@ -1,6 +1,36 @@
 .row
   .col-sm-6
-    instructions
+    %p
+      This is where you set up the defalt messages and time zone for your account. The default messages are what your customer will see when they get a text message from you. You can allways write a custom message while creating text, but if you leave the message blank, these defaults will be used. 
+
+    %p There are 4 default messages you need to set up:
+    
+    %ul 
+      %li Default message subject
+      %li Default send now message
+      %li Default add to queue message     
+      %li Default send from queue messages
+
+    %p Here is where these default message are used. In this example the name of the business is "John's Coffee Shop"
+
+    %p
+      %strong Default message subject - 
+      This will be placed in front of every message you send. For example:
+    %blockquote
+      %p Hello from John's Coffee Shop - (rest of message goes here....)
+
+    %p
+      %strong Default send now message - 
+      This is the message your customer will see when you click the "send now" button from the pigonTxt "indivdual form" (pictured below).
+      =image_tag '/assets/images/send-now-example.png'
+      %br
+      %br
+      If your <strong> default send now message </strong> is set as "it's a great day to come in for a coffee!", the message the customer would get when clicking "send now" would be:
+    %blockquote
+      %p Hello from John's Coffee Shop - it's a great day to come in for a coffee!  
+
+
+
   .col-sm-6
     =bootstrap_form_for @account_settings do |f|
       =f.text_field :default_message_subject
