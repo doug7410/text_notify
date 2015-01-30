@@ -29,7 +29,29 @@
     %blockquote
       %p Hello from John's Coffee Shop - it's a great day to come in for a coffee!  
 
+    %p
+      %strong Default send later message - 
+      This is the message your customer will see when you click the "send later" button from the pigonTxt "indivdual form" (pictured below).
+      =image_tag '/assets/images/send-later-example.png'
+      %br
+      %br
+      If your <strong> default send later message </strong> is set as "Thank's for your order! We'll let you know when it's ready.", the message the customer would get when clicking "send later" would be:
+    %blockquote
+      %p Hello from John's Coffee Shop - Thank's for your order! We'll let you know when it's ready.
 
+    %p
+      %strong Default send from queue message - 
+      This is the message your customer will see when you send a text from the queue. (pictured below).
+      =image_tag '/assets/images/send-from-queue.png'
+      %br
+      %br
+      If your <strong> default send from queue message </strong> is set as "Your order is ready to go!", the message the customer would get when sending from the queue would be:
+    %blockquote
+      %p Hello from John's Coffee Shop - Your order is ready to go!
+
+    %p
+      %strong Time zone - 
+      This is to set all the dates in your account to match your local time zone. This is very helpfull when in keeping track of when your text were sent.
 
   .col-sm-6
     =bootstrap_form_for @account_settings do |f|
