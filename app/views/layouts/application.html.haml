@@ -18,12 +18,12 @@
       -if business_owner_signed_in?
         =render 'layouts/main_nav' 
         .row.page-content-area
-          .col-sm-7.centerize
+          .col-lg-10.centerize
             =render "shared/messages"
             = yield
       -else
         .row.page-content-area
-          .col-sm-7.centerize
+          .col-lg-12
             = yield
       =render 'layouts/footer'
       
