@@ -1,11 +1,9 @@
 /*layout*/
-body{
-  background-color: $purple;
-}
 .page-content-area {
   padding-top: 15px;
   min-height: 550px;
   background-color: #ffffff;
+  max-width: 900px;
 }
 
 .registration-box {
