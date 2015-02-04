@@ -16,6 +16,10 @@
   }
 }
 
+.logo{
+  margin-top: 10px;
+}
+
 .centerize{
   float: none;
   margin-left: auto;
@@ -23,6 +27,11 @@
 }
 .space-6{
   height: 6px;
+}
+
+
+.small-menu{
+  display: none;
 }
 
 .purple-box{
@@ -58,4 +67,5 @@
     margin-top: 20px;
     font-family: 'Montserrat', sans-serif;
   }
+
 }

@@ -1,3 +1,47 @@
-@media (max-width: 900px){
+@media (max-width: 560px){
+  .navbar{
+    padding: 10px;
+    margin: 0 0 0 -100%;
+    background-color: #ccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    z-index: 1000;  
+    transition: .5s margin-left ease;
+
+    ul{ padding:0; }
+  }
+
+  body.active .navbar{
+    margin-left: 0;
+  }
+  .navbar li{
+    display: block;
+    text-align: left;
+  }
+
+  .main-nav {
+    li{ margin-bottom: 5px; }
+    .nav-spacer{ display: none; }
+  }
+
+  .sub-nav {
+    li{ margin-bottom: 2px; }
+    .nav-spacer{ display: none; }
+  }
+
+  .small-menu{
+    display: block;
+    background-color: $purple;
+    color: $white;
+    text-align: right;
+    padding: 6px 5px;
+    font-weight: bold;
   
+    .menu-trigger{
+      cursor: pointer;
+    }
+  }
 }

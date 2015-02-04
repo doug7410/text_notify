@@ -1,14 +1,15 @@
-
-.row.navbar
-  .navbar-container.col-lg-12.centerize.text-center
+.row
+  .col-lg-12.logo.text-center
     =link_to root_path, class: 'logo' do
       =image_tag('/assets/images/PijonTxt_FullBirdLogo.png')
+.row.navbar
+  .navbar-container.col-lg-12.centerize.text-center
     %ul.main-nav
       %li
-        =link_to 'pijon dashboard', dashboard_path, class: active_link?(nil,'dashboard') 
+        =link_to 'send txt', notifications_path, class: active_link?('notifications') 
       %span.nav-spacer              
       %li
-        =link_to 'send txt', notifications_path, class: active_link?('notifications') 
+        =link_to 'dashboard', dashboard_path, class: active_link?(nil,'dashboard') 
       %span.nav-spacer              
       %li
         =link_to 'customers', customers_path, class: active_link?('customers') 
@@ -18,23 +19,23 @@
       -if current_business_owner.admin?
         %span.nav-spacer              
         %li
-          =link_to 'Admin Panel', admin_business_owners_path, class: active_link?('groups')  
+          =link_to 'admin Panel', admin_business_owners_path, class: active_link?('groups')  
 
     %ul.sub-nav
       %li
-        =link_to 'Your Account', edit_business_owner_registration_path, class: active_link?('business_owners/registrations')
+        =link_to 'your account', edit_business_owner_registration_path, class: active_link?('business_owners/registrations')
       %span.nav-spacer
       %li
-        =link_to 'Settings', account_settings_path, class: active_link?('account_settings')
+        =link_to 'settings', account_settings_path, class: active_link?('account_settings')
       %span.nav-spacer              
       %li
         =link_to 'txt logs', logs_path, class: active_link?('logs')
       %span.nav-spacer
       %li
-        =link_to 'About PijonTxt', '/about', class: active_link?(nil,'about')
+        =link_to 'about pijonTxt', '/about', class: active_link?(nil,'about')
       %span.nav-spacer              
       %li
         =link_to 'contact us', new_inquiry_path, class: active_link?('inquiries')
       %span.nav-spacer              
       %li
-        =link_to 'Logout', destroy_business_owner_session_path, method: :delete  
+        =link_to 'logout', destroy_business_owner_session_path, method: :delete  
