@@ -14,8 +14,9 @@
       <script src="/assets/js/respond.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   %body
-    .small-menu
-      %span.menu-trigger +Menu
+    -if business_owner_signed_in?
+      .small-menu
+        %span.menu-trigger +Menu
     #main-container.container-fluid
       =render 'layouts/main_nav' if business_owner_signed_in? 
       .page-content-area.centerize
