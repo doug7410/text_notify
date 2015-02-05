@@ -1,4 +1,5 @@
   @media (max-width: 560px){
+  // navigation--------------------------------------------------------------//
   .navbar-container{
     padding: 0;
   }
@@ -82,4 +83,16 @@
       cursor: pointer;
     }
   }
+
+  // notifications form------------------------------------------------------//
+  #notifications{
+    .form-actions small{
+      margin: 0;
+      font-size: 14px;    
+    } 
+    .btn-sm{
+      width: 87px;
+      font-size: 14px;
+    }
+  }  
 }
