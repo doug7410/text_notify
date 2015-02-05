@@ -7,21 +7,21 @@
     padding: 0;
     margin: 0 0 0 -15px;
     background-color: $purple;
-    position: fixed;
+    position: absolute;
     top: 32px;
-    height: 100%;
+    bottom: 0;
+    height: 200%;
     width: 100%;
-    z-index: 1000;
+    z-index: 999;
       
     ul{ padding:0; }
   }
-  // .navbar, body{ transition: .5s margin-right ease; }
   
   body{ margin-top: 32px; }
 
   body.active .navbar{
     display: block;
-    margin-top: 0px;
+    margin-top: 0;
   }
 
   .navbar li{
@@ -30,13 +30,13 @@
   }
 
   .main-nav {
-    margin-top: 32px;
+    margin-top: 10px;
     font-size: 20px;
     li{ 
       a:link, a:visited{
         color: $white;
         display: block;
-        margin: 0 36px 3px;
+        margin: 0 0 6px;
         text-align: center;
         padding: 10px 5px; 
         background-color: $grey;
@@ -46,14 +46,14 @@
   }
 
   .sub-nav {
-    margin: 0 36px;
+    margin: 0;
     font-size: 14px;
     li{ 
       display: inline-block;
 
       a:link, a:visited{
         color: $white;
-        margin: 3px;
+        margin: 5px;
         display: block;
         text-align: center;
         padding: 6px 10px; 
