@@ -8,10 +8,10 @@
     padding: 0;
     margin: 0 0 0 -15px;
     background-color: $purple;
-    position: absolute;
+    position: fixed;
     top: 32px;
     bottom: 0;
-    height: 200%;
+    height: 100%;
     width: 100%;
     z-index: 999;
       
@@ -57,8 +57,8 @@
         margin: 5px;
         display: block;
         text-align: center;
-        padding: 6px 10px; 
-        width: 125px;
+        padding: 10px; 
+        width: 130px;
         background-color: $grey;
       }
     }
