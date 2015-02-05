@@ -1,44 +1,82 @@
-@media (max-width: 560px){
+  @media (max-width: 560px){
+  .navbar-container{
+    padding: 0;
+  }
   .navbar{
-    padding: 10px;
-    margin: 0 0 0 -100%;
-    background-color: #ccc;
+    display: none;
+    padding: 0;
+    margin: 0 0 0 -15px;
+    background-color: $purple;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 32px;
     height: 100%;
-    width: 200px;
-    z-index: 1000;  
-    transition: .5s margin-left ease;
-
+    width: 100%;
+    z-index: 1000;
+      
     ul{ padding:0; }
   }
+  // .navbar, body{ transition: .5s margin-right ease; }
+  
+  body{ margin-top: 32px; }
 
   body.active .navbar{
-    margin-left: 0;
+    display: block;
+    margin-top: 0px;
   }
+
   .navbar li{
     display: block;
     text-align: left;
   }
 
   .main-nav {
-    li{ margin-bottom: 5px; }
+    margin-top: 32px;
+    font-size: 20px;
+    li{ 
+      a:link, a:visited{
+        color: $white;
+        display: block;
+        margin: 0 36px 3px;
+        text-align: center;
+        padding: 10px 5px; 
+        background-color: $grey;
+      }
+    }
     .nav-spacer{ display: none; }
   }
 
   .sub-nav {
-    li{ margin-bottom: 2px; }
+    margin: 0 36px;
+    font-size: 14px;
+    li{ 
+      display: inline-block;
+
+      a:link, a:visited{
+        color: $white;
+        margin: 3px;
+        display: block;
+        text-align: center;
+        padding: 6px 10px; 
+        width: 125px;
+        background-color: $grey;
+      }
+    }
     .nav-spacer{ display: none; }
   }
 
   .small-menu{
     display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     background-color: $purple;
     color: $white;
-    text-align: right;
-    padding: 6px 5px;
+    text-align: center;
+    padding: 6px 0;
     font-weight: bold;
+    border-bottom: solid 1px $white;
   
     .menu-trigger{
       cursor: pointer;

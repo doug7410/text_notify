@@ -16,7 +16,7 @@
   %body
     -if business_owner_signed_in?
       .small-menu
-        %span.menu-trigger +Menu
+        %span.menu-trigger + Site Menu
     #main-container.container-fluid
       =render 'layouts/main_nav' if business_owner_signed_in? 
       .page-content-area.centerize
