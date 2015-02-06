@@ -1,0 +1,98 @@
+  @media (max-width: 560px){
+  // navigation--------------------------------------------------------------//
+  .navbar-container{
+    padding: 0;
+  }
+  .navbar{
+    display: none;
+    padding: 0;
+    margin: 0 0 0 -15px;
+    background-color: $purple;
+    position: fixed;
+    top: 32px;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+      
+    ul{ padding:0; }
+  }
+  
+  body{ margin-top: 32px; }
+
+  body.active .navbar{
+    display: block;
+    margin-top: 0;
+  }
+
+  .navbar li{
+    display: block;
+    text-align: left;
+  }
+
+  .main-nav {
+    margin-top: 10px;
+    font-size: 20px;
+    li{ 
+      a:link, a:visited{
+        color: $white;
+        display: block;
+        margin: 0 0 6px;
+        text-align: center;
+        padding: 10px 5px; 
+        background-color: $grey;
+      }
+    }
+    .nav-spacer{ display: none; }
+  }
+
+  .sub-nav {
+    margin: 0;
+    font-size: 14px;
+    li{ 
+      display: inline-block;
+
+      a:link, a:visited{
+        color: $white;
+        margin: 5px;
+        display: block;
+        text-align: center;
+        padding: 10px; 
+        width: 130px;
+        background-color: $grey;
+      }
+    }
+    .nav-spacer{ display: none; }
+  }
+
+  .small-menu{
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: $purple;
+    color: $white;
+    text-align: center;
+    padding: 6px 0;
+    font-weight: bold;
+    border-bottom: solid 1px $white;
+  
+    .menu-trigger{
+      cursor: pointer;
+    }
+  }
+
+  // notifications form------------------------------------------------------//
+  #notifications{
+    .form-actions small{
+      margin: 0;
+      font-size: 14px;    
+    } 
+    .btn-sm{
+      width: 87px;
+      font-size: 14px;
+    }
+  }  
+}

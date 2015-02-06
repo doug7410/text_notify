@@ -1,5 +1,6 @@
 @import "bootstrap";
 $dark-text: #58595B;
+$grey: #58595B;
 $orange: #CE4826;
 $dark-orange: darken($orange, 3%);
 $orange-link: #E04E29;
@@ -41,7 +42,7 @@ body{
 
 /*forms*/
 .centered-form {
-  width: 331px;
+  width: 100%;
   margin: 22px auto 15px;
 }
 

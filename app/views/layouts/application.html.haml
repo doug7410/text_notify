@@ -14,17 +14,12 @@
       <script src="/assets/js/respond.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   %body
+    -if business_owner_signed_in?
+      .small-menu
+        %span.menu-trigger + Site Menu
     #main-container.container-fluid
-      -if business_owner_signed_in?
-        =render 'layouts/main_nav' 
-        .row.page-content-area
-          .col-sm-7.centerize
-            =render "shared/messages"
-            = yield
-      -else
-        .row.page-content-area
-          .col-sm-7.centerize
-            = yield
+      =render 'layouts/main_nav' if business_owner_signed_in? 
+      .page-content-area.centerize
+        =render "shared/messages" if business_owner_signed_in?
+        = yield
       =render 'layouts/footer'
-      
-    

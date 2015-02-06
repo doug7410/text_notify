@@ -1,7 +1,7 @@
 .row
-  %h4 You txt message log
   -if @notifications.any?
     .col-sm-12
+      %h4 Your txt message log
       .page_info
         = page_entries_info @notifications
     .col-sm-12
@@ -13,7 +13,7 @@
               %i.ace-icon.fa.fa-calendar.bigger-110
             %th Customer
             %th Message
-            %th Group txt
+            %th Group?
             %th Status
         %tbody
           -@notifications.each do |notification|

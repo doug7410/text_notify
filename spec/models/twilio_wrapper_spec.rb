@@ -15,7 +15,7 @@ describe TwilioWrapper do
 
      it "[does not send the text message with an empty body]", :vcr do
        result = TwilioWrapper.send_message(body:'', to: '9546381523')
-       expect(result).not_to be_successful
+       expect(result).to eq(65454)
      end
 
      it "[returns an error message with an empty body]", :vcr do
