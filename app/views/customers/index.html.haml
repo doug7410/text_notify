@@ -30,7 +30,12 @@
     = will_paginate @customers, renderer: BootstrapPagination::Rails              
   -else
     .alert.alert-warning
-      You don't have any customers. Go get some!              
+      You don't have any customers. Go get some!
+  %h2 Import Customers
+  = form_tag import_customers_path, multipart: true do 
+    = file_field_tag :file 
+    = submit_tag 'Import' 
+
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
 :javascript

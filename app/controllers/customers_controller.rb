@@ -40,6 +40,13 @@ class CustomersController < ApplicationController
     render :show
   end
 
+  def import
+    customers = SmarterCSV.process(params[:file].tempfile)
+    Customer.import(customers, current_business_owner.id)
+    redirect_to :customers
+    flash[:success] = 'Customers successfully imported.'
+  end
+
   private
 
   def current_business_owner_customers
