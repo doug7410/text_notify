@@ -3,7 +3,7 @@
   %head
     %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
     %meta{:charset => "utf-8"}/
-    %title PijonTxt - A friendly messaging service.
+    %title PijonTxt - A friendly txt messaging service! - Reach out to your customers with txt messages.
     %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0", :name => "viewport"}/
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
@@ -14,17 +14,12 @@
       <script src="/assets/js/respond.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   %body
+    -if business_owner_signed_in?
+      .small-menu
+        %span.menu-trigger + Site Menu
     #main-container.container-fluid
-      -if business_owner_signed_in?
-        =render 'layouts/main_nav' 
-        .row.page-content-area
-          .col-sm-7.centerize
-            =render "shared/messages"
-            = yield
-      -else
-        .row.page-content-area
-          .col-sm-7.centerize
-            = yield
+      =render 'layouts/main_nav' if business_owner_signed_in? 
+      .page-content-area.centerize
+        =render "shared/messages" if business_owner_signed_in?
+        = yield
       =render 'layouts/footer'
-      
-    

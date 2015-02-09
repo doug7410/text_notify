@@ -1,5 +1,6 @@
 @import "bootstrap";
 $dark-text: #58595B;
+$grey: #58595B;
 $orange: #CE4826;
 $dark-orange: darken($orange, 3%);
 $orange-link: #E04E29;
@@ -8,17 +9,24 @@ $white: #FFFFFF;
 $blue-txt: #768ABA;
 $purple: #7C91C4;
 $light-purple: #BDC8E1;
+$screen-sm-min: 768px;
 
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
   border-radius: $radius;
   background-clip: padding-box;  /* stops bg color from leaking outside the border: */
 }
+@media (min-width: $screen-sm-min) {
+  .img-responsive{
+    display: inline;
+  }
+}
 
 body{
   font-family: sans-serif;
   font-size: 14px;
 }
+
 
 /*footer styles*/
 .footer {
@@ -34,7 +42,7 @@ body{
 
 /*forms*/
 .centered-form {
-  width: 331px;
+  width: 100%;
   margin: 22px auto 15px;
 }
 

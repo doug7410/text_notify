@@ -2,21 +2,23 @@
   .col-sm-8.centerize
     .registration-box
       .text-center.big-logo
-        =image_tag '/assets/images/PijonTxt_Logo_KO.png'
-      .centered-form
-        = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-          = devise_error_messages!
-          =f.text_field :company_name, autofocus: true, :placeholder => "Company Name", hide_label: true
-          = f.email_field :email, class: 'form-control', :placeholder => "email address", hide_label: true
-          = f.password_field :password, autocomplete: "off", :placeholder => "*******", hide_label: true
-          = f.password_field :password_confirmation, autocomplete: "off", :placeholder => '*******', hide_label: true
-          %button.btn.btn-sm.pull-right.alt-btn{:type => "submit"}
-            Create Account
-        .clearfix
-        .space-6
-        .pull-left
-          What is PijonTxt?
-          =link_to 'Learn More', '/about'
-        .pull-right
-          =link_to 'Sign In', root_path 
-        .clearfix
+        =image_tag '/assets/images/PijonTxt_Logo_KO.png',class: 'img-responsive'
+      .space-6
+      .row
+        .centered-form.col-sm-12.centerize
+          = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+            = devise_error_messages!
+            =f.text_field :company_name, autofocus: true, :placeholder => "Company Name", hide_label: true
+            = f.email_field :email, class: 'form-control', :placeholder => "email address", hide_label: true
+            = f.password_field :password, autocomplete: "off", :placeholder => "*******", hide_label: true, help: "Password Must be at least 8 characters long"
+            = f.password_field :password_confirmation, autocomplete: "off", :placeholder => '*******', hide_label: true
+            %button.btn.btn-sm.pull-right.alt-btn{:type => "submit"}
+              Create Account
+          .clearfix
+          .space-6
+          .pull-left
+            What is PijonTxt?
+            =link_to 'Learn More', '/about'
+          .pull-right
+            =link_to 'Sign In', root_path 
+          .clearfix

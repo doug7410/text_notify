@@ -1,40 +1,94 @@
 .row
-  .col-sm-8.centerize
-    .about-box
-      .big-logo.text-center
-        =image_tag '/assets/images/PijonTxt_Logo_KO.png'
-      %hr
+  .col-lg-10.centerize
+    .purple-box
+      -if !business_owner_signed_in?  
+        .big-logo.text-center
+          = link_to root_path do 
+            =image_tag '/assets/images/PijonTxt_Logo_KO.png', class: 'img-responsive'
+        %hr
+      %h1
+        Welcome to PijonTxt!
       %p
-        Welcome to PijonTxt.com… The work of a brother/sister design duo who saw a need for an easier way for businesses to communicate with their most important asset… the customer.
+        PijonTxt is a text communications and marketing service. It offers three distinct features. 
+      %ol
+        %li Send a text message to an individual. 
+        %li Send a text message and add the individual to a text queue.
+        %li Send a mass text message to a group.
+      %p 
+        Here's how each one works
+        %ol
+          %li 
+            %b Send a text message to an individual
+            %p 
+              This is pretty streight forward. The form shown below is where you will be sending the text messages from. You enter a name, phone number, and message, then press "send now". That person will get the message.  
+            %p
+              #{image_tag '/assets/images/individual_txt_form.jpg', class: 'img-responsive'}  
+          %li 
+            %b Send a text message and add the individual to a text queue
+            %p This is like #1 but with one added feature. To do this you fill out the form and click "send later". This will send a message to the person imidately and also add them to the queue, so you can easily send them another messge when you're ready. Below is a picture of what the queue looks like.
+            %p
+              #{image_tag '/assets/images/queue.jpg', class: 'img-responsive'}
+          %li 
+            %b Send a mass text message to a group
+            %p This is where you can really get a lot of added value form this service. You can create groups of customers and send them all text message at the same time. There are two ways to add customers to groups. You can do it manually or ask people to subscribe to the group by telling them to text the group name to PijonTxt's phone number (855-496-5033). Below is a picture of the group text form.
+            %p
+              #{image_tag '/assets/images/group_txt_form.jpg', class: 'img-responsive'}
+        %p
+          There are a couple more important feature that go along with the ones above. 
+          %ol
+            %li
+              When you send a new customer a text, their name and phone number will be saved automatically.
+            %li
+              When you set up your account, you set up default messages, so you don't have to re-type the same message over and over again. 
+          %p
+            PijonTxt is sill new so if there are any features you would like to see added that will make your life easier, just let me (Doug) know  #{link_to 'contact page', new_inquiry_path} or give me a call 954-638-1523.
+
       %p
-        Businesses who can benifit the PijonTxt services are - Food Trucks, Bars & Nightclubs, Education / Non-Profits / Community Groups, Event Marketers, Religious Groups, Restaurants, Retail, Real Estate, Small Businesses, and many more! 
+        Businesses who can benefit the PijonTxt services are - retail stores, restaurants, bars &amp; nightclubs, food trucks, education / non-profits / community groups, event marketers, religious groups, real estate, car dealer service departments, and many more! 
       
-      %h3
-        Here's are 2 example use cases of how it works.
-      %strong
-        The food truck/restaurant example
-      %p
-        Let's say there's a food truck called "Jimmy's Taco Shack". When Jimmy takes a customer's order he simply enters their name, cell number, and an optional (but suggested) order number into PijonTxt. The customer will be sent a text that says something like "Thanks for your order, we'll text you when it's ready." 
-      %p
-        The customer will be placed in a queue, and when their order is ready to go, Jimmy clicks a button, sending them another txt letting them know their order is ready. 
-      %p
-        But that's not all… the customer is saved in the database and Jimmy can add them to a group. The next time Jimmy's truck rolls into town, say for the Monday Night Food Truck Rally, Jimmy can send all the customers in the group a message letting them know his truck has arived at the park.
+      %h1
+        Here's are a couple examples.
       
       %strong Retail store example
       %p  
-        Let's say there's a clothing store called "Jenny's Sweater Shop". Jenny can put up a sign in the window saying "text SWEATER to 855-496-5033 to recive advanced notice of special sales". Customers see the sign and text "SWEATER" to the number and join the list. Now Jenny can can collect customers in her PijonTxt account and send them all a promotional message when ever she wants. 
+        Let's say there's a clothing store called "Jenny's Sweater Shop". Jenny can put up a sign in the window saying "text SWEATER to 855-496-5033 to receive advanced notice of special sales". Customers see the sign and text "SWEATER" to the number and join the list. Now Jenny can can collect customers in her PijonTxt account and send them all a promotional message when ever she wants. She can also add new customers to her list as the check out in the store.
       %p
-        Exapmle promotional message: "From Jenny's Sweater Shop: Come in to the store 1/30/2015 and get half off of everythig. Visit www.jennysweaters.com for more details".
+        %b Example promotional message: 
+        "From Jenny's Sweater Shop: Come in to the store 1/30/2015 and get half off of everything! Visit www.jennysweaters.com for more details".
       %p 
         Now Jenny has some new customer connections, and a way to contact them with a marketing message, and even directed them to her web site! 
 
+      %strong
+        The food truck/restaurant example
       %p
-        This service can be utilized for basically any type of business. Give us a try, and don't hesitate to shoot us any query that comes to your mind. We are PijonTxt.com… and we are here to help. You can call me (Doug, lead developer ) directly at 954-638-1523  or shoot me an email from the 
-        =link_to 'contact page', new_inquiry_path 
-        with any questions.
+        Let's say there's a food truck called "Jimmy's Taco Shack". When Jimmy takes a customer's order he simply enters their name, cell number, and an optional (but suggested) order number into PijonTxt. The customer will be sent a text that says something like "Thanks for your order, we'll text you when it's ready."
+      %p
+        The customer will be placed in a queue, and when their order is ready to go, Jimmy clicks a button, sending them another txt letting them know their order is ready. This way the customer is free to leave the truck , instead of having to wait in front of it. 
+      %p
+        But that's not all… the customer is saved in the database and Jimmy can add them to a group. The next time Jimmy's truck rolls into town, say for the Monday Night Food Truck Rally, Jimmy can send all the customers in the group a message letting them know his truck has arrived at the park.
+
+      %strong PijonTxt will work for you!  
+      %p
+        These 2 examples can be adapted to many other kinds of businesses. For example: dry cleaners, service department at a car dealership or a computer repair shop. 
+      %p
+        Give us a try, and don't hesitate ask us any questions. We are happy to work with you, help you come up with strategies and/or marketing campaigns and help you take full advantage of our service. PijonTxt is still new and we want to make it  exactly what you need to help you business run smoother and grow. The most important thing to us is helping you. 
+
+      %p
+        You can call me (Doug, lead developer ) directly at 954-638-1523  or send me an email from the #{link_to 'contact page', new_inquiry_path} .
+        
+      -if !business_owner_signed_in?  
+        .text-center
+          %hr
+          =link_to new_business_owner_registration_path do
+            %button.btn.btn-sm.alt-btn
+              create an account
+          %b OR     
+          =link_to root_path do
+            %button.btn.btn-sm.alt-btn
+              sign in     
       %hr
       .faq
-        %h3 Frequently Asked Questions
+        %h1 Frequently Asked Questions
 
         %p
           %strong What is PijonTxt
@@ -77,7 +131,4 @@
           %b OR     
           =link_to root_path do
             %button.btn.btn-sm.alt-btn
-              sign in      
-
-
-      
+              sign in    

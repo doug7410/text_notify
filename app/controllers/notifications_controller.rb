@@ -1,18 +1,13 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_business_owner!
   before_action :set_queue_items_for_current_business_owner
+  before_action :check_that_account_settings_are_completed, only: [:index]
 
   def index
-    if default_messages_are_set?
-      @notification = Notification.new
-      @customer = Customer.new
-      @group_notification = GroupNotification.new
-      @groups = set_groups_for_current_business_owner
-    else
-      flash[:warning] = 'Before you can send any txt messages
-                         you need to set up your default messages'
-      redirect_to account_settings_path
-    end
+    @notification = Notification.new
+    @customer = Customer.new
+    @group_notification = GroupNotification.new
+    @groups = set_groups_for_current_business_owner
   end
 
   def create
@@ -23,22 +18,22 @@ class NotificationsController < ApplicationController
 
     respond_to do |format|
       format.js do
-        if @customer.valid?
-          if @notification.valid?
-            handle_sending_text_message(@notification)
-            if @notification.errors[:base].empty?
-              @success_message = 'A txt has been sent!'
-              handle_adding_queue_items
-              @notification = Notification.new
-              @customer = Customer.new
-              render :create
-            else
-              @customer = reset_the_customer_with_a_blank_phone_number
-            end
-          end
-        else
+        unless @customer.valid?
           @notification.errors.clear
-          render :create
+          render :create        
+        end
+       
+        if @notification.valid?
+          handle_sending_text_message(@notification)
+          if @notification.errors[:base].empty?
+            @success_message = 'A txt has been sent!'
+            handle_adding_queue_items
+            @notification = Notification.new
+            @customer = Customer.new
+            render :create
+          else
+            @customer = reset_the_customer_with_a_blank_phone_number
+          end
         end
       end
     end
@@ -96,16 +91,12 @@ class NotificationsController < ApplicationController
     Group.where(business_owner_id: current_business_owner.id)
   end
 
-  def default_messages_are_set?
-    return true if current_business_owner.account_setting.present?
-  end
-
   def handle_adding_queue_items
     return false unless params[:commit] == 'send later'
     QueueItem.create(
       notification_id: @notification.id,
       business_owner_id: current_business_owner.id
-      )
+    )
   end
 
   def handle_sending_text_message(notification)
@@ -118,18 +109,25 @@ class NotificationsController < ApplicationController
   end
 
   def notification_params
-    notification_hash = params.require(:notification).permit(
-                                                        :order_number,
-                                                        :message)
+    notification_hash = params.require(
+                          :notification
+                        ).permit(
+                          :order_number,
+                          :message
+                        )
     notification_hash.merge(
       business_owner_id: current_business_owner.id,
       customer_id: @customer.id)
   end
 
   def customer_params
-    customer_params = params.require(:customer).permit(
-                                                  :full_name,
-                                                  :phone_number)
+    customer_params = params.require(
+                        :customer
+                      ).permit(
+                        :full_name,
+                        :phone_number
+                      )
+
     customer_params.merge(
       phone_number: formated_phone_number(customer_params[:phone_number]),
       business_owner_id: current_business_owner.id)

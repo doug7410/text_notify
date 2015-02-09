@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   resources :account_settings, except: [:destroy]
   resources :logs, only: [:index]
 
+  namespace :admin do
+    resources :business_owners, only: [:index]
+  end
+
   post '/send_queue_item', to: 'notifications#send_queue_item'
 
   post '/sms_operator', to: 'sms_operator#sms_handler'

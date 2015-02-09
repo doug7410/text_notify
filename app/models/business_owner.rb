@@ -14,4 +14,8 @@ class BusinessOwner < ActiveRecord::Base
   validates :company_name, presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def self.all_except(business_owner)
+    where.not(id: business_owner)
+  end
 end

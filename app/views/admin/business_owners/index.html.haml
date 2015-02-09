@@ -1,0 +1,18 @@
+%table#sample-table-1.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th Business Name
+      %th Email
+      %th Customers 
+      %th Notifications
+      %th Groups
+      %th Joined Date
+  %tbody
+    -@business_owners.each do |business_owner|
+      %tr
+        %td= business_owner.company_name
+        %td= business_owner.email
+        %td= business_owner.customers.count
+        %td= business_owner.notifications.count
+        %td= business_owner.groups.count
+        %td= business_owner.created_at

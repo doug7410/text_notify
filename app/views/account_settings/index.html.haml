@@ -1,7 +1,64 @@
-=bootstrap_form_for @account_settings do |f|
-  =f.text_field :default_message_subject
-  =f.text_field :default_send_now_message
-  =f.text_field :default_add_to_queue_message
-  =f.text_field :default_send_from_queue_message
-  =f.submit 'save'
+.row
+  .col-sm-6
+    %p
+      This is where you set up the defalt messages and time zone for your account. The default messages are what your customer will see when they get a text message from you. You can allways write a custom message while creating text, but if you leave the message blank, these defaults will be used. 
+
+    %p There are 4 default messages you need to set up:
+    
+    %ul 
+      %li Default message subject
+      %li Default send now message
+      %li Default add to queue message     
+      %li Default send from queue messages
+
+    %p Here is where these default message are used. In this example the name of the business is "John's Coffee Shop"
+
+    %p
+      %strong Default message subject - 
+      This will be placed in front of every message you send. For example:
+    %blockquote
+      %p Hello from John's Coffee Shop - (rest of message goes here....)
+
+    %p
+      %strong Default send now message - 
+      This is the message your customer will see when you click the "send now" button from the pigonTxt "indivdual form" (pictured below).
+      =image_tag '/assets/images/send-now-example.png'
+      %br
+      %br
+      If your <strong> default send now message </strong> is set as "it's a great day to come in for a coffee!", the message the customer would get when clicking "send now" would be:
+    %blockquote
+      %p Hello from John's Coffee Shop - it's a great day to come in for a coffee!  
+
+    %p
+      %strong Default send later message - 
+      This is the message your customer will see when you click the "send later" button from the pigonTxt "indivdual form" (pictured below).
+      =image_tag '/assets/images/send-later-example.png'
+      %br
+      %br
+      If your <strong> default send later message </strong> is set as "Thank's for your order! We'll let you know when it's ready.", the message the customer would get when clicking "send later" would be:
+    %blockquote
+      %p Hello from John's Coffee Shop - Thank's for your order! We'll let you know when it's ready.
+
+    %p
+      %strong Default send from queue message - 
+      This is the message your customer will see when you send a text from the queue. (pictured below).
+      =image_tag '/assets/images/send-from-queue.png'
+      %br
+      %br
+      If your <strong> default send from queue message </strong> is set as "Your order is ready to go!", the message the customer would get when sending from the queue would be:
+    %blockquote
+      %p Hello from John's Coffee Shop - Your order is ready to go!
+
+    %p
+      %strong Time zone - 
+      This is to set all the dates in your account to match your local time zone. This is very helpfull when in keeping track of when your text were sent.
+
+  .col-sm-6
+    =bootstrap_form_for @account_settings do |f|
+      =f.text_field :default_message_subject
+      =f.text_field :default_send_now_message
+      =f.text_field :default_add_to_queue_message
+      =f.text_field :default_send_from_queue_message
+      =f.time_zone_select :timezone, ActiveSupport::TimeZone.us_zones, default: Time.zone.name
+      =f.submit 'save'
   

@@ -1,29 +1,28 @@
-.row
-  .col-sm-4.centerize
-    .text-center.big-logo
-      =image_tag '/assets/images/PijonTxt_Logo_Color.png'
-    .centered-form
-      =render "shared/devise_messages"
-      = bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        = f.email_field :email, autofocus: true, placeholder: "john@example.com", hide_label: true
-        = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "********", hide_label: true
-        .space
-        .clearfix
-        - if devise_mapping.rememberable?
-          %label.inline
-            = f.check_box :remember_me
-        %button.width-35.pull-right.btn.btn-sm.main-btn{:type => "submit"}
-          sign in
-      %div.text-right
-        New Member?
-        = link_to 'Sign Up Here', new_business_owner_registration_path
-      %div.text-right
-        What is PijonTxt?
-        = link_to 'Learn More', '/about'  
-      %div.text-right
-        Forgot Password?
-        = link_to 'click here', new_password_path(resource_name)
-      
+.sign-in-box.centerize
+  .text-center.big-logo
+    =image_tag '/assets/images/PijonTxt_Logo_Color.png', class: 'img-responsive'
+  .centered-form
+    =render "shared/devise_messages"
+    = bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      = f.email_field :email, autofocus: true, placeholder: "john@example.com", hide_label: true
+      = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "********", hide_label: true
+      .space
+      .clearfix
+      - if devise_mapping.rememberable?
+        %label.inline
+          = f.check_box :remember_me
+      %button.width-35.pull-right.btn.btn-sm.main-btn{:type => "submit"}
+        sign in
+    %div.text-right
+      New Member?
+      = link_to 'Sign Up Here', new_business_owner_registration_path
+    %div.text-right
+      What is PijonTxt?
+      = link_to 'Learn More', '/about'  
+    %div.text-right
+      Forgot Password?
+      = link_to 'click here', new_password_path(resource_name)
+    
       
       
 

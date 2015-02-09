@@ -25,6 +25,7 @@ class GroupNotificationsController < ApplicationController
                                                       :group_id,
                                                       :group_message
                                                     )
+    gn_hash[:group_message] += " - TxtStopToEnd"
     gn_hash.merge(business_owner_id: current_business_owner.id)
   end
 end
