@@ -1,5 +1,17 @@
 #customers
-  = render 'customer_form', title: 'Add a customer', button_label: 'Add'
+  .row
+    .col-xs-6
+      = render 'customer_form', title: 'Add a customer', button_label: 'Add'
+    .col-xs-6
+      .well
+        %h4 Import Customers
+        %p Customers can be imorted via a CSV file. The file needs to be formated like this:
+        %i 'customer name', 'phone number', 'group1; group2'
+        = form_tag import_customers_path, multipart: true do 
+          .space-6
+          = file_field_tag :file, class: 'btn btn-default' 
+          .space-6
+          = submit_tag 'Import', class: 'btn btn-sm main-btn'
   .space-6
   =render 'shared/page_header', title: "Your Customers"
   - if @customers.any?
@@ -31,10 +43,7 @@
   -else
     .alert.alert-warning
       You don't have any customers. Go get some!
-  %h2 Import Customers
-  = form_tag import_customers_path, multipart: true do 
-    = file_field_tag :file 
-    = submit_tag 'Import' 
+   
 
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}

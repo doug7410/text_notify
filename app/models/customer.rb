@@ -13,15 +13,17 @@ class Customer < ActiveRecord::Base
   self.per_page = 10
 
   def self.import(import_array, business_owner_id)
+    customer_count = 0
     import_array.each do |import_row|
       customer = create(
         full_name: import_row[:full_name],
         phone_number: format_phone_number(import_row[:phone_number]),
         business_owner_id: business_owner_id
       )
-
+      customer_count += 1 if customer.valid?
       Customer.add_import_customer_to_groups(import_row, customer, business_owner_id)
     end
+    customer_count
   end
 
   def self.format_phone_number(number)

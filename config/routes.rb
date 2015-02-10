@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :inquiries, only: [:create, :new]
   resources :account_settings, except: [:destroy]
   resources :logs, only: [:index]
+  resources :queue_item, only: [:destroy]
 
   namespace :admin do
     resources :business_owners, only: [:index]
