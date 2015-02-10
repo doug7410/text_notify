@@ -15,7 +15,9 @@
         %td= item.notification.order_number   
         %td
           =link_to send_queue_item_path(id: item.id), method: 'post', remote: true do
-            %button.btn.btn-sm.main-btn send  
+            %button.btn.btn-sm.main-btn send
+          %br
+          =link_to 'delete', queue_item_path(item), method: 'delete'  
 -else
   .space-6
   .alert.alert-warning

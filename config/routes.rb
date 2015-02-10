@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: "pages#dashboard", as: "dashboard"
 
-  resources :customers, except: [:destroy]
+  resources :customers, except: [:destroy] do
+    collection { post :import }
+  end
   resources :notifications, only: [:index, :create]
   resources :groups 
   resources :group_notifications, only: [:create]
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
   resources :inquiries, only: [:create, :new]
   resources :account_settings, except: [:destroy]
   resources :logs, only: [:index]
+  resources :queue_item, only: [:destroy]
 
   namespace :admin do
     resources :business_owners, only: [:index]

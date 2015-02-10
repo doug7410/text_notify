@@ -1,8 +1,10 @@
-%h4
-  =title
-= bootstrap_form_for @customer, layout: :inline, inline_errors: false do |f|
-  = f.alert_message "Please fix the errors below."
-  =f.text_field :full_name, class: "form-control", :placeholder => "Customer Name", hide_label: true
-  =f.text_field :phone_number, class: "form-control input-mask-phone", :placeholder => "(555)555-5555", hide_label: true
-  %button.btn.btn-sm.main-btn{:type => "submit"}
-    =button_label
+.well
+  %h4
+    =title  
+  = form_for @customer, html: { class: '' } do |f|
+    / # =f.alert_message "Please fix the errors below."
+    .form-group
+      =f.text_field :full_name, class: 'form-control', :placeholder => "Customer Name", hide_label: true
+    .form-group
+      =f.text_field :phone_number, class: "form-control input-mask-phone", :placeholder => "(555)555-5555", hide_label: true
+    =f.submit button_label, class: 'btn btn-sm main-btn' 
