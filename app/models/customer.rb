@@ -15,13 +15,16 @@ class Customer < ActiveRecord::Base
   def self.import(import_array, business_owner_id)
     customer_count = 0
     import_array.each do |import_row|
-      customer = create(
-        full_name: import_row[:full_name],
+      customer = find_or_create_by(
         phone_number: format_phone_number(import_row[:phone_number]),
         business_owner_id: business_owner_id
       )
-      customer_count += 1 if customer.valid?
-      Customer.add_import_customer_to_groups(import_row, customer, business_owner_id)
+      
+      customer.update(full_name: import_row[:full_name])
+      if customer.valid?
+        Customer.add_import_customer_to_groups(import_row, customer, business_owner_id)
+        customer_count += 1
+      end
     end
     customer_count
   end
@@ -36,8 +39,8 @@ class Customer < ActiveRecord::Base
     return nil unless customer
     group_names = import_row[:groups].split(';')
     group_names.each do |name|
-      group = Group.find_by(name: name, business_owner_id: business_owner_id)
-      Membership.create(customer:   customer, group: group)
+      group = Group.where("lower(name) = ?", name.downcase).first
+      Membership.create(customer: customer, group: group)
     end
   end
 end
