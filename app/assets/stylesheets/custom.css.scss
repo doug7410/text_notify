@@ -69,6 +69,10 @@ input[type=text], input[type=email], input[type=password] {
   font-weight: bold;
 }
 
+#group_form_box form{
+  max-width: 300px;
+}
+
 /*flash*/
 .alert-error {
     background-color: #f2dede;
