@@ -14,7 +14,7 @@ class SmsOperatorController < ApplicationController
 
       membership = Membership.new(group: group, customer: customer, current_business_owner: current_business_owner)
       membership.save
-      message = "Thanks' for subscribing to #{group.name} txt list with #{group.business_owner.company_name}!"
+      message = group.message
     elsif unsubscibe_customer?(params[:Body])
       CustomerUnsubscribe.new(phone_number)
     else

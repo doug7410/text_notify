@@ -68,11 +68,8 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    group_hash = params.require(:group).permit(:name)
-    {
-      name: group_hash[:name],
-      business_owner_id: current_business_owner.id
-    }
+    group_hash = params.require(:group).permit(:name, :reply_message, :forward_email)
+    group_hash.merge(business_owner_id: current_business_owner.id)
   end
 
   def customer_params

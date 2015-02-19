@@ -5,7 +5,9 @@
   %p Example: 
   %blockquote
     "Text CARS to 855-496-5033 to recive special promotions and discounts."
-  =bootstrap_form_for @group, layout: :inline, remote: ajax_option do |f|
-    =f.text_field :name, hide_label: true, placeholder: "KEYWORD"
+  =bootstrap_form_for @group, remote: ajax_option do |f|
+    =f.text_field :name, label: 'Keyword'
+    =f.text_area :reply_message
+    =f.text_field :forward_email
     %button.btn.btn-sm.btn-success{:type => "submit"}
       =button_label
