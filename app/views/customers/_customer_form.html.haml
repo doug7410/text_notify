@@ -1,8 +1,8 @@
 .well
   %h4
     =title  
-  = form_for @customer, html: { class: '' } do |f|
-    / # =f.alert_message "Please fix the errors below."
+  = bootstrap_form_for @customer, html: { class: '' }, inline_errors: false do |f|
+    =f.alert_message "Please fix the errors below."
     .form-group
       =f.text_field :full_name, class: 'form-control', :placeholder => "Customer Name", hide_label: true
     .form-group

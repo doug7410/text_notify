@@ -1,10 +1,10 @@
 .row
   .col-sm-6
     =bootstrap_form_for @account_settings do |f|
-      =f.text_field :default_message_subject
-      =f.text_field :default_send_now_message
-      =f.text_field :default_add_to_queue_message
-      =f.text_field :default_send_from_queue_message
+      =f.text_field :default_message_subject, label: 'Default Message Subject (header)'
+      =f.text_area :default_send_now_message
+      =f.text_area :default_add_to_queue_message
+      =f.text_area :default_send_from_queue_message
       =f.time_zone_select :timezone, ActiveSupport::TimeZone.us_zones, default: Time.zone.name
       =f.submit 'save'
   .col-sm-6
@@ -14,7 +14,7 @@
     %p There are 4 default messages you need to set up:
     
     %ul
-      %li Default message subject
+      %li Default message subject (header)
       %li Default send now message
       %li Default add to queue message     
       %li Default send from queue messages
@@ -22,7 +22,7 @@
     %p Here is where these default message are used. In this example the name of the business is "John's Coffee Shop"
 
     %p
-      %strong Default message subject -
+      %strong Default message subject (header) -
       This will be placed in front of every message you send. For example:
     %blockquote
       %p Hello from John's Coffee Shop - (rest of message goes here....)

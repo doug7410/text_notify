@@ -1,5 +1,4 @@
-=render 'shared/page_header', title: "Customer - #{@customer.name} #{@customer.phone_number}"
-
+= render 'shared/page_header', title: "Customer - #{@customer.name} #{@customer.phone_number}"
 = render 'customers/customer_form', title: 'Edit Customer', button_label: 'Update'
 %hr
 =link_to customers_path do
