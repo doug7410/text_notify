@@ -1,7 +1,7 @@
-=render 'group_form', button_label: "Add Group", title: "Create a new group", ajax_option: false
+=render 'group_form', button_label: "Add Keyword", title: "Create a new keyword campaign", ajax_option: false
 .space-6
 %hr
-%h4 Your groups
+%h4 Your keyword campaigns
 - if @groups.any?
   %table#sample-table-1.table.table-striped.table-bordered.table-hover
     %thead
@@ -17,10 +17,6 @@
           %td= group.customers.count
           %td= group.notifications.count
           %td
-            =link_to group do
-              %button.btn.btn-primary.btn-xs
-                %i.ace-icon.fa.fa-pencil.align-top.bigger-125
-                Add or Remove Customers
             = link_to group, method: "delete" do
               %button.btn.btn-danger.btn-xs
                 %i.ace-icon.fa.fa-trash-o.align-top.bigger-125

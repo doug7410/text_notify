@@ -9,13 +9,13 @@ feature "[create group and add customers then send_= notification to group]" do
 
   scenario "adding a new group and add a customer to it" do
     visit groups_path
-    fill_in 'group_name', with: 'fun group'
-    click_button "Add Group"
-    expect(page).to have_content('The "fun group" group has been created.')
+    fill_in 'group_name', with: 'group'
+    click_button "Add Keyword"
+    expect(page).to have_content('The "group" group has been created.')
 
     tom = Fabricate(:customer, business_owner: doug)
 
-    click_link "fun group"
+    click_link "group"
     expect(current_path).to eq(group_path(Group.first))
 
     find("a[href='/memberships?customer=#{tom.id}&group=#{Group.first.id}']").click
@@ -23,25 +23,25 @@ feature "[create group and add customers then send_= notification to group]" do
   end
 
   scenario "sending a text to a group", :vcr do
-    fun_group = Fabricate(:group, name: "Beer Lovers", business_owner: doug)
+    beer_group = Fabricate(:group, name: "Beer", business_owner: doug)
     tom = Fabricate(:customer, business_owner: doug)
-    Fabricate(:membership, customer: tom, group: fun_group, current_business_owner: doug)
+    Fabricate(:membership, customer: tom, group: beer_group, current_business_owner: doug)
     visit notifications_path
-    select fun_group.id, :from => "Choose an existing group"
+    select beer_group.id, :from => "Choose an existing group"
     fill_in 'Group Message', with: 'Hello everybody!'
     click_button 'Send Group Notification'
-    expect(page).to have_content('A text has been successfully sent to the "Beer Lovers" group.')
+    expect(page).to have_content('A text has been successfully sent to the "Beer" group.')
   end
 
   scenario "delete a customer from a group" do
-    fun_group = Fabricate(:group, name: "Beer Lovers", business_owner: doug)
+    beer_group = Fabricate(:group, name: "Beer", business_owner: doug)
     tom = Fabricate(:customer, business_owner: doug)
-    Fabricate(:membership, customer: tom, group: fun_group, current_business_owner: doug)
-    visit group_path(fun_group)
+    Fabricate(:membership, customer: tom, group: beer_group, current_business_owner: doug)
+    visit group_path(beer_group)
     find(:xpath, "//a[@id='member_#{tom.id}']").click
     
     expect(page).not_to have_xpath("//a[@id='member_#{tom.id}']")
-    expect(page).to have_xpath("a[href='/memberships?customer=#{tom.id}&group=#{fun_group.id}']")
+    expect(page).to have_xpath("a[href='/memberships?customer=#{tom.id}&group=#{beer_group.id}']")
   end
 
   

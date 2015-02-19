@@ -1,16 +1,15 @@
 =link_to groups_path do
   %button.btn.btn-xs.btn-primary
-    Back to groups list    
+    Back to keyword list    
 .row
   .col-sm-12
   %h2
-    = "#{@group.name} Group"
+    = "\"#{@group.name}\" keyword campaign"
     %small
-      = link_to "change name", "#", class: "update_name_button"    
-  = render 'group_form', button_label: "Update", title: "Update group name", ajax_option: true  
+  = render 'group_form', button_label: "Update", title: "Update keyword", ajax_option: true  
 .row
   .col-sm-6
-    %h4= "Customers in the #{@group.name.capitalize} group"
+    %h4= "Customers in the \"#{@group.name}\" keyword campaign"
     - if @members.any?
       %table.table.table-striped.table-bordered.table-hover
         %thead
@@ -29,10 +28,10 @@
                     Remove 
     -else
       .alert.alert-warning
-        %strong You don't have any customers in this group yet. 
+        %strong You don't have any customers in this keyword campaign yet. 
         Add some from the customer list.        
   .col-sm-6
-    %h4= "Add customers to the #{@group.name} group."
+    %h4= "Add customers to the \"#{@group.name}\" keyword camaign."
     - if @customers_not_in_group.any?
       %table.table.table-striped.table-bordered.table-hover
         %thead
@@ -64,13 +63,6 @@
 
 %script{:src => "/assets/js/jquery-ui.custom.min.js"}
 %script{:src => "/assets/js/jquery.maskedinput.min.js"}
-:javascript
-  $(document).ready(function(){
-    $('#group_form_box').hide();
-    $('.update_name_button').on('click', function(){
-      $('#group_form_box').toggle('blind');
-    });
-  });
 :javascript
   jQuery(function($) {
     $.mask.definitions['~']='[+-]';
