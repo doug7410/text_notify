@@ -15,7 +15,7 @@ class SmsOperatorController < ApplicationController
       membership = Membership.new(group: group, customer: customer, current_business_owner: current_business_owner)
       membership.save
       message = group.reply_message
-      AppMailer.keyword_email(group, customer).deliver
+      AppMailer.keyword_email(group, customer, params).deliver
     elsif unsubscibe_customer?(params[:Body])
       CustomerUnsubscribe.new(phone_number)
     else
