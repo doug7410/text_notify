@@ -10,11 +10,11 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     if @group.save
-      flash[:success] = "The \"#{@group.name}\" group has been created."
+      flash[:success] = "The \"#{@group.name}\" keyword campaign has been created."
       redirect_to groups_path
     else
       if  @group.errors[:name].include?('has already been taken')
-        flash[:error] = "Sorry the group name \"#{group_params[:name]}\" has been taken, please try a different name."
+        flash[:error] = "Sorry the keyword \"#{group_params[:name]}\" has been taken, please try a different keyword."
       end
 
       @groups = Group.where(business_owner_id: current_business_owner.id)
@@ -60,7 +60,7 @@ class GroupsController < ApplicationController
       flash[:error] = "#{group.name} has been deleted"
       redirect_to groups_path
     else
-      flash[:error] = "You can't delete that group"
+      flash[:error] = "You can't delete that keyword"
       render :index
     end
   end
