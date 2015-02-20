@@ -1,13 +1,16 @@
 #group_form_box.well
   %h4
     =title
-  %p Keywords need to be one word and they are unique to your account. You can invite customers to subscribe to a keyword campaign by asking them to text the keyword to the PijonTxt phone number (855-496-5033). 
+  %p You can invite customers to subscribe to a keyword campaign by asking them to text the keyword to the PijonTxt phone number (855-496-5033). 
   %p Example: 
   %blockquote
-    "Text CARS to 855-496-5033 to recive special promotions and discounts."
+    -if @group.name.present?
+      = "Text #{@group.name.upcase} to 855-496-5033 to recive more information."
+    -else
+      = "Text KEYWORD to 855-496-5033 to recive more information."
   =bootstrap_form_for @group, remote: ajax_option do |f|
-    =f.text_field :name, label: 'Keyword'
-    =f.text_area :reply_message
-    =f.text_field :forward_email
+    =f.text_field :name, label: 'Keyword', help: 'Keywords need to be one word and they are unique to your account.'
+    =f.text_area :reply_message, help: 'This message will be sent back to the customer when they text the keyword to PijonTxt'
+    =f.email_field :forward_email, help: 'This address will be sent an email with the keyword and the phone number of the lead.'
     %button.btn.btn-sm.btn-success{:type => "submit"}
       =button_label

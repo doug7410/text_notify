@@ -70,7 +70,7 @@ input[type=text], input[type=email], input[type=password] {
 }
 
 #group_form_box form{
-  max-width: 300px;
+  max-width: 350px;
 }
 
 /*flash*/
@@ -105,4 +105,10 @@ input[type=text], input[type=email], input[type=password] {
 
  .new_group .field_with_errors{
     display: inline;
+ }
+
+ #group_form_box{
+  .help-block{
+    color: #000;
+  }
  }

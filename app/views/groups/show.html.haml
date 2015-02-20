@@ -4,9 +4,9 @@
 .row
   .col-sm-12
   %h2
-    = "\"#{@group.name}\" keyword campaign"
+    = "\"#{@group.name.upcase}\" keyword campaign"
     %small
-  = render 'group_form', button_label: "Update", title: "Update keyword", ajax_option: true  
+  = render 'group_form', button_label: "Update", title: "", ajax_option: true  
 .row
   .col-sm-6
     %h4= "Customers in the \"#{@group.name}\" keyword campaign"
