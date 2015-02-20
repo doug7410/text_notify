@@ -21,7 +21,7 @@
               %td
                 = format_datetime(notification.created_at)
               %td
-                = link_to notification.customer.decorate.name + ' - ' + notification.customer.phone_number, customer_path(notification.customer)
+                = link_to notification.customer.decorate.name + ' - ' + notification.customer.phone_number, customer_path(notification.customer) if notification.customer.name
               %td= notification.message
               %td= notification.group_notification.group.name if notification.group_notification
               %td 
