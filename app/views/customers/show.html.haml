@@ -18,7 +18,8 @@
         %tr
           %td= notification.created_at
           %td
-            =link_to notification.group_notification.group.name, notification.group_notification.group if notification.group_notification
+            -if notification.group_notification
+              =link_to notification.group_notification.group.name, notification.group_notification.group 
           %td= notification.message 
 -else
   .alert.alert-warning
