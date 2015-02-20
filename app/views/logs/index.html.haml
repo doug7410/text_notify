@@ -23,7 +23,9 @@
               %td
                 = link_to notification.customer.decorate.name + ' - ' + notification.customer.phone_number, customer_path(notification.customer) if notification.customer.full_name
               %td= notification.message
-              %td= notification.group_notification.group.name if notification.group_notification
+              %td
+                -if notification.group_notification
+                  = notification.group_notification.group.name 
               %td 
                 = notification.status
                 = notification.error_code? ? "(error code - #{notification.error_code})" : "" 
