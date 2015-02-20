@@ -41,11 +41,11 @@ class GroupsController < ApplicationController
 
       format.js do
         if @group.update(group_params)
-          flash[:success] = "Group name has been updated."
+          flash[:success] = "Keyword has been updated."
         end
           
         if  @group.errors[:name].include?("has already been taken")
-          @error_message = "Sorry the group name '" + @group.name + "' has been taken, please try a different name."
+          @error_message = "Sorry the keyword '" + @group.name + "' has been taken, please try a different keyword."
         end
 
         render :show
