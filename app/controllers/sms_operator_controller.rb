@@ -14,7 +14,8 @@ class SmsOperatorController < ApplicationController
 
       membership = Membership.new(group: group, customer: customer, current_business_owner: current_business_owner)
       membership.save
-      message = group.message
+      message = group.reply_message
+      AppMailer.keyword_email(group, customer).deliver
     elsif unsubscibe_customer?(params[:Body])
       CustomerUnsubscribe.new(phone_number)
     else
@@ -30,8 +31,10 @@ class SmsOperatorController < ApplicationController
   private
 
   def find_group_by_keyword(string)
-    keyword = string.scan(/(?<!\S)[A-Z]+(?!\S)/)[0]
-    Group.where('lower(name) = ?', keyword.downcase).first if keyword
+    group_list = Group.all.map {|g| g.name.downcase}
+    keyword = group_list.detect { |group| string.downcase.scan(group).present? }
+
+    Group.where('lower(name) = ?', keyword).first if keyword
   end
 
   def unsubscibe_customer?(string)
