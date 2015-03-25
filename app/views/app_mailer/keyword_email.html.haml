@@ -3,9 +3,7 @@
   %body
     %p="Keyword - #{@group.name}" 
     %p="Customer Phone - #{@customer.phone_number}" 
-    %p="Customer Zip - #{@sms[:FromZip]}" 
-    %p="Customer City - #{@sms[:FromCity]}" 
-    %p="Customer State - #{@sms[:FromState]}" 
-    %p="message - #{@sms[:Body]}" 
+    %p="The customer sent in this message - #{@sms[:Body]}" 
+    %p="The customer was sent back this message - #{group.reply_message}"
 
 
