@@ -32,7 +32,7 @@ class SmsOperatorController < ApplicationController
 
   def find_group_by_keyword(string)
     group_list = Group.all.map {|g| g.name.downcase}
-    keyword = group_list.detect { |group| string.downcase.scan(group).present? }
+    keyword = group_list.detect { |group| string.downcase == group }
 
     Group.where('lower(name) = ?', keyword).first if keyword
   end
