@@ -2,80 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f7006c5-772f-41a5-a9e9-2307749489fe" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_the_queue_/_associated_the_business_owner_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_the_queue_/_associated_the_new_notification_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_the_queue_/_creates_a_new_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_the_queue_/_sends_with_the_default_add_to_queue_message_if_the_message_is_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_the_queue_/_sets_the_queue_items_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_txt_queue_and_sending_to_an_existing_customer_/_sends_with_default_message_if_the_message_is_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_txt_queue_and_sending_to_an_existing_customer_/behaves_like_add_to_txt_queue/_associated_the_business_owner_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_txt_queue_and_sending_to_an_existing_customer_/behaves_like_add_to_txt_queue/_associated_the_new_notification_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_txt_queue_and_sending_to_an_existing_customer_/behaves_like_add_to_txt_queue/_creates_a_new_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_txt_queue_and_sending_to_an_existing_customer_/behaves_like_add_to_txt_queue/_sends_with_default_message_if_the_message_is_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_adding_to_txt_queue_and_sending_to_an_existing_customer_/behaves_like_add_to_txt_queue/_sets_the_queue_items_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/_associated_the_business_owner_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/_associated_the_new_notification_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/_creates_a_new_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/_sends_with_default_message_if_the_message_is_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/_sets_the_queue_items_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/behaves_like_add_to_txt_queue/_associated_the_business_owner_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/behaves_like_add_to_txt_queue/_associated_the_new_notification_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/behaves_like_add_to_txt_queue/_creates_a_new_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/behaves_like_add_to_txt_queue/_sends_with_default_message_if_the_message_is_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/behaves_like_add_to_txt_queue/_sets_the_queue_items_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_a_new_customer_/creates_the_new_customer.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_an_existing_customer_/_associated_the_business_owner_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_an_existing_customer_/_associated_the_new_notification_with_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_an_existing_customer_/_creates_a_new_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_an_existing_customer_/_sends_with_default_message_if_the_message_is_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_later_and_sending_to_an_existing_customer_/_sets_the_queue_items_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_/_renders_the_javascript_create_template_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_/_saves_the_notification_with_correct_customer_and_message_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_/_saves_the_notification_with_the_correct_business_owner_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_/_saves_the_sid_from_twillio_for_the_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_/_sends_with_the_default_send_now_message_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_/_sets_a_new_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_a_new_customer_/_creates_a_new_customer_associated_with_the_business_owner_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_a_new_customer_/_redirects_to_the_notifications_index_path_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_a_new_customer_/_saves_the_notification_with_the_customer_and_message_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_a_new_customer_/_saves_the_sid_from_twillio_for_the_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_a_new_customer_/_sets_the_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_an_existing_customer_/_does_not_erase_the_customer_name_if_it_is_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_an_existing_customer_/_renders_the_javascript_create_template_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_an_existing_customer_/_saves_the_notification_with_correct_customer_and_message_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_an_existing_customer_/_saves_the_notification_with_the_correct_business_owner_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_an_existing_customer_/_saves_the_sid_from_twillio_for_the_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_an_existing_customer_/_sends_with_the_default_send_now_message_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_an_existing_customer_/_sets_a_new_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_when_clicking_send_now_and_sending_to_an_existing_customer_/_updates_the_customer_name_if_a_new_one_is_provided_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_invalid_input_and_a_new_customer_/_does_not_save_the_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_clicking_the_send_now_button_and_an_existing_customer_/_renders_the_javascript_create_template_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_clicking_the_send_now_button_and_an_existing_customer_/_saves_the_notification_with_the_correct_business_owner_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_clicking_the_send_now_button_and_an_existing_customer_/_saves_the_notification_with_the_correct_customer_and_message_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_clicking_the_send_now_button_and_an_existing_customer_/_saves_the_sid_from_twillio_for_the_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_clicking_the_send_now_button_and_an_existing_customer_/_sends_with_the_default_send_now_message_if_the_message_is_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_clicking_the_send_now_button_and_an_existing_customer_/_sets_a_new_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_a_new_customer_/_creates_the_new_customer_and_associates_them_with_the_signed_in_business_owner_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_a_new_customer_/_redirects_to_the_notifications_index_path_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_a_new_customer_/_saves_the_notification_with_the_current_customer_and_message_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_a_new_customer_/_sets_the_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_an_existing_customer_/_renders_the_javascript_create_template_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_an_existing_customer_/_saves_the_notification_with_the_correct_business_owner_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_an_existing_customer_/_saves_the_notification_with_the_correct_customer_and_message_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_an_existing_customer_/_saves_the_sid_from_twillio_for_the_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_an_existing_customer_/_sends_with_the_default_send_now_message_if_the_message_is_left_blank_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_create/_with_valid_input_and_sending_the_notification_to_an_existing_customer_/_sets_a_new_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_send_queue_item/_creates_a_new_notification_associated_with_the_customer_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_send_queue_item/_deletes_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_send_queue_item/_renders_the_javacript_queue_item_template_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_send_queue_item/_sends_the_new_notification_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_send_queue_item/_sends_with_the_default_send_from_queue_message_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_send_queue_item/_sets_the_order_number_for_the_new_notification_from_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_send_queue_item/_sets_the_order_of_the_new_notification_from_the_queue_item_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_send_queue_item/_sets_the_queue_items_.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/spec/cassettes/NotificationsController/POST_send_queue_item/_sets_the_success_message_.yml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/workers/group_notification_sender_worker.rb" afterPath="$PROJECT_DIR$/app/workers/group_notification_sender_worker.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/customers/index.html.haml" afterPath="$PROJECT_DIR$/app/views/customers/index.html.haml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/sms_operator_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/sms_operator_controller.rb" />
     </list>
     <ignored path="text_notify.iws" />
@@ -106,7 +32,7 @@
             <entry file="file://$PROJECT_DIR$/app/controllers/sms_operator_controller.rb">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.32111">
-                  <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+                  <caret line="18" column="45" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
                   <folding />
                 </state>
               </provider>
@@ -886,7 +812,7 @@
     <entry file="file://$PROJECT_DIR$/app/controllers/sms_operator_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.32111">
-          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <caret line="18" column="45" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
           <folding />
         </state>
       </provider>
