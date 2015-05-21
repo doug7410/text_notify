@@ -5,7 +5,7 @@ http_interactions:
     uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages.json
     body:
       encoding: US-ASCII
-      string: From=%2B18554965033&To=9546381523&Body=minima+quos+-+Thanks+for+the+order%21
+      string: From=%2B18554965033&To=9546381523&Body=consequuntur+tempore+-+Thanks+for+the+order%21
     headers:
       Accept:
       - application/json
@@ -22,33 +22,44 @@ http_interactions:
       code: 201
       message: CREATED
     headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - ETag
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 03 Jan 2015 00:29:38 GMT
+      - Thu, 21 May 2015 00:27:06 GMT
       X-Powered-By:
       - AT-5000
       X-Shenanigans:
       - none
       Content-Length:
-      - '768'
+      - '777'
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"sid": "SM60e832d265d143e5b4a2ee2809c7cb3b", "date_created": "Sat,
-        03 Jan 2015 00:29:38 +0000", "date_updated": "Sat, 03 Jan 2015 00:29:38 +0000",
+      string: '{"sid": "SM260610504d7c41bcaf50dd2edb26b5af", "date_created": "Thu,
+        21 May 2015 00:27:06 +0000", "date_updated": "Thu, 21 May 2015 00:27:06 +0000",
         "date_sent": null, "account_sid": "ACb62e32327e8ec258781341a039e65c46", "to":
-        "+19546381523", "from": "+18554965033", "body": "minima quos - Thanks for
-        the order!", "status": "queued", "num_segments": "1", "num_media": "0", "direction":
-        "outbound-api", "api_version": "2010-04-01", "price": null, "price_unit":
-        "USD", "error_code": null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM60e832d265d143e5b4a2ee2809c7cb3b.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM60e832d265d143e5b4a2ee2809c7cb3b/Media.json"}}'
+        "+19546381523", "from": "+18554965033", "body": "consequuntur tempore - Thanks
+        for the order!", "status": "queued", "num_segments": "1", "num_media": "0",
+        "direction": "outbound-api", "api_version": "2010-04-01", "price": null, "price_unit":
+        "USD", "error_code": null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM260610504d7c41bcaf50dd2edb26b5af.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM260610504d7c41bcaf50dd2edb26b5af/Media.json"}}'
     http_version: 
-  recorded_at: Sat, 03 Jan 2015 00:29:39 GMT
+  recorded_at: Thu, 21 May 2015 00:27:06 GMT
 - request:
     method: get
-    uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM60e832d265d143e5b4a2ee2809c7cb3b.json
+    uri: https://ACb62e32327e8ec258781341a039e65c46:a4987dc755a5f8be041d4b573d32f896@api.twilio.com/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM260610504d7c41bcaf50dd2edb26b5af.json
     body:
       encoding: US-ASCII
       string: ''
@@ -66,30 +77,42 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
       Access-Control-Allow-Origin:
-      - https://www.twilio.com
+      - "*"
+      Access-Control-Expose-Headers:
+      - ETag
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Sat, 03 Jan 2015 00:29:39 GMT
+      - Thu, 21 May 2015 00:27:07 GMT
+      Strict-Transport-Security:
+      - max-age=15768000
       X-Powered-By:
       - AT-5000
       X-Shenanigans:
       - none
+      - none
       Content-Length:
-      - '800'
+      - '809'
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"sid": "SM60e832d265d143e5b4a2ee2809c7cb3b", "date_created": "Sat,
-        03 Jan 2015 00:29:38 +0000", "date_updated": "Sat, 03 Jan 2015 00:29:39 +0000",
-        "date_sent": "Sat, 03 Jan 2015 00:29:39 +0000", "account_sid": "ACb62e32327e8ec258781341a039e65c46",
-        "to": "+19546381523", "from": "+18554965033", "body": "minima quos - Thanks
-        for the order!", "status": "delivered", "num_segments": "1", "num_media":
+      string: '{"sid": "SM260610504d7c41bcaf50dd2edb26b5af", "date_created": "Thu,
+        21 May 2015 00:27:06 +0000", "date_updated": "Thu, 21 May 2015 00:27:06 +0000",
+        "date_sent": "Thu, 21 May 2015 00:27:06 +0000", "account_sid": "ACb62e32327e8ec258781341a039e65c46",
+        "to": "+19546381523", "from": "+18554965033", "body": "consequuntur tempore
+        - Thanks for the order!", "status": "delivered", "num_segments": "1", "num_media":
         "0", "direction": "outbound-api", "api_version": "2010-04-01", "price": null,
-        "price_unit": "USD", "error_code": null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM60e832d265d143e5b4a2ee2809c7cb3b.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM60e832d265d143e5b4a2ee2809c7cb3b/Media.json"}}'
+        "price_unit": "USD", "error_code": null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM260610504d7c41bcaf50dd2edb26b5af.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb62e32327e8ec258781341a039e65c46/Messages/SM260610504d7c41bcaf50dd2edb26b5af/Media.json"}}'
     http_version: 
-  recorded_at: Sat, 03 Jan 2015 00:29:39 GMT
+  recorded_at: Thu, 21 May 2015 00:27:07 GMT
 recorded_with: VCR 2.9.3
