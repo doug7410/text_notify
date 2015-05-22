@@ -25,15 +25,16 @@ gem 'paratrooper'
 gem 'active_attr'
 gem 'will_paginate-bootstrap'
 gem 'smarter_csv'
+gem 'pry-nav'
+gem 'pry'
 
 group :development do
   gem 'spring'
   gem 'sqlite3'
-  gem 'pry-nav'
   gem 'thin'
   gem "better_errors"
   gem "binding_of_caller"
-  gem "erb2haml" 
+  gem "erb2haml"
   gem "letter_opener"
 end
 
@@ -41,7 +42,6 @@ group :development, :test do
   gem 'rspec-rails', '3.0.0'
   gem 'fabrication'
   gem 'faker'
-  gem 'pry'
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
 end
