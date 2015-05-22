@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f7006c5-772f-41a5-a9e9-2307749489fe" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/sms_operator_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/sms_operator_controller.rb" />
     </list>
     <ignored path="text_notify.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,11 +28,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.7176471">
       <split-first>
         <leaf>
-          <file leaf-file-name="Gemfile" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Gemfile">
+          <file leaf-file-name="sms_operator_controller.rb" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/controllers/sms_operator_controller.rb">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.28543112">
-                  <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+                <state vertical-scroll-proportion="0.6778989">
+                  <caret line="38" column="15" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
                   <folding />
                 </state>
               </provider>
@@ -67,10 +67,10 @@
         <option value="$PROJECT_DIR$/app/workers/group_notification_sender_worker.rb" />
         <option value="$PROJECT_DIR$/config/application.yml" />
         <option value="$PROJECT_DIR$/lib/tasks/deploy.rake" />
-        <option value="$PROJECT_DIR$/app/controllers/sms_operator_controller.rb" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/config/environments/production.rb" />
         <option value="$PROJECT_DIR$/Gemfile" />
+        <option value="$PROJECT_DIR$/app/controllers/sms_operator_controller.rb" />
       </list>
     </option>
   </component>
@@ -126,6 +126,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="text_notify" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="text_notify" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="text_notify" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tasks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="text_notify" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="text_notify" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -824,21 +856,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/tasks/deploy.rake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/migrate/20150219031037_add_message_and_reply_email_to_groups.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.03567889">
@@ -926,23 +943,6 @@
             <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder=" ... end" />
             <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="{ ... }" />
             <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder=" ... end" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/sms_operator_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24975222">
-          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-          <folding>
-            <marker date="1432334354791" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432334354791" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432334354791" expanded="true" signature="-1:-1" placeholder="if ... end" />
-            <marker date="1432334354791" expanded="true" signature="-1:-1" placeholder="do ... end" />
-            <marker date="1432334354791" expanded="true" signature="-1:-1" placeholder=" ... end" />
-            <marker date="1432334354791" expanded="true" signature="-1:-1" placeholder="{ ... }" />
-            <marker date="1432334354791" expanded="true" signature="-1:-1" placeholder="{ ... }" />
-            <marker date="1432334354791" expanded="true" signature="-1:-1" placeholder=" ... end" />
           </folding>
         </state>
       </provider>
@@ -1122,6 +1122,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.28543112">
           <caret line="28" column="1" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+          <folding>
+            <marker date="1432336891659" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432336891659" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432336891659" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1432336891659" expanded="true" signature="-1:-1" placeholder="do ... end" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/tasks/deploy.rake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53518337">
+          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+          <folding>
+            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
+            <marker date="1429496692772" expanded="true" signature="-1:-1" placeholder="do ... end" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/sms_operator_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6778989">
+          <caret line="38" column="15" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
           <folding />
         </state>
       </provider>
